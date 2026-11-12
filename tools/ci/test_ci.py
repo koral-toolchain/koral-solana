@@ -54,6 +54,18 @@ class CandidateChecks(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'missing LICENSE'):
                 verify(archive, root / 'absent-sdk', 'smoke')
 
+    def test_missing_dependency_notice_fails_before_candidate_execution(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            archive = root / 'candidate.tar'
+            with tarfile.open(archive, 'w') as output:
+                for path in ['LICENSE', 'THIRD_PARTY_NOTICES.md', 'bin/koral', 'testing/package-lock.json']:
+                    member = tarfile.TarInfo('koral-0.1.0-dev/' + path)
+                    member.size = 1
+                    output.addfile(member, io.BytesIO(b'x'))
+            with self.assertRaisesRegex(ValueError, 'missing licenses/kotlin/LICENSE.txt'):
+                verify(archive, root / 'absent-sdk', 'smoke')
+
 
 if __name__ == '__main__':
     unittest.main()

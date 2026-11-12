@@ -1,5 +1,9 @@
 # Third-Party Notices
 
+The CLI archive includes full upstream license/copyright/notice texts in
+licenses/kotlin/, with source and scope recorded in licenses/README.md. These
+notices apply to third-party components, not to Koral's proprietary original code.
+
 - Kotlin compiler, standard library, Kotlin Gradle plugin: JetBrains and contributors, Apache-2.0. They are resolved dependencies, not vendored source.
 - Gradle wrapper and distribution: Gradle and contributors, Apache-2.0. The wrapper pins a verified distribution checksum.
 - Agave/Solana C SDK and platform tools: external installed dependencies. Preserve their upstream licenses in redistributed toolchains; Koral does not bundle the SDK. Koral calls the public SDK interfaces.

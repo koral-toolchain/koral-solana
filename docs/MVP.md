@@ -26,7 +26,7 @@ The existing broader test examples remain regressions. They are not an invitatio
 | Supported language, setup, limits, and examples | Local documentation exists |
 | Website and restricted browser preview | Deployed separately from the compiler source; not a package release |
 | License and contributions | Proprietary / all rights reserved; external contributions closed |
-| Public repository and release publication | Not performed; product remains private |
+| Public repository and release publication | Source repository is public with all rights reserved; package release remains pending |
 
 ## Comparison contract
 

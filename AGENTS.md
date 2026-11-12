@@ -1,7 +1,7 @@
 # Koral product maintenance
 
 - Write code, comments, documentation and visible repository content in English.
-- This repository is private. Original Koral materials are proprietary and all
+- This repository is public. Original Koral materials are proprietary and all
   rights are reserved. Do not change visibility, license, access or publication
   settings without an explicit owner instruction. External contributions are closed.
 - Follow CONTRIBUTING.md and docs/CI.md. The sole human maintainer is tidemark-labs.

@@ -35,10 +35,11 @@ or package secrets. External contributions are currently closed. There is no
 pull_request_target job that checks out a contributor's code and no production
 server runner. Updating the pinned handbook is an explicit reviewed change.
 
-On a plan that supports it, configure `required` as a mandatory branch status.
-GitHub Free private organization repositories do not support this merge protection;
-CI failure is not a technical guarantee that an administrator cannot push or merge.
-Visibility and paid-plan changes require an owner decision.
+The public product repository requires a passing `required` status before merging
+into main. Branch protection includes administrators and rejects force pushes and
+branch deletion. Pull requests are required; the sole maintainer does not need a
+second person to approve their own changes. External contributions remain closed.
+Do not disable these controls merely to make a failing change mergeable.
 
 An eventual release workflow must separately verify benchmark provenance, artifact
 integrity and owner authorization, then depend on successful gates. These jobs are

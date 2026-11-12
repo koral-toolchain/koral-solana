@@ -1,6 +1,6 @@
 # Contribution status
 
-Koral is currently a private, owner-maintained experimental product. External
+Koral is a publicly visible, owner-maintained experimental product. External
 contributions are not accepted. Original Koral code is proprietary and all
 rights are reserved; see [LICENSE](LICENSE). Repository access is not permission
 to modify or redistribute the code.
@@ -11,5 +11,4 @@ The owner reviews changes and controls publication. CI runs build, native VM,
 consumer-package and compatibility checks; it does not publish packages or deploy
 to a live chain. See [the current CI contract](docs/CI.md).
 
-Third-party licenses continue to apply to their respective components. Future
-public visibility or contribution support requires an explicit owner decision.
+Third-party licenses continue to apply to their respective components. Changes to licensing or contribution support require an explicit owner decision.

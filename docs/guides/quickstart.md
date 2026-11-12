@@ -23,23 +23,39 @@ cli/build/install/koral/bin/koral doctor
 
 Replace the SDK path with your local installation. It must provide c/inc, c/sbf.ld, and dependencies/platform-tools. Koral does not install the SDK for you.
 
-## Check and compile
+## Create and verify a Counter project
+
+After building the installed CLI above, add its bin directory to PATH. From the
+source checkout root:
 
 ```sh
-cli/build/install/koral/bin/koral check examples/typed-counter.kt
-cli/build/install/koral/bin/koral build examples/typed-counter.kt --out build/counter
+export PATH="$PWD/cli/build/install/koral/bin:$PATH"
+koral init hello-counter
+cd hello-counter
+koral setup
+koral check
+koral build
+koral test
 ```
 
-The check command validates source without requiring an SBF SDK. The build command also invokes native tools. Keep the output directory separate from the source directory.
+setup explicitly downloads the locked Node VM dependencies into your user cache.
+It requires network access; build and test do not install anything automatically.
+The installed CLI is unchanged. KORAL_CACHE_DIR overrides the cache location.
 
-## Run the Counter verification
+The generated koral.properties selects src/counter.kt and build/koral, so commands
+need no repeated paths. init never overwrites an existing directory. The Counter
+verifier should report 55 checks and write build/koral/counter.test.json. This is
+not a general test command for arbitrary programs.
+
+For an extracted package instead of a source checkout, follow
+[the full first-project guide](../FIRST-PROJECT.md) and [SDK setup](../SDK-SETUP.md).
+The original explicit-source commands remain supported:
 
 ```sh
-npm ci --prefix cli/build/install/koral/testing
-cli/build/install/koral/bin/koral test build/counter/counter.so
+koral check /path/to/typed-counter.kt
+koral build /path/to/typed-counter.kt --out /path/to/output
+koral test /path/to/output/counter.so
 ```
-
-The test command is Counter-specific. It is not a general test runner for every possible state layout or payment program. [Testing and errors](testing.md) explains the separate payment verifier.
 
 ## Inspect the result
 

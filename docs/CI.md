@@ -12,7 +12,7 @@ publication or live-chain deployment is configured.
 | policy | Owner-only submissions, proposed landed message, compiler/toolchain/version agreement against a fixed handbook commit |
 | unit | JDK 17 Gradle build, compiler tests and candidate CLI TAR |
 | sbf-integration | Fresh candidate extraction, JDK 17 / Node 22, full native VM integration suite |
-| consumer-install | Fresh candidate extraction and dependency cache, doctor/check/build, manifest hash/ABI, Counter and payment VM checks |
+| consumer-install | Fresh candidate extraction, init/setup/project build/test with an unchanged installation, actionable failures, manifest/ABI and Counter/payment checks |
 | compatibility | The same candidate on JDK 21 / Node 24, Counter and payment VM checks |
 | required | Every required result must be success; missing, failed, cancelled and skipped results are rejected |
 
@@ -59,3 +59,14 @@ python3 tools/ci/consumer.py \
 On Linux x64, `python3 tools/ci/prepare_sdk.py --destination /new/sdk/path`
 installs the pinned SDK. Elsewhere pass an independently installed matching SDK.
 The installer requires a new destination and does not replace existing tools.
+
+## First-project regression coverage
+
+The consumer-install and compatibility jobs run the actual CLI from the candidate
+archive in a clean workspace. They create a project with spaces in its path,
+install VM dependencies through setup into an isolated user cache, and build/test
+without positional arguments. They also check missing SDK/dependencies, refusal
+to overwrite a project, unsupported changed source, stale success artifacts,
+explicit legacy binary/source commands, payment compatibility and an unchanged
+installed distribution. The full existing native integration suite remains a
+separate job with the legacy testing dependency layout.

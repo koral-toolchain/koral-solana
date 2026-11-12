@@ -13,27 +13,46 @@ import kotlin.system.exitProcess
 private fun resource(path:String)=requireNotNull(CounterC::class.java.getResourceAsStream("/koral/runtime/$path")) { "Missing runtime $path" }.bufferedReader().use { it.readText() }
 private fun hash(bytes:ByteArray)=MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) }
 private fun quote(s:String)="\""+s.replace("\\","\\\\").replace("\"","\\\"").replace("\n","\\n").replace("\r","\\r").replace("\t","\\t")+"\""
+private fun distributionHome()=File(System.getProperty("koral.home") ?: File(MainMarker::class.java.protectionDomain.codeSource.location.toURI()).parentFile.parentFile.path)
 fun main(args:Array<String>) {
     try {
         if(args.isEmpty() || args[0] in listOf("help","--help")) {
-            println("Koral 0.1.0-dev\n  koral check <source.kt>\n  koral build <source.kt> [--out <directory>] [--sdk <SDK>]\n  koral doctor [--sdk <SDK>]\n  koral test <counter.so>\nTargets: owned ULong state or Counter; test is Counter-only. No deployment.")
+            println("Koral 0.1.0-dev\n  koral init <new-directory>\n  koral doctor [--sdk <SDK>]\n  koral setup\n  koral check [source.kt]\n  koral build [source.kt] [--out <directory>] [--sdk <SDK>]\n  koral test [counter.so]\nInside an initialized project, source/output paths come from koral.properties.\nsetup explicitly installs pinned Node VM tools into your user cache.\nTargets: owned ULong state or Counter; test is Counter-only. No deployment.")
             return
         }
-        fun option(name:String):String? { val index=args.indexOf(name);return if(index<0)null else args.getOrNull(index+1) ?: error("Missing $name value") }
-        fun toolchain()=SbfToolchain(File(option("--sdk") ?: System.getenv("KORAL_SBF_SDK") ?: error("Set KORAL_SBF_SDK or pass --sdk")))
+        val options=Options.parse(args.drop(1),when(args[0]) { "build" -> setOf("--out","--sdk");"doctor" -> setOf("--sdk");else -> emptySet() })
+        fun toolchain()=SbfToolchain(File(options.values["--sdk"] ?: System.getenv("KORAL_SBF_SDK") ?: error("Set KORAL_SBF_SDK or pass --sdk. It must point to the SDK directory containing c/sbf.ld.")))
         when(args[0]) {
-            "doctor" -> { println("Java ${System.getProperty("java.version")}");println(toolchain().version()) }
+            "init" -> {
+                val project=KoralProject.create(File(options.positional ?: error("Usage: koral init <new-directory>")))
+                println("Created Counter project: ${project.root}\nOpen that directory, then run koral doctor, koral setup, koral build and koral test.\nSet KORAL_SBF_SDK to your installed Agave SBF SDK. No wallet or blockchain deployment is needed.")
+            }
+            "setup" -> {
+                require(options.positional==null) { "Usage: koral setup" }
+                TestTools(distributionHome()).setup()
+            }
+            "doctor" -> {
+                require(options.positional==null) { "Usage: koral doctor [--sdk <SDK>]" }
+                println("Java ${System.getProperty("java.version")} (compiler host)")
+                val sdk=runCatching { toolchain().version() }
+                sdk.onSuccess { println("SDK ready: $it") }.onFailure {
+                    println("SDK not ready: ${it.message}\nInstall Agave 3.1.10 with platform-tools 1.52. The SDK must contain c/inc, c/sbf.ld and dependencies/platform-tools.\nExport KORAL_SBF_SDK=/path/to/solana-release/bin/platform-tools-sdk/sbf, or pass --sdk <SDK>.\nSetup guide: https://github.com/koral-toolchain/koral-solana/blob/main/docs/guides/quickstart.md")
+                }
+                val node=capture(listOf("node","--version"))
+                println(if(supportedNode(node))"Node $node (local VM tests only)" else "Node 22.12+ not available; needed only for local VM tests, not compilation")
+                val tools=TestTools(distributionHome())
+                println(if(supportedNode(node) && tools.healthy())"VM dependencies ready" else "VM dependencies not ready. Install Node with npm, then run koral setup (network required).")
+                check(sdk.isSuccess) { "Compiler SDK is not ready; follow the instructions above. doctor did not install anything." }
+            }
             "check","build" -> {
-                val source=File(args.getOrNull(1) ?: error("Missing source")).canonicalFile
+                val project=if(options.positional==null)KoralProject.load() else null
+                val source=options.positional?.let { File(it).canonicalFile } ?: requireNotNull(project).source
                 if(args[0]=="check") {
-                    require(args.size==2) { "Usage: koral check <source.kt>" }
                     val checked=KotlinFrontend.compile(source,Language.source())
                     println("Checked ${source.name}: ${checked.instructions.size} ${checked.account?.name ?: "Counter"} instruction(s)")
                     return
                 }
-                val extras=args.drop(2)
-                require(extras.size%2==0 && extras.chunked(2).all { it[0] in listOf("--out","--sdk") } && extras.chunked(2).map { it[0] }.distinct().size==extras.size/2) { "Usage: koral build <source.kt> [--out <directory>] [--sdk <SDK>]" }
-                val out=File(option("--out") ?: "build/koral").canonicalFile
+                val out=File(options.values["--out"] ?: project?.output?.path ?: "build/koral").canonicalFile
                 require(out!=source.parentFile) { "Use a separate output directory" }
                 out.mkdirs()
                 // Remove stale success artifacts even when the next compilation fails.
@@ -53,12 +72,15 @@ fun main(args:Array<String>) {
                 println("Built ${binary.path} (${binary.length()} bytes)")
             }
             "test" -> {
-                val root=File(System.getProperty("koral.home") ?: File(MainMarker::class.java.protectionDomain.codeSource.location.toURI()).parentFile.parentFile.path)
-                val binary=File(args.getOrNull(1) ?: error("Missing counter.so")).canonicalFile
-                val runner=File(root,"testing/counter.mjs")
-                require(runner.isFile) { "Missing test runner in $root" }
-                val p=ProcessBuilder("node",runner.path,binary.path).inheritIO().start()
-                check(p.waitFor()==0) { "Counter tests failed; install testing dependencies with npm ci first" }
+                val binary=options.positional?.let { File(it).canonicalFile } ?: File(KoralProject.load().output,"counter.so")
+                require(binary.isFile) { "No built Counter at $binary. Run koral build first, or pass a Counter .so file." }
+                val runner=TestTools(distributionHome()).runner()
+                val builder=ProcessBuilder("node",runner.path,binary.path).inheritIO()
+                if(options.positional==null && builder.environment()["KORAL_TEST_RESULT"]==null) builder.environment()["KORAL_TEST_RESULT"]=File(binary.parentFile,"counter.test.json").path
+                val p=builder.start()
+                if(!p.waitFor(90,java.util.concurrent.TimeUnit.SECONDS)) { p.destroyForcibly();error("Local Counter verification timed out") }
+                check(p.exitValue()==0) { "Counter verification failed. This test command only supports Counter; check the source and run koral setup to repair VM dependencies." }
+                println("Counter verified in a local VM. No blockchain transaction was sent.")
             }
             else -> error("Unknown command ${args[0]}")
         }

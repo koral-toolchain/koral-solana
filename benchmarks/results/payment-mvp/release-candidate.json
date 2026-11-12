@@ -1,0 +1,16 @@
+{
+  "status": "local preview artifacts, unpublished",
+  "artifactChecksPassed": true,
+  "artifacts": [
+    {
+      "file": "cli/build/distributions/koral-0.1.0-dev.zip",
+      "bytes": 58643498,
+      "sha256": "36a8f8b9a15514c879fe22184ff28fbbbdf5fca2c1592e277eb0af52bf81a062"
+    },
+    {
+      "file": "cli/build/distributions/koral-0.1.0-dev.tar",
+      "bytes": 63927296,
+      "sha256": "970050e8539efe0a88689237c982cf22d2b68b940bd7e39e6be16be0462a4847"
+    }
+  ]
+}

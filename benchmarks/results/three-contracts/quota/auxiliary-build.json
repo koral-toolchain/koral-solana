@@ -1,0 +1,17 @@
+{
+  "manifest": {
+    "program": "quota",
+    "compiler": "0.43.0",
+    "clang": "clang version 20.1.7-rust-dev (https://github.com/anza-xyz/llvm-project.git 78496716176191b2dfb728e5e38501812e7467db)",
+    "typescript": "6.0.3",
+    "sbpf": "v0",
+    "profile": false,
+    "sources": {
+      "quota.ts": "346cca2966ab62da7853064115a42e90e3a522d5be994c7bf9eb586ae4122c7f",
+      "<runtime>/typesol_rt.h": "91b21d8876bd8e8f34825a9070fea830e46512afc52246de72a5afa2d15767d3"
+    },
+    "binary": "a0ed4dfb0b427976e30dcc32dab396957f504366a180ef601c8a4214bcb8670e"
+  },
+  "version": "0.43.0",
+  "revision": "543786e850ad426425956e497971f88103f6c987"
+}

@@ -1,0 +1,16 @@
+{
+  "reviewedDate": "2026-11-12",
+  "basis": "Inspected source, not a promise of public deployment",
+  "files": {
+    "utility/language/src/main/kotlin/dev/koral/api/Api.kt": "90a21077d87c62b022ee1664b39ec215e56b5a4d929591fec78d5164f35b3b5d",
+    "utility/compiler/src/main/kotlin/dev/koral/compiler/frontend/KotlinFrontend.kt": "9c9629b500a71c2c404bcf745235fffe7f7cc714b5724567768c3d3d5f8d3b72",
+    "utility/compiler/src/main/kotlin/dev/koral/compiler/frontend/KoralRegistrar.kt": "fcd0538ae897cd59006cd3fb5f11c3288f1e04cee58c60c7270d1fac5af26402",
+    "utility/compiler/src/main/kotlin/dev/koral/compiler/checks/ProgramChecks.kt": "9d59dffbd7fc8342ce4d02d169a2e10085d74090f5f3be5c0c8f631e446b19e6",
+    "utility/compiler/src/main/kotlin/dev/koral/compiler/metadata/ProgramAbi.kt": "fae4455b2fbd5cfca3113c77a409dc9fd5eb87eea01cafd6f84ce169f1a7d239",
+    "utility/compiler/src/main/kotlin/dev/koral/compiler/backend/c/CounterC.kt": "d5171d880700b66fdfba6add558d7fd4cf81454b0025b4b3dd50c2cfff6dd8ab",
+    "utility/toolchain/src/main/kotlin/dev/koral/toolchain/SbfToolchain.kt": "a9ca9b4994383a647c5597538a2e10f5bc1d75084f8dd041759bfc1086ea5846",
+    "utility/cli/src/main/kotlin/dev/koral/cli/Main.kt": "fed2ae06718ef0bbfa2c36cce36028e4b003f2507c650db42710800068854032",
+    "utility/runtime/src/counter.c": "96fbe662613d07c66a1ab442eec6eb5d4b3c896c28a1c1eecfee62d6954ccee0",
+    "web-service/server.py": "aecab5642a9ece2c70f9daa404655d84a710bb05a7eae266f97a49718e054188"
+  }
+}

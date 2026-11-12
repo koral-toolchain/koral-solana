@@ -1,0 +1,22 @@
+{
+  "runnerSha256": "1a3c5267512cb5f01ad1573a677c3da1a7d4fb28a7249f443c3848a9daf56b82",
+  "node": "v22.22.3",
+  "sourceFiles": [
+    {
+      "file": "benchmarks/contracts/native-pool/src/lib.rs",
+      "sha256": "bfa2c6061394f91bc1ab12875f80bd386cd8904a1b79476dc4d9117574deafa9"
+    },
+    {
+      "file": "benchmarks/contracts/pinocchio-pool/src/lib.rs",
+      "sha256": "31be16e009c281713be594e1182cfa9b926d3b5614ee29c1f3076828028dda8e"
+    },
+    {
+      "file": "benchmarks/contracts/kotlin/pool.kt",
+      "sha256": "5efec15b4aa533e475e8fc343677ff62252e2d43e6244c9ce39314a0858e402a"
+    },
+    {
+      "file": "benchmarks/contracts/typesol/pool.ts",
+      "sha256": "ddb98e26045832137dcfcc60182d4b2e38454eb7fee52e0b06c7616cd69083c4"
+    }
+  ]
+}

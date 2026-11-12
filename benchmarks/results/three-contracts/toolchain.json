@@ -1,0 +1,11 @@
+{
+  "cargoBuildSbf": "solana-cargo-build-sbf 3.1.10\nplatform-tools v1.52\nrustc 1.89.0",
+  "rustProfile": {
+    "lto": "fat",
+    "codegenUnits": 1,
+    "overflowChecks": true
+  },
+  "nativeDependency": "solana-program=5.1.0",
+  "pinocchioDependency": "pinocchio=0.10.2",
+  "auxiliaryBaseline": "executed"
+}

@@ -1,0 +1,15 @@
+{
+  "recorded": "2026-11-11T05:36:14.536245+00:00",
+  "unitTests": 12,
+  "unitFailures": 0,
+  "integration": {
+    "integrationChecks": 32,
+    "safetyChecks": 55,
+    "semanticCases": 32,
+    "sourceMutationVerified": true,
+    "staleArtifactRejected": true
+  },
+  "sameMeasuredElfAfterFinalFrontendFix": true,
+  "singleInstructionBinarySha256": "ac1efa9996ad9609c77faadfcec63d063af9bd0c053275ceb982d1d30c0a298b",
+  "multiInstructionBinarySha256": "70df6cc2da29fc59245d16b8afc4be501de7bad10451525cc91809875a2a6f17"
+}

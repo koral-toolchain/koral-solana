@@ -1,0 +1,17 @@
+{
+  "manifest": {
+    "program": "split",
+    "compiler": "0.43.0",
+    "clang": "clang version 20.1.7-rust-dev (https://github.com/anza-xyz/llvm-project.git 78496716176191b2dfb728e5e38501812e7467db)",
+    "typescript": "6.0.3",
+    "sbpf": "v0",
+    "profile": false,
+    "sources": {
+      "split.ts": "611d6a5c1f3114074c7ce732257888254ab63ad6874d562394556e0a3d41deea",
+      "<runtime>/typesol_rt.h": "91b21d8876bd8e8f34825a9070fea830e46512afc52246de72a5afa2d15767d3"
+    },
+    "binary": "cc3784559bcbf4f163675bb6a3b3bf1b38618661b7ff84cda26a52c56d93c53d"
+  },
+  "version": "0.43.0",
+  "revision": "543786e850ad426425956e497971f88103f6c987"
+}

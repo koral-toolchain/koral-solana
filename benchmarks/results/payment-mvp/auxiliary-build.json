@@ -1,0 +1,18 @@
+{
+  "manifest": {
+    "program": "payment",
+    "compiler": "0.43.0",
+    "clang": "clang version 20.1.7-rust-dev (https://github.com/anza-xyz/llvm-project.git 78496716176191b2dfb728e5e38501812e7467db)",
+    "typescript": "6.0.3",
+    "sbpf": "v0",
+    "profile": false,
+    "sources": {
+      "payment.ts": "a63c313d958956eefe97fcf2459405bb27eedd1c9f723fb313d5299b9b2f385a",
+      "<runtime>/typesol_rt.h": "91b21d8876bd8e8f34825a9070fea830e46512afc52246de72a5afa2d15767d3"
+    },
+    "binary": "97770076cd215fcb7352b9172e3ad466ab7814f385d9c9f0b7225b39c96796f1"
+  },
+  "version": "0.43.0",
+  "source": "benchmarks/payments/typesol/payment.ts",
+  "revision": "543786e850ad426425956e497971f88103f6c987"
+}

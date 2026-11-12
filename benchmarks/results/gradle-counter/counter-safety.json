@@ -1,0 +1,25 @@
+{
+  "tests": 55,
+  "canonicalBumps": [
+    253,
+    255,
+    254,
+    255,
+    254,
+    253,
+    252,
+    249,
+    255,
+    255,
+    255,
+    253,
+    254,
+    255,
+    255,
+    255
+  ],
+  "accountDataBytes": 49,
+  "storageMinimumLamports": "899160",
+  "storageMinimumSol": 0.00089916,
+  "scope": "Local LiteSVM storage minimum; not a paid fee or live RPC quote"
+}

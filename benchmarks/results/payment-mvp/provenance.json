@@ -1,0 +1,22 @@
+{
+  "runnerSha256": "69881628128863d4ff0699e418ff96522adce3a28966581d4edbe53334e9b70c",
+  "node": "v22.22.3",
+  "sourceFiles": [
+    {
+      "file": "benchmarks/payments/native/src/lib.rs",
+      "sha256": "1e080e14b6e2d8f8dc4f657bbc517678c67a6437dddd1e287ab5fb8b18002b55"
+    },
+    {
+      "file": "benchmarks/payments/pinocchio/src/lib.rs",
+      "sha256": "6771500559ef3648c8cc29115480149bab4758bd536e67f09eee70a98ae72505"
+    },
+    {
+      "file": "examples/payment-benchmark.kt",
+      "sha256": "a1c729cfb0543a4ae50c16cce055801fce3d3eece92f2bdaa869951049e68baf"
+    },
+    {
+      "file": "benchmarks/payments/typesol/payment.ts",
+      "sha256": "a63c313d958956eefe97fcf2459405bb27eedd1c9f723fb313d5299b9b2f385a"
+    }
+  ]
+}

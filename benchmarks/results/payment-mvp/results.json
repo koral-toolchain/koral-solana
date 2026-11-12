@@ -1,0 +1,2517 @@
+{
+  "generated": "2026-11-11T07:08:23.093Z",
+  "scope": "Selected pay instruction on seeded state; initialization and whole-program ELF-size ranking are excluded",
+  "programId": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+  "accountDataBytes": 57,
+  "rounds": 20,
+  "checks": 36,
+  "identicalSignedTransactions": true,
+  "primaryEquivalence": true,
+  "additionalBaseline": "typesolInternal",
+  "auxiliaryMismatches": [
+    {
+      "label": "recipient-aliases-state",
+      "outcome": {
+        "success": false,
+        "cu": 240,
+        "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2040 } }",
+        "after": {
+          "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+          "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+          "stateLamports": "10000000",
+          "balances": [
+            "99999999790",
+            "100000000210"
+          ],
+          "feePayer": "99999645000"
+        }
+      },
+      "expected": {
+        "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd3000000000000008196980000000000fd",
+        "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+        "stateLamports": "10000001",
+        "balances": [
+          "99999999789",
+          "100000000210"
+        ],
+        "feePayer": "99999645000"
+      }
+    }
+  ],
+  "auxiliaryErrorDifferences": [
+    {
+      "label": "readonly-authority",
+      "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+      "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }"
+    },
+    {
+      "label": "readonly-state",
+      "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+      "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }"
+    },
+    {
+      "label": "readonly-recipient",
+      "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+      "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }"
+    },
+    {
+      "label": "unknown-instruction",
+      "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 101 } }",
+      "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 102 } }"
+    },
+    {
+      "label": "recipient-aliases-state",
+      "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2040 } }",
+      "expected": null
+    }
+  ],
+  "primaryErrorCodesMatch": true,
+  "implementations": {
+    "nativeRust": {
+      "samples": 20,
+      "meanCu": 3187,
+      "minCu": 3187,
+      "maxCu": 3187,
+      "binarySha256": "30145d5174039b845ed646af3194f4ecd36f6acdd6666c06ad8f7fc1a985b589",
+      "binaryBytes": 22336
+    },
+    "pinocchio": {
+      "samples": 20,
+      "meanCu": 1525,
+      "minCu": 1525,
+      "maxCu": 1525,
+      "binarySha256": "161b09b82b8ec705c4bdfd1382460dd70a36fc5cbbb5f5c4ca3335f4e69bce21",
+      "binaryBytes": 14120
+    },
+    "koral": {
+      "samples": 20,
+      "meanCu": 1344,
+      "minCu": 1344,
+      "maxCu": 1344,
+      "binarySha256": "397c319062a79fae210a773833db0eb4fdce152b74601c0df55fcc0167e2c9cd",
+      "binaryBytes": 8880
+    },
+    "typesolInternal": {
+      "samples": 20,
+      "meanCu": 1330,
+      "minCu": 1330,
+      "maxCu": 1330,
+      "binarySha256": "97770076cd215fcb7352b9172e3ad466ab7814f385d9c9f0b7225b39c96796f1",
+      "binaryBytes": 4840
+    }
+  },
+  "rows": [
+    {
+      "label": "pay-1",
+      "measured": true,
+      "wireTransactionSha256": "493eef833c3494cc14d05ab58430c03b208f5b5020e2ed37bb29da653fc9b3e0",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 3187,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c010000000000000001e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999999",
+              "100000000001"
+            ],
+            "feePayer": "99999990000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1525,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c010000000000000001e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999999",
+              "100000000001"
+            ],
+            "feePayer": "99999990000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1344,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c010000000000000001e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999999",
+              "100000000001"
+            ],
+            "feePayer": "99999990000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1330,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c010000000000000001e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999999",
+              "100000000001"
+            ],
+            "feePayer": "99999990000"
+          }
+        }
+      }
+    },
+    {
+      "label": "pay-2",
+      "measured": true,
+      "wireTransactionSha256": "476468a498f39e98c37c1719b1adcaa99b8f357a88741878543fa24c27344bba",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 3187,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c030000000000000003e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999997",
+              "100000000003"
+            ],
+            "feePayer": "99999980000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1525,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c030000000000000003e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999997",
+              "100000000003"
+            ],
+            "feePayer": "99999980000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1344,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c030000000000000003e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999997",
+              "100000000003"
+            ],
+            "feePayer": "99999980000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1330,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c030000000000000003e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999997",
+              "100000000003"
+            ],
+            "feePayer": "99999980000"
+          }
+        }
+      }
+    },
+    {
+      "label": "pay-3",
+      "measured": true,
+      "wireTransactionSha256": "29ad121d7f0f419ececa8c53400a27cf8dae0c6b355bb00db3cd944997c3511f",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 3187,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c060000000000000006e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999994",
+              "100000000006"
+            ],
+            "feePayer": "99999970000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1525,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c060000000000000006e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999994",
+              "100000000006"
+            ],
+            "feePayer": "99999970000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1344,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c060000000000000006e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999994",
+              "100000000006"
+            ],
+            "feePayer": "99999970000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1330,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c060000000000000006e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999994",
+              "100000000006"
+            ],
+            "feePayer": "99999970000"
+          }
+        }
+      }
+    },
+    {
+      "label": "pay-4",
+      "measured": true,
+      "wireTransactionSha256": "6f9af2b8a641befb0690f63e2ec4a501ae97b937644a2f10a62f57e6dc828719",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 3187,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c0a000000000000000ae8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999990",
+              "100000000010"
+            ],
+            "feePayer": "99999960000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1525,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c0a000000000000000ae8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999990",
+              "100000000010"
+            ],
+            "feePayer": "99999960000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1344,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c0a000000000000000ae8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999990",
+              "100000000010"
+            ],
+            "feePayer": "99999960000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1330,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c0a000000000000000ae8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999990",
+              "100000000010"
+            ],
+            "feePayer": "99999960000"
+          }
+        }
+      }
+    },
+    {
+      "label": "pay-5",
+      "measured": true,
+      "wireTransactionSha256": "edf505481d6bd2720e981f2ef74dee99bb21dac5d8a0557b74ae101c4f56bee6",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 3187,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c0f000000000000000fe8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999985",
+              "100000000015"
+            ],
+            "feePayer": "99999950000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1525,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c0f000000000000000fe8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999985",
+              "100000000015"
+            ],
+            "feePayer": "99999950000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1344,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c0f000000000000000fe8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999985",
+              "100000000015"
+            ],
+            "feePayer": "99999950000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1330,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c0f000000000000000fe8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999985",
+              "100000000015"
+            ],
+            "feePayer": "99999950000"
+          }
+        }
+      }
+    },
+    {
+      "label": "pay-6",
+      "measured": true,
+      "wireTransactionSha256": "cbd653ae21276acdb5789432c30ea727496de5466c2037c3f68d8ee63c27f216",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 3187,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c150000000000000015e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999979",
+              "100000000021"
+            ],
+            "feePayer": "99999940000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1525,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c150000000000000015e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999979",
+              "100000000021"
+            ],
+            "feePayer": "99999940000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1344,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c150000000000000015e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999979",
+              "100000000021"
+            ],
+            "feePayer": "99999940000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1330,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c150000000000000015e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999979",
+              "100000000021"
+            ],
+            "feePayer": "99999940000"
+          }
+        }
+      }
+    },
+    {
+      "label": "pay-7",
+      "measured": true,
+      "wireTransactionSha256": "84be107651ad3507d21eaec43cf0dcff330541a72192c8f72f9b753f870b42f6",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 3187,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c1c000000000000001ce8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999972",
+              "100000000028"
+            ],
+            "feePayer": "99999930000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1525,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c1c000000000000001ce8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999972",
+              "100000000028"
+            ],
+            "feePayer": "99999930000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1344,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c1c000000000000001ce8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999972",
+              "100000000028"
+            ],
+            "feePayer": "99999930000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1330,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c1c000000000000001ce8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999972",
+              "100000000028"
+            ],
+            "feePayer": "99999930000"
+          }
+        }
+      }
+    },
+    {
+      "label": "pay-8",
+      "measured": true,
+      "wireTransactionSha256": "3ebd5b62673dc1ba87ff270f95acc61f106013a1f66c2b4934ce87937921a3a0",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 3187,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c240000000000000024e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999964",
+              "100000000036"
+            ],
+            "feePayer": "99999920000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1525,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c240000000000000024e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999964",
+              "100000000036"
+            ],
+            "feePayer": "99999920000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1344,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c240000000000000024e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999964",
+              "100000000036"
+            ],
+            "feePayer": "99999920000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1330,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c240000000000000024e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999964",
+              "100000000036"
+            ],
+            "feePayer": "99999920000"
+          }
+        }
+      }
+    },
+    {
+      "label": "pay-9",
+      "measured": true,
+      "wireTransactionSha256": "81fd1ae4d68f7f04a935946d0e1e4c940b3861b1a579f65609de75a4f5f1a297",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 3187,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c2d000000000000002de8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999955",
+              "100000000045"
+            ],
+            "feePayer": "99999910000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1525,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c2d000000000000002de8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999955",
+              "100000000045"
+            ],
+            "feePayer": "99999910000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1344,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c2d000000000000002de8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999955",
+              "100000000045"
+            ],
+            "feePayer": "99999910000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1330,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c2d000000000000002de8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999955",
+              "100000000045"
+            ],
+            "feePayer": "99999910000"
+          }
+        }
+      }
+    },
+    {
+      "label": "pay-10",
+      "measured": true,
+      "wireTransactionSha256": "e61b461b4ed55e0461354c2a2ef16d48268fe1b3f9e1656741a6e06d279e419e",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 3187,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c370000000000000037e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999945",
+              "100000000055"
+            ],
+            "feePayer": "99999900000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1525,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c370000000000000037e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999945",
+              "100000000055"
+            ],
+            "feePayer": "99999900000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1344,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c370000000000000037e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999945",
+              "100000000055"
+            ],
+            "feePayer": "99999900000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1330,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c370000000000000037e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999945",
+              "100000000055"
+            ],
+            "feePayer": "99999900000"
+          }
+        }
+      }
+    },
+    {
+      "label": "pay-11",
+      "measured": true,
+      "wireTransactionSha256": "01677bbc8f712029e58644d5a8202a3dd7c16d0f7e4b71a61580b55c8d86987f",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 3187,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c420000000000000042e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999934",
+              "100000000066"
+            ],
+            "feePayer": "99999890000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1525,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c420000000000000042e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999934",
+              "100000000066"
+            ],
+            "feePayer": "99999890000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1344,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c420000000000000042e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999934",
+              "100000000066"
+            ],
+            "feePayer": "99999890000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1330,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c420000000000000042e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999934",
+              "100000000066"
+            ],
+            "feePayer": "99999890000"
+          }
+        }
+      }
+    },
+    {
+      "label": "pay-12",
+      "measured": true,
+      "wireTransactionSha256": "5f710deb8652f124a196d6c437c9640670c5fb38a943272ade126dc1901af753",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 3187,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c4e000000000000004ee8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999922",
+              "100000000078"
+            ],
+            "feePayer": "99999880000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1525,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c4e000000000000004ee8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999922",
+              "100000000078"
+            ],
+            "feePayer": "99999880000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1344,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c4e000000000000004ee8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999922",
+              "100000000078"
+            ],
+            "feePayer": "99999880000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1330,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c4e000000000000004ee8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999922",
+              "100000000078"
+            ],
+            "feePayer": "99999880000"
+          }
+        }
+      }
+    },
+    {
+      "label": "pay-13",
+      "measured": true,
+      "wireTransactionSha256": "f4174c45d0c6fabc58f4021c2d3f16525bfa72c15353239c3f66db943de002ea",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 3187,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c5b000000000000005be8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999909",
+              "100000000091"
+            ],
+            "feePayer": "99999870000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1525,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c5b000000000000005be8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999909",
+              "100000000091"
+            ],
+            "feePayer": "99999870000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1344,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c5b000000000000005be8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999909",
+              "100000000091"
+            ],
+            "feePayer": "99999870000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1330,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c5b000000000000005be8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999909",
+              "100000000091"
+            ],
+            "feePayer": "99999870000"
+          }
+        }
+      }
+    },
+    {
+      "label": "pay-14",
+      "measured": true,
+      "wireTransactionSha256": "e74f583528f12bc95a6c7e0829e4e4cef200eba3415a06970a8575aa17b143a9",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 3187,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c690000000000000069e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999895",
+              "100000000105"
+            ],
+            "feePayer": "99999860000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1525,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c690000000000000069e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999895",
+              "100000000105"
+            ],
+            "feePayer": "99999860000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1344,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c690000000000000069e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999895",
+              "100000000105"
+            ],
+            "feePayer": "99999860000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1330,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c690000000000000069e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999895",
+              "100000000105"
+            ],
+            "feePayer": "99999860000"
+          }
+        }
+      }
+    },
+    {
+      "label": "pay-15",
+      "measured": true,
+      "wireTransactionSha256": "d3ba22ca1803930aa1ad2a826a21e9c0bf51adaff3a5b37e994f7a2a7be47860",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 3187,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c780000000000000078e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999880",
+              "100000000120"
+            ],
+            "feePayer": "99999850000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1525,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c780000000000000078e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999880",
+              "100000000120"
+            ],
+            "feePayer": "99999850000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1344,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c780000000000000078e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999880",
+              "100000000120"
+            ],
+            "feePayer": "99999850000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1330,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c780000000000000078e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999880",
+              "100000000120"
+            ],
+            "feePayer": "99999850000"
+          }
+        }
+      }
+    },
+    {
+      "label": "pay-16",
+      "measured": true,
+      "wireTransactionSha256": "0347dfe2bba2b5863662c5cea7a54575428846e2906a3efb2b2bc1a3f5835bcf",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 3187,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c880000000000000088e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999864",
+              "100000000136"
+            ],
+            "feePayer": "99999840000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1525,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c880000000000000088e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999864",
+              "100000000136"
+            ],
+            "feePayer": "99999840000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1344,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c880000000000000088e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999864",
+              "100000000136"
+            ],
+            "feePayer": "99999840000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1330,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c880000000000000088e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999864",
+              "100000000136"
+            ],
+            "feePayer": "99999840000"
+          }
+        }
+      }
+    },
+    {
+      "label": "pay-17",
+      "measured": true,
+      "wireTransactionSha256": "0e9e3914322f04681d1298f624570841d8d7529098f77e25380952c7ede66e21",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 3187,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c990000000000000099e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999847",
+              "100000000153"
+            ],
+            "feePayer": "99999830000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1525,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c990000000000000099e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999847",
+              "100000000153"
+            ],
+            "feePayer": "99999830000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1344,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c990000000000000099e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999847",
+              "100000000153"
+            ],
+            "feePayer": "99999830000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1330,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c990000000000000099e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999847",
+              "100000000153"
+            ],
+            "feePayer": "99999830000"
+          }
+        }
+      }
+    },
+    {
+      "label": "pay-18",
+      "measured": true,
+      "wireTransactionSha256": "c54d39b9fb2e2a3208997a872d05023ecb7a39077d04f3d0d9e710e7a1eeb18b",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 3187,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cab00000000000000abe8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999829",
+              "100000000171"
+            ],
+            "feePayer": "99999820000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1525,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cab00000000000000abe8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999829",
+              "100000000171"
+            ],
+            "feePayer": "99999820000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1344,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cab00000000000000abe8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999829",
+              "100000000171"
+            ],
+            "feePayer": "99999820000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1330,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cab00000000000000abe8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999829",
+              "100000000171"
+            ],
+            "feePayer": "99999820000"
+          }
+        }
+      }
+    },
+    {
+      "label": "pay-19",
+      "measured": true,
+      "wireTransactionSha256": "4ed149f55c73573d7e3f243d64ba7cb635090b22aed3574dd79143ef8011727b",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 3187,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cbe00000000000000bee8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999810",
+              "100000000190"
+            ],
+            "feePayer": "99999810000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1525,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cbe00000000000000bee8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999810",
+              "100000000190"
+            ],
+            "feePayer": "99999810000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1344,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cbe00000000000000bee8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999810",
+              "100000000190"
+            ],
+            "feePayer": "99999810000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1330,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cbe00000000000000bee8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999810",
+              "100000000190"
+            ],
+            "feePayer": "99999810000"
+          }
+        }
+      }
+    },
+    {
+      "label": "pay-20",
+      "measured": true,
+      "wireTransactionSha256": "d1a6c90402223c91a2cc8c7ea5080a16a3b491a81903ba1f3014a6e179d65042",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 3187,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999800000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1525,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999800000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1344,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999800000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1330,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999800000"
+          }
+        }
+      }
+    },
+    {
+      "label": "overflow-after-cpi",
+      "measured": false,
+      "wireTransactionSha256": "35546fae04b01fb7414440065b28528df243261f31ad02d7d91138a9bafb5a2c",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 3166,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 5100 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cffffffffffffffffd2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999790000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 1527,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 5100 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cffffffffffffffffd2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999790000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 1338,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 5100 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cffffffffffffffffd2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999790000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 1431,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 5100 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cffffffffffffffffd2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999790000"
+          }
+        }
+      }
+    },
+    {
+      "label": "unsigned-authority",
+      "measured": false,
+      "wireTransactionSha256": "089d02740f07081e1e7e2d59b10bbcc3f64da50b4e937af262e3fc536cd7e6d7",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1418,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3010 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999785000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 89,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3010 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999785000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 86,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3010 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999785000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 193,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3010 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999785000"
+          }
+        }
+      }
+    },
+    {
+      "label": "readonly-authority",
+      "measured": false,
+      "wireTransactionSha256": "86d82ac9beef80d3b4e0ad45cad5def4c6c170f64c44e8f2417f2abd677b2473",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1499,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999775000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 182,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999775000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 147,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999775000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 194,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999775000"
+          }
+        }
+      }
+    },
+    {
+      "label": "readonly-state",
+      "measured": false,
+      "wireTransactionSha256": "1918a0d466aa93c3b228589475303115ab580215d2bad46ed1bf7e8fe2c78c94",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1421,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999765000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 91,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999765000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 88,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999765000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 197,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999765000"
+          }
+        }
+      }
+    },
+    {
+      "label": "readonly-recipient",
+      "measured": false,
+      "wireTransactionSha256": "8b010c02ba00f3392a4857df8ac3253145298ddb4e90c1ef32e10d94a114426c",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1416,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999755000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 86,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999755000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 82,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999755000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 221,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999755000"
+          }
+        }
+      }
+    },
+    {
+      "label": "wrong-state-owner",
+      "measured": false,
+      "wireTransactionSha256": "0a9fcd00d6dfe2cfe33c24e5e34dbc22464644cba34926f16a39dd24a2ab4443",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1427,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3007 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "11111111111111111111111111111111",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999745000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 98,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3007 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "11111111111111111111111111111111",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999745000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 92,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3007 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "11111111111111111111111111111111",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999745000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 205,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3007 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "11111111111111111111111111111111",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999745000"
+          }
+        }
+      }
+    },
+    {
+      "label": "wrong-discriminator",
+      "measured": false,
+      "wireTransactionSha256": "797d707aca590230848860c89e95ba81f29ccc437ef38921bcf86e3a2ea2ccb0",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1454,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3002 } }",
+          "after": {
+            "state": "00000000000000008a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999735000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 145,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3002 } }",
+          "after": {
+            "state": "00000000000000008a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999735000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 109,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3002 } }",
+          "after": {
+            "state": "00000000000000008a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999735000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 219,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3002 } }",
+          "after": {
+            "state": "00000000000000008a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999735000"
+          }
+        }
+      }
+    },
+    {
+      "label": "short-state",
+      "measured": false,
+      "wireTransactionSha256": "89d9ced0f4df7bac93dada2ddbd6b7f5c94be78a3e9295dca4f7746b24e0344f",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1449,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3003 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999725000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 141,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3003 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999725000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 105,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3003 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999725000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 216,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3003 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999725000"
+          }
+        }
+      }
+    },
+    {
+      "label": "wrong-authority",
+      "measured": false,
+      "wireTransactionSha256": "938366e573d6e0449c9d307040ffd083998b438d2f70793840e7b01d5dfe7f6c",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1469,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6000 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999715000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 153,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6000 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999715000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 113,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6000 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999715000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 245,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6000 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999715000"
+          }
+        }
+      }
+    },
+    {
+      "label": "missing-recipient",
+      "measured": false,
+      "wireTransactionSha256": "f2abd6f30add0a23a567c63c2885ca4d17ddd806ef1c470af5a8620680aeb168",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 785,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3005 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999705000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 47,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3005 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999705000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 54,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3005 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999705000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 164,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3005 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999705000"
+          }
+        }
+      }
+    },
+    {
+      "label": "missing-system",
+      "measured": false,
+      "wireTransactionSha256": "afce43840890ee9e6afa07d1b579419209bedce8ac610d492c4b176cdf594da2",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1166,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3005 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999695000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 149,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3005 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999695000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 112,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3005 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999695000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 177,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3005 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999695000"
+          }
+        }
+      }
+    },
+    {
+      "label": "wrong-system",
+      "measured": false,
+      "wireTransactionSha256": "0ad31503ea2b52ee07afb3edd2d6f93bfe4b411c2faef72f19a35402657373ee",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1486,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3008 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999685000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 170,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3008 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999685000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 141,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3008 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999685000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 228,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3008 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999685000"
+          }
+        }
+      }
+    },
+    {
+      "label": "truncated-argument",
+      "measured": false,
+      "wireTransactionSha256": "a9002c49a6e8e0e971698e475e358b845704c4f8982b4c88299b54749b281c4e",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1406,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 102 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999675000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 76,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 102 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999675000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 75,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 102 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999675000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 242,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 102 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999675000"
+          }
+        }
+      }
+    },
+    {
+      "label": "unknown-instruction",
+      "measured": false,
+      "wireTransactionSha256": "c1623c663d63ad29bebc37557947f41b6be42218d0b371021cdb2ad012953d5c",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1410,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 102 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999665000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 80,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 102 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999665000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 75,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 102 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999665000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 182,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 101 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999665000"
+          }
+        }
+      }
+    },
+    {
+      "label": "insufficient-funds",
+      "measured": false,
+      "wireTransactionSha256": "7ce0c3f5ae5747d4bac7d20ae22b3357b9f1e738c98549be62f8fe0f86593370",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 2919,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 1 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999655000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 1502,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 1 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999655000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 1329,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 1 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999655000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 1315,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 1 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999655000"
+          }
+        }
+      }
+    },
+    {
+      "label": "recipient-aliases-state",
+      "measured": false,
+      "wireTransactionSha256": "a13f51c58ccecab2c7a34eb9f9e4bac600c4c8ec59fed82075c2ba604fa42b37",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 2967,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd3000000000000008196980000000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000001",
+            "balances": [
+              "99999999789",
+              "100000000210"
+            ],
+            "feePayer": "99999645000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 1520,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd3000000000000008196980000000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000001",
+            "balances": [
+              "99999999789",
+              "100000000210"
+            ],
+            "feePayer": "99999645000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 1347,
+          "error": null,
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd3000000000000008196980000000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000001",
+            "balances": [
+              "99999999789",
+              "100000000210"
+            ],
+            "feePayer": "99999645000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 240,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2040 } }",
+          "after": {
+            "state": "6c16bf7c094916ee8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d2e8764817000000fd",
+            "stateOwner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "stateLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999645000"
+          }
+        }
+      }
+    }
+  ]
+}

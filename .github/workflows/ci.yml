@@ -1,0 +1,111 @@
+name: Product CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened, edited, ready_for_review]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: product-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  policy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: koral-toolchain/handbook
+          ref: 915bd288b483d6425cdbd89525480c39b066667c
+          path: .handbook
+          persist-credentials: false
+      - name: Check owner-only contribution status and proposed message
+        env:
+          EVENT: ${{ github.event_name }}
+          ACTOR: ${{ github.actor }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          python3 - <<'PY'
+          import os, subprocess
+          from pathlib import Path
+          if os.environ['EVENT'] == 'pull_request':
+              if os.environ['PR_AUTHOR'] != 'tidemark-labs':
+                  raise SystemExit('External contributions are currently closed')
+              message = os.environ['PR_TITLE'] + '\n\n' + os.environ['PR_BODY']
+          else:
+              if os.environ['ACTOR'] != 'tidemark-labs':
+                  raise SystemExit('Only the owner may start product verification')
+              message = subprocess.check_output(['git', 'log', '-1', '--format=%B'], text=True)
+          Path('/tmp/koral-message.txt').write_text(message)
+          PY
+          python3 .handbook/tools/policy.py commit --message-file /tmp/koral-message.txt
+          python3 .handbook/tools/policy.py versions --repo .
+  unit:
+    needs: policy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - run: ./gradlew --no-daemon test :cli:distTar
+      - run: python3 -m unittest discover -s tools/ci -p 'test_*.py' -v
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: candidate-cli
+          path: cli/build/distributions/*.tar
+          if-no-files-found: error
+          retention-days: 3
+  sbf-integration:
+    needs: unit
+    uses: ./.github/workflows/native.yml
+    with:
+      java: '17'
+      node: '22.22.3'
+      mode: integration
+  consumer-install:
+    needs: unit
+    uses: ./.github/workflows/native.yml
+    with:
+      java: '17'
+      node: '22.22.3'
+      mode: smoke
+  compatibility:
+    needs: unit
+    uses: ./.github/workflows/native.yml
+    with:
+      java: '21'
+      node: '24'
+      mode: smoke
+  required:
+    if: ${{ always() }}
+    needs: [policy, unit, sbf-integration, consumer-install, compatibility]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: koral-toolchain/handbook
+          ref: 915bd288b483d6425cdbd89525480c39b066667c
+          persist-credentials: false
+      - name: Reject unsuccessful or missing required checks
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          Path('/tmp/koral-results.json').write_text(os.environ['RESULTS'])
+          PY
+          python3 tools/policy.py gate --needs-file /tmp/koral-results.json

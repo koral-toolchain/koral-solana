@@ -1,0 +1,14 @@
+{
+  "compiler": "koral-0.1.0-dev",
+  "kotlin": "2.2.21",
+  "target": "sbpf-v0",
+  "scope": "Restricted Kotlin Counter, own C backend, public SDK PDA syscall",
+  "compilerJarSha256": "c5edc9c3f8ad3b30bd5c94159e08eb1982a5dbdbbd2d298a548316c1d13f68a6",
+  "sourceSha256": "4915f14b5d39d4946080aa1c2f06da7c895a951557b3ac14d4dca8835867e4ee",
+  "runtimeSha256": "33337bd6d19031cf67f8008d6556d0448e5153365792f832f80f17ffe4dea036",
+  "generatedCSha256": "524998cda70aadd36379474689c9c8601aad5e2ddb57ddbe54081d6107de6d54",
+  "binarySha256": "d57934fbb6d7196e8399143c2c8703516bb59de9b5bba646c7f19425ba961692",
+  "binaryBytes": "7808",
+  "accountDataBytes": "49",
+  "clang": "clang version 20.1.7-rust-dev (https://github.com/anza-xyz/llvm-project.git 78496716176191b2dfb728e5e38501812e7467db)"
+}

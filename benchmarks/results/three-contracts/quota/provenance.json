@@ -1,0 +1,22 @@
+{
+  "runnerSha256": "1a3c5267512cb5f01ad1573a677c3da1a7d4fb28a7249f443c3848a9daf56b82",
+  "node": "v22.22.3",
+  "sourceFiles": [
+    {
+      "file": "benchmarks/contracts/native-quota/src/lib.rs",
+      "sha256": "3e6422017a6dce9cbb873f90e2a9980de85fb4c7e25c89dbd334864749e1d1c4"
+    },
+    {
+      "file": "benchmarks/contracts/pinocchio-quota/src/lib.rs",
+      "sha256": "fc15f8c7e6c5c2e41f912b7d49360f8b10b518e51eea9e5bda45b93171abe59b"
+    },
+    {
+      "file": "benchmarks/contracts/kotlin/quota.kt",
+      "sha256": "9157d55ec73dccd1712625cdc9397f4f351affab61d01a4fa5df9b2f1f49e555"
+    },
+    {
+      "file": "benchmarks/contracts/typesol/quota.ts",
+      "sha256": "346cca2966ab62da7853064115a42e90e3a522d5be994c7bf9eb586ae4122c7f"
+    }
+  ]
+}

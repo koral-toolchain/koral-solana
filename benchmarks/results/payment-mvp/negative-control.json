@@ -1,0 +1,9 @@
+{
+  "sourceMutation": "paid += amount changed to paid += 0",
+  "compilerBuildSucceeded": true,
+  "comparisonExitCode": 1,
+  "detectedAt": "first pay transaction, exact expected paid update violated",
+  "passed": true,
+  "absoluteExpectedBehaviorChecked": true,
+  "staleSuccessReportRemoved": true
+}

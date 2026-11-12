@@ -1,0 +1,44 @@
+name: Native candidate verification
+on:
+  workflow_call:
+    inputs:
+      java:
+        type: string
+        required: true
+      node:
+        type: string
+        required: true
+      mode:
+        type: string
+        required: true
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961
+        with:
+          distribution: temurin
+          java-version: ${{ inputs.java }}
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: ${{ inputs.node }}
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          name: candidate-cli
+          path: candidate
+      - name: Install checksum-verified SDK
+        run: python3 tools/ci/prepare_sdk.py --destination "$RUNNER_TEMP/koral-sdk"
+      - name: Verify the actual candidate outside the checkout
+        env:
+          MODE: ${{ inputs.mode }}
+        run: |
+          python3 tools/ci/consumer.py \
+            --archive candidate/koral-0.1.0-dev.tar \
+            --sdk "$RUNNER_TEMP/koral-sdk" \
+            --mode "$MODE"

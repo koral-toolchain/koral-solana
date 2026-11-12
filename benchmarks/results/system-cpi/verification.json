@@ -1,0 +1,25 @@
+{
+  "recorded": "2026-11-11T06:17:00.202932+00:00",
+  "unitTests": 19,
+  "unitFailures": 0,
+  "integration": {
+    "integrationChecks": 53,
+    "safetyChecks": 55,
+    "semanticCases": 32,
+    "typedCounterSafetyChecks": 55,
+    "typedStateChecks": 31,
+    "systemCpiChecks": 37,
+    "sourceMutationVerified": true,
+    "staleArtifactRejected": true
+  },
+  "standalone": {
+    "packagedCliOutsideStudio": true,
+    "bundledExamplesAndTests": true,
+    "npmCiPassed": true,
+    "systemCpiChecks": 37,
+    "samePaymentBinaryAsMainBuild": true,
+    "binarySha256": "c86f98b21a075485b023bea71a9ce025c8d64f9912b3651f7fd2993805b57632",
+    "scope": "Installed distribution copied outside studio; same installed JDK/SDK/Node, not offline or cross-platform proof"
+  },
+  "compilerPath": "Kotlin IR -> own model/checks/C backend -> public Agave SDK and Clang/LLVM -> SBF"
+}

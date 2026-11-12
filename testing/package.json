@@ -1,0 +1,7 @@
+{
+  "name": "koral-local-tests",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.12" },
+  "dependencies": { "@solana/kit": "8.5.0", "litesvm": "1.6.1" }
+}

@@ -1,0 +1,17 @@
+{
+  "manifest": {
+    "program": "pool",
+    "compiler": "0.43.0",
+    "clang": "clang version 20.1.7-rust-dev (https://github.com/anza-xyz/llvm-project.git 78496716176191b2dfb728e5e38501812e7467db)",
+    "typescript": "6.0.3",
+    "sbpf": "v0",
+    "profile": false,
+    "sources": {
+      "pool.ts": "ddb98e26045832137dcfcc60182d4b2e38454eb7fee52e0b06c7616cd69083c4",
+      "<runtime>/typesol_rt.h": "91b21d8876bd8e8f34825a9070fea830e46512afc52246de72a5afa2d15767d3"
+    },
+    "binary": "389364832317c376079c51ca39faaa2171a982f7315ceb94ce3bad3205635f8e"
+  },
+  "version": "0.43.0",
+  "revision": "543786e850ad426425956e497971f88103f6c987"
+}

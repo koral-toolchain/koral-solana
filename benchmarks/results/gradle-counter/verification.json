@@ -1,0 +1,27 @@
+{
+  "recorded": "2026-11-11T05:07:36.332464+00:00",
+  "unitTests": 8,
+  "unitFailures": 0,
+  "integration": {
+    "integrationChecks": 26,
+    "safetyChecks": 55,
+    "semanticCases": 14,
+    "sourceMutationVerified": true,
+    "staleArtifactRejected": true
+  },
+  "standalone": {
+    "copiedWithout": [
+      "references",
+      "experiments",
+      "build outputs",
+      "node_modules",
+      "studio root"
+    ],
+    "gradleBuildPassed": true,
+    "packagedCliBuildPassed": true,
+    "packagedVmSafetyChecks": 55,
+    "binaryMatchesMainBuild": true,
+    "binarySha256": "d57934fbb6d7196e8399143c2c8703516bb59de9b5bba646c7f19425ba961692"
+  },
+  "archivePreservedFiles": 136
+}

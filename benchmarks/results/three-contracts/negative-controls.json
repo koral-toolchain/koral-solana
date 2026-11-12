@@ -1,0 +1,32 @@
+[
+  {
+    "contract": "quota",
+    "mutation": {
+      "before": "Quota(next, state.limit)",
+      "after": "Quota(state.used, state.limit)"
+    },
+    "compileSucceeded": true,
+    "benchmarkRejected": true,
+    "exitCode": 1
+  },
+  {
+    "contract": "pool",
+    "mutation": {
+      "before": "checkedAdd(state.reserve_b, amount_b)",
+      "after": "state.reserve_b"
+    },
+    "compileSucceeded": true,
+    "benchmarkRejected": true,
+    "exitCode": 1
+  },
+  {
+    "contract": "split",
+    "mutation": {
+      "before": "transferLamports(second, amount_b)",
+      "after": "// Deliberately omit the second transfer."
+    },
+    "compileSucceeded": true,
+    "benchmarkRejected": true,
+    "exitCode": 1
+  }
+]

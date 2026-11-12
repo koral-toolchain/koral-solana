@@ -1,0 +1,10 @@
+{
+  "checks": 37,
+  "network": "Local LiteSVM",
+  "scope": "External lamport reads and authority-funded System Program transfer CPI; no token CPI or DEX",
+  "cpiRollbackVerified": true,
+  "readonlyAccountsVerified": true,
+  "duplicateAccountReferenceVerified": true,
+  "abiDrivenEncodingVerified": true,
+  "multipleCpiRollbackVerified": true
+}

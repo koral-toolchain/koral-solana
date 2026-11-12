@@ -1,0 +1,8 @@
+{
+  "generated": "2026-11-11T05:24:15.883Z",
+  "exitCode": 0,
+  "upstreamRunSha256": "07efddc19e0691c22b8a4047561602710f9b497a707ee530fdd5543bf653e107",
+  "executedRunnerSha256": "5f18522621d4800e940862cd62024377c6782510c39ad0f73fe6ab58309b0d92",
+  "koralBinarySha256": "ac1efa9996ad9609c77faadfcec63d063af9bd0c053275ceb982d1d30c0a298b",
+  "scope": "Counter only; unchanged upstream initialization, 20 increments, unauthorized/overflow probes and final-state comparison; added fifth implementation"
+}

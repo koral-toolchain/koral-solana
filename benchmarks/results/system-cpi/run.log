@@ -1,0 +1,6 @@
+
+counter (same final state in all 5; mean compute units per call over 20 rounds)
+instruction     typesol     anchor     native  pinocchio      koral
+initialize         1856       6573       4601       3186       3366
+increment           110       2323        857        113        107
+binary (KB)        11.1      145.2       27.9       19.6        7.7

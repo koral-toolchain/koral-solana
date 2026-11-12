@@ -1,0 +1,17 @@
+{
+  "compiler": "koral-0.1.0-dev",
+  "kotlin": "2.2.21",
+  "target": "sbpf-v0",
+  "scope": "Owned ULong state, external account references and authority-funded System transfer; own C backend",
+  "compilerJarSha256": "e454ce03329e2b34f7615b41792d0cecfa413766de2b4187d03bd979aa2ef172",
+  "sourceSha256": "9157d55ec73dccd1712625cdc9397f4f351affab61d01a4fa5df9b2f1f49e555",
+  "runtimeSha256": "96fbe662613d07c66a1ab442eec6eb5d4b3c896c28a1c1eecfee62d6954ccee0",
+  "generatedCSha256": "c2d1b03c9ed2839ac9bc6304a69ad4c4ef7ebc240832a68d73ed24941fd3c535",
+  "binarySha256": "d50fc65dda7aa36e30ddad0d1c197bf1f19b0da0eecb5e2de26f3660bed00b8c",
+  "binaryBytes": "7984",
+  "accountDataBytes": "57",
+  "accountType": "Quota",
+  "stateFields": "used,limit",
+  "pdaSeed": "quota",
+  "clang": "clang version 20.1.7-rust-dev (https://github.com/anza-xyz/llvm-project.git 78496716176191b2dfb728e5e38501812e7467db)"
+}

@@ -1,0 +1,60 @@
+# Product CI contract
+
+The product workflow runs on main pushes, pull requests and owner-requested manual
+verification. Local verification does not establish a successful hosted workflow
+run; inspect the Actions results for the revision being reviewed. No package
+publication or live-chain deployment is configured.
+
+## Current checks
+
+| Job | Actual work |
+| --- | --- |
+| policy | Owner-only submissions, proposed landed message, compiler/toolchain/version agreement against a fixed handbook commit |
+| unit | JDK 17 Gradle build, compiler tests and candidate CLI TAR |
+| sbf-integration | Fresh candidate extraction, JDK 17 / Node 22, full native VM integration suite |
+| consumer-install | Fresh candidate extraction and dependency cache, doctor/check/build, manifest hash/ABI, Counter and payment VM checks |
+| compatibility | The same candidate on JDK 21 / Node 24, Counter and payment VM checks |
+| required | Every required result must be success; missing, failed, cancelled and skipped results are rejected |
+
+The native jobs use Ubuntu 24.04 hosted Linux x64 runners. Each downloads Agave
+3.1.10 and platform-tools 1.52, verifies fixed SHA-256 values, and extracts the
+SDK. It does not silently use the runner's globally installed Solana tools.
+The selected JDK is used through JAVA_HOME by the extracted CLI; runtime versions
+are printed. Tests inspect the installed archive, not source-project substitution.
+
+macOS arm64 has local verification evidence but is not a hosted CI matrix entry.
+JDK 25, Node 26, Windows, a published Gradle plugin and a complete cross-platform
+release matrix remain outside this workflow. Changes to supported targets need
+actual execution evidence and a handbook update.
+
+## Security and enforcement
+
+Third-party actions and the public handbook are pinned to full commit hashes.
+The workflow has read-only contents permission, no cloud OIDC and no deployment
+or package secrets. External contributions are currently closed. There is no
+pull_request_target job that checks out a contributor's code and no production
+server runner. Updating the pinned handbook is an explicit reviewed change.
+
+On a plan that supports it, configure `required` as a mandatory branch status.
+GitHub Free private organization repositories do not support this merge protection;
+CI failure is not a technical guarantee that an administrator cannot push or merge.
+Visibility and paid-plan changes require an owner decision.
+
+An eventual release workflow must separately verify benchmark provenance, artifact
+integrity and owner authorization, then depend on successful gates. These jobs are
+not simulated here and main pushes do not publish a release.
+
+## Local reproduction
+
+From this directory's parent (the utility root):
+
+```sh
+./gradlew --no-daemon test :cli:distTar
+python3 tools/ci/consumer.py \
+  --archive cli/build/distributions/koral-0.1.0-dev.tar \
+  --sdk "$KORAL_SBF_SDK" --mode integration
+```
+
+On Linux x64, `python3 tools/ci/prepare_sdk.py --destination /new/sdk/path`
+installs the pinned SDK. Elsewhere pass an independently installed matching SDK.
+The installer requires a new destination and does not replace existing tools.

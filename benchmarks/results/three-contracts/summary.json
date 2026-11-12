@@ -1,0 +1,53 @@
+{
+  "totalPrimaryTransactions": 102,
+  "cases": {
+    "quota": {
+      "instruction": "consume",
+      "transactions": 33,
+      "primaryEquivalence": true,
+      "primaryErrorCodesMatch": true,
+      "secondBuildCuAndElfMatch": true,
+      "meanCu": {
+        "nativeRust": 866,
+        "pinocchio": 140,
+        "koral": 112,
+        "typesolInternal": 111
+      },
+      "auxiliaryOutcomeMismatches": 0,
+      "auxiliaryErrorCodeDifferences": 2
+    },
+    "pool": {
+      "instruction": "add_reserves",
+      "transactions": 32,
+      "primaryEquivalence": true,
+      "primaryErrorCodesMatch": true,
+      "secondBuildCuAndElfMatch": true,
+      "meanCu": {
+        "nativeRust": 870,
+        "pinocchio": 144,
+        "koral": 117,
+        "typesolInternal": 116
+      },
+      "auxiliaryOutcomeMismatches": 0,
+      "auxiliaryErrorCodeDifferences": 2
+    },
+    "split": {
+      "instruction": "distribute",
+      "transactions": 37,
+      "primaryEquivalence": true,
+      "primaryErrorCodesMatch": true,
+      "secondBuildCuAndElfMatch": true,
+      "meanCu": {
+        "nativeRust": 5300,
+        "pinocchio": 2936,
+        "koral": 2599,
+        "typesolInternal": 2537
+      },
+      "auxiliaryOutcomeMismatches": 1,
+      "auxiliaryErrorCodeDifferences": 6
+    }
+  },
+  "compilerFeaturesAdded": false,
+  "frozenLaunchScopeUnchanged": true,
+  "cargoLockSha256": "551d309b6c5911c7afe5113825206cda09367bf9ae25e4618c974af03f8b2143"
+}

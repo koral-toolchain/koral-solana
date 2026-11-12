@@ -1,0 +1,11 @@
+{
+  "standaloneBuildHelperPassed": true,
+  "primaryComparisons": 36,
+  "identicalSignedTransactions": true,
+  "primaryStateBalanceAndErrorCodeMatch": true,
+  "allMeasuredSourceDebitCreditAndPaidUpdatesChecked": true,
+  "secondBuildMatchesCuAndElfHashes": true,
+  "negativeControlPassed": true,
+  "cargoLockSha256": "3863df96e8d3904d4e1ffc3802b1a304caec9fddd96b15f06a439819381eb45c",
+  "buildHelperSha256": "e63d502e8a66f2363042776b720865df0b227f3588b525a71726954444616f2a"
+}

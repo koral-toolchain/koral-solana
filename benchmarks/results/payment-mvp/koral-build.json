@@ -1,0 +1,17 @@
+{
+  "compiler": "koral-0.1.0-dev",
+  "kotlin": "2.2.21",
+  "target": "sbpf-v0",
+  "scope": "Owned ULong state, external account references and authority-funded System transfer; own C backend",
+  "compilerJarSha256": "e454ce03329e2b34f7615b41792d0cecfa413766de2b4187d03bd979aa2ef172",
+  "sourceSha256": "a1c729cfb0543a4ae50c16cce055801fce3d3eece92f2bdaa869951049e68baf",
+  "runtimeSha256": "96fbe662613d07c66a1ab442eec6eb5d4b3c896c28a1c1eecfee62d6954ccee0",
+  "generatedCSha256": "c583c79ae791d5c9bd7755cd43cdea05d578c23e74d4b4807c26873c39c805e2",
+  "binarySha256": "397c319062a79fae210a773833db0eb4fdce152b74601c0df55fcc0167e2c9cd",
+  "binaryBytes": "8880",
+  "accountDataBytes": "57",
+  "accountType": "PaymentState",
+  "stateFields": "paid,observed",
+  "pdaSeed": "payments",
+  "clang": "clang version 20.1.7-rust-dev (https://github.com/anza-xyz/llvm-project.git 78496716176191b2dfb728e5e38501812e7467db)"
+}

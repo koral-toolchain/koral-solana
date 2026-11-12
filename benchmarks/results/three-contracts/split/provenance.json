@@ -1,0 +1,22 @@
+{
+  "runnerSha256": "1a3c5267512cb5f01ad1573a677c3da1a7d4fb28a7249f443c3848a9daf56b82",
+  "node": "v22.22.3",
+  "sourceFiles": [
+    {
+      "file": "benchmarks/contracts/native-split/src/lib.rs",
+      "sha256": "3f9898c237e7d9c5eb79addfcb79b42eae37d3e9d9f99e40e6b92ee9a371e3c4"
+    },
+    {
+      "file": "benchmarks/contracts/pinocchio-split/src/lib.rs",
+      "sha256": "06688af3747d84dd6fcd59e50e38b6e813de704669e07ef339f913e282e11a89"
+    },
+    {
+      "file": "benchmarks/contracts/kotlin/split.kt",
+      "sha256": "c007e59f91fcb8e5a168279ca85bef17ac96c9eb11533543be5a0761390f1f96"
+    },
+    {
+      "file": "benchmarks/contracts/typesol/split.ts",
+      "sha256": "611d6a5c1f3114074c7ce732257888254ab63ad6874d562394556e0a3d41deea"
+    }
+  ]
+}

@@ -23,7 +23,8 @@ def verify(archive_path, sdk, mode):
         if len(roots) != 1 or not roots[0].is_dir():
             raise ValueError('Expected one CLI distribution directory')
         root = roots[0]
-        for required in ['LICENSE', 'THIRD_PARTY_NOTICES.md', 'bin/koral', 'testing/package-lock.json']:
+        for required in ['LICENSE', 'THIRD_PARTY_NOTICES.md', 'bin/koral', 'testing/package-lock.json',
+                         'licenses/kotlin/LICENSE.txt', 'licenses/kotlin/NOTICE.txt', 'licenses/kotlin/COPYRIGHT.txt']:
             if not (root / required).is_file():
                 raise ValueError('Distribution is missing ' + required)
         env = os.environ.copy()

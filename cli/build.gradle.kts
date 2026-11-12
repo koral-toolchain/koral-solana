@@ -15,6 +15,7 @@ distributions.main {
         from(project.file("README.md"))
         from(rootProject.file("THIRD_PARTY_NOTICES.md"))
         from(rootProject.file("LICENSE"))
+        from(rootProject.file("licenses")) { into("licenses") }
         from(rootProject.file("docs/LANGUAGE.md")) { into("docs") }
         from(rootProject.file("docs/FIRST-PROJECT.md")) { into("docs") }
         from(rootProject.file("docs/SDK-SETUP.md")) { into("docs") }

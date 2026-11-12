@@ -25,17 +25,26 @@ Start with [the developer documentation](docs/guides/index.md): setup, supported
 
 Requirements: JDK 17 (Gradle toolchain), Node >=22.12 for VM tests, and an installed Agave SBF C SDK. The full integration suite was tested on macOS arm64 with Kotlin 2.2.21, Gradle 8.14.6, Agave 3.1.10/platform-tools 1.52, Clang 20.1.7, Node 22.22.3, and LiteSVM 1.6.1. Counter/payment CLI checks also passed on JDK 21. Separate Linux x64 website workers verified the two fixed examples; this is not a completed cross-platform qualification matrix. Check the Product CI workflow results for hosted verification of a particular revision.
 
-From this directory:
+From this source checkout, build the CLI and use its installed launcher:
 
 ```sh
 ./gradlew test :cli:installDist
+export PATH="$PWD/cli/build/install/koral/bin:$PATH"
 export KORAL_SBF_SDK=/path/to/solana-release/bin/platform-tools-sdk/sbf
-cli/build/install/koral/bin/koral doctor
-cli/build/install/koral/bin/koral check examples/counter.kt
-cli/build/install/koral/bin/koral build examples/counter.kt --out build/counter
-npm ci --prefix cli/build/install/koral/testing
-cli/build/install/koral/bin/koral test build/counter/counter.so
+koral doctor
+koral init hello-counter
+cd hello-counter
+koral setup
+koral check
+koral build
+koral test
 ```
+
+[The first-project guide](docs/FIRST-PROJECT.md) covers an extracted CLI package,
+SDK installation, expected results and failure recovery. setup explicitly installs
+pinned Node VM tools into a user cache; it does not modify the installed CLI.
+Project commands read source/output from koral.properties. The existing explicit
+source/binary commands remain supported.
 
 The SDK path must contain `c/inc`, `c/sbf.ld`, and `dependencies/platform-tools`. Koral does not download it, deploy a program, create a wallet, or sign a live transaction. The test runner uses deterministic local test signers only.
 
@@ -48,7 +57,7 @@ The installed distribution includes JARs, runtime resources, examples, and a sta
 | `language/` | Public `@Instruction`, checked arithmetic, and `ensure` API |
 | `compiler/` | Resolved Kotlin IR frontend, internal model, validation, own C backend |
 | `toolchain/` | SDK validation and argument-based Clang/LLVM invocation |
-| `cli/` | `check`, `build`, `doctor`, and local Counter `test` commands |
+| `cli/` | Project initialization, environment diagnosis, VM setup, source/build commands and local Counter verification |
 | `runtime/` | Counter account ABI, authorization, initialization, and SDK calls |
 | `testing/` | Independent LiteSVM safety and source-semantics checks |
 | `examples/` | Supported source examples |

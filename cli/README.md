@@ -4,27 +4,43 @@ An experimental Kotlin compiler for native Solana SBF. This package contains the
 
 ## Requirements
 
-JDK 17 or later to run the CLI, an installed Agave 3.1.10 SBF SDK with platform-tools 1.52, and Node >=22.12 for local VM tests. Verified on macOS arm64; other hosts have not been validated in this preview.
+JDK 17 or later to run the CLI, an installed Agave 3.1.10 SBF SDK with platform-tools 1.52, and Node >=22.12 for local VM tests. The consumer workflow checks the candidate on the runtime pairs documented in the source repository docs/CI.md; inspect the run for your revision.
 
 ## First run
 
-From the extracted package directory:
+Extract the complete package and add its bin directory to PATH. In a writable
+workspace outside that installation:
 
 ```sh
+export PATH="/path/to/koral-0.1.0-dev/bin:$PATH"
 export KORAL_SBF_SDK=/path/to/solana-release/bin/platform-tools-sdk/sbf
-bin/koral doctor
-bin/koral check examples/typed-counter.kt
-bin/koral build examples/typed-counter.kt --out build/counter
-npm ci --prefix testing
-bin/koral test build/counter/counter.so
+koral doctor
+koral init hello-counter
+cd hello-counter
+koral setup
+koral check
+koral build
+koral test
 ```
 
-The SDK directory must contain `c/inc`, `c/sbf.ld`, and `dependencies/platform-tools`. Windows launchers are packaged by Gradle, but Windows functionality has not been tested.
+The SDK directory must contain c/inc, c/sbf.ld and dependencies/platform-tools.
+Read docs/FIRST-PROJECT.md and docs/SDK-SETUP.md in this package for installation
+and expected results. setup explicitly installs locked VM tools into the user
+cache; build/test do not download dependencies. Node is only needed for VM tests.
+KORAL_CACHE_DIR overrides that cache root. Existing explicit source/binary CLI
+arguments and locally installed testing/node_modules remain supported.
+
+The generated koral.properties selects src/counter.kt and build/koral. init
+refuses existing directories. test is specific to the supplied Counter and writes
+its result into build/koral/counter.test.json. Windows functionality is unverified.
 
 ## Payment example
 
+From the extracted package directory, the direct payment verifier uses its bundled testing directory:
+
 ```sh
 bin/koral build examples/payments.kt --out build/payments
+npm ci --ignore-scripts --prefix testing
 node testing/payments.mjs build/payments/counter.so build/payments/tests.json
 ```
 

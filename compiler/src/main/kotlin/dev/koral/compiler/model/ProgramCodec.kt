@@ -7,7 +7,7 @@ import java.nio.file.Path
 
 /** A bounded data-only format; it does not deserialize Java objects or load classes. */
 object ProgramCodec {
-    private const val MAGIC = 0x4b4f5235
+    private const val MAGIC = 0x4b4f5236
     fun write(program: CounterProgram, path: Path) {
         DataOutputStream(Files.newOutputStream(path)).use { out ->
             out.writeInt(MAGIC); out.writeUTF(program.source)
@@ -25,6 +25,8 @@ object ProgramCodec {
                     out.writeUTF(it.name);out.writeBoolean(it.writable)
                     out.writeBoolean(it.owner!=null);it.owner?.let(out::writeUTF)
                     out.writeBoolean(it.address!=null);it.address?.let(out::writeUTF)
+                    out.writeBoolean(it.dataSize!=null);it.dataSize?.let(out::writeInt)
+                    out.writeBoolean(it.executable!=null);it.executable?.let(out::writeBoolean)
                 }
                 writeStatements(out,instruction.body)
             }
@@ -34,7 +36,7 @@ object ProgramCodec {
         require(Files.size(path) <= 1_048_576) { "Compiler model is too large" }
         DataInputStream(Files.newInputStream(path)).use { input ->
             val format = input.readInt()
-            require(format == MAGIC || format == 0x4b4f5234) { "Unsupported compiler model" }
+            require(format == MAGIC || format == 0x4b4f5235 || format == 0x4b4f5234) { "Unsupported compiler model" }
             val source=input.readUTF()
             val layout=if(input.readBoolean()) {
                 val name=input.readUTF();val seed=input.readUTF();val size=input.readInt()
@@ -49,9 +51,11 @@ object ProgramCodec {
                 val accountCount=input.readInt();require(accountCount in 0..8) { "Too many external accounts" }
                 val accounts=List(accountCount) {
                     val accountName=input.readUTF();val writable=input.readBoolean()
-                    val owner=if(format==MAGIC && input.readBoolean())input.readUTF() else null
-                    val address=if(format==MAGIC && input.readBoolean())input.readUTF() else null
-                    AccountParameter(accountName,writable,owner,address)
+                    val owner=if(format!=0x4b4f5234 && input.readBoolean())input.readUTF() else null
+                    val address=if(format!=0x4b4f5234 && input.readBoolean())input.readUTF() else null
+                    val dataSize=if(format==MAGIC && input.readBoolean())input.readInt() else null
+                    val executable=if(format==MAGIC && input.readBoolean())input.readBoolean() else null
+                    AccountParameter(accountName,writable,owner,address,dataSize,executable)
                 }
                 CounterInstruction(name,arguments,readStatements(input,0),accounts)
             }

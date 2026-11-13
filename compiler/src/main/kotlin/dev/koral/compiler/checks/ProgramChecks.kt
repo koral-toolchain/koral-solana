@@ -20,6 +20,7 @@ object ProgramChecks {
             val stateName=if(layout==null)"count" else "state"
             require(instruction.accounts.size<=8) { "Expected up to eight external accounts" }
             instruction.accounts.forEach { account ->
+                require(account.dataSize==null || account.dataSize>=0) { "Account data size must be a non-negative Int" }
                 account.owner?.let(PublicKey::decode)
                 account.address?.let(PublicKey::decode)
             }

@@ -65,5 +65,44 @@ const before=state(),beforeFrom=balance(user.address),beforeTo=balance(recipient
 const rollback=await send('pay_then_fail',[3],roles());
 check(failed(rollback) && rollback.err().err().code===6200 && cpi(rollback),'valid constraints allow CPI before deliberate body failure');
 check(state().equals(before) && balance(user.address)===beforeFrom && balance(recipient.address)===beforeTo,'later body failure rolls back CPI and state');
-const result={checks,network:'Local LiteSVM',ownerAndAddress:true,nonzeroOwner:true,duplicateReferences:true,rejectionBeforeCpi:true,bodyFailureRollback:true};
+
+// Metadata fixtures are real account bytes and program flags in the local VM.
+function fixture(at,bytes,programAddress=id){
+ const a=account(at);svm.setAccount({address:at,lamports:a.lamports,data:Buffer.alloc(bytes,17),programAddress,executable:false});
+}
+check(pay.dataBytes===0 && pay.executable===false,'ABI preserves exact zero size and explicit false');
+const programMeta=abi.instructions.find(i=>i.name==='observe_program').accounts[2];
+check(programMeta.executable===true && !('dataBytes' in programMeta),'true and unspecified size remain distinct');
+const unconstrained=abi.instructions.find(i=>i.name==='observe_any').accounts[2];
+check(!('dataBytes' in unconstrained) && !('executable' in unconstrained),'unannotated metadata remains unspecified');
+fixture(other.address,8);
+check(!failed(await send('observe_data',[],roles(other.address,AccountRole.READONLY).slice(0,3))),'exact nonzero data size');
+check(state().readBigUInt64LE(48)===balance(other.address),'size check does not decode data contents');
+fixture(other.address,7);
+await reject('observe_data',[],roles(other.address,AccountRole.READONLY).slice(0,3),3012);
+fixture(other.address,9);
+await reject('observe_data',[],roles(other.address,AccountRole.READONLY).slice(0,3),3012);
+check(!failed(await send('observe_any',[],roles(other.address,AccountRole.READONLY).slice(0,3))),'unannotated data size is unrestricted');
+fixture(other.address,8);
+const metadataPair=[...roles(other.address,AccountRole.READONLY).slice(0,3),meta(recipient.address,AccountRole.READONLY)];
+check(!failed(await send('metadata_pair',[],metadataPair)),'independent exact sizes on multiple accounts');
+await reject('metadata_pair',[],[...metadataPair.slice(0,3),meta(other.address,AccountRole.READONLY)],3012);
+await reject('metadata_pair',[],metadataPair.slice(0,3),3005);
+check(!failed(await send('observe_state',[],roles(ledger,AccountRole.READONLY).slice(0,3))),'owned state alias satisfies size and false flag');
+check(!failed(await send('observe_non_program',[],roles(other.address,AccountRole.READONLY).slice(0,3))),'false executable flag accepted');
+await reject('observe_non_program',[],roles(system,AccountRole.READONLY).slice(0,3),3013);
+check(!failed(await send('observe_program',[],roles(system,AccountRole.READONLY).slice(0,3))),'actual System Program executable flag accepted');
+await reject('observe_program',[],roles(other.address,AccountRole.READONLY).slice(0,3),3013);
+check(!failed(await send('observe_any',[],roles(system,AccountRole.READONLY).slice(0,3))),'unannotated executable status is unrestricted');
+fixture(other.address,0,system);
+check(!failed(await send('observe_empty',[],roles(other.address,AccountRole.READONLY).slice(0,3))),'exact zero data size accepted');
+fixture(recipient.address,1,system);
+await reject('pay',[1],roles(),3012);
+await reject('pay_if',[0],roles().slice(0,3),3012);
+fixture(recipient.address,0,system);
+const metadataBefore=state(),metadataFrom=balance(user.address),metadataTo=balance(recipient.address);
+const metadataRollback=await send('pay_then_fail',[2],roles());
+check(failed(metadataRollback) && metadataRollback.err().err().code===6200 && cpi(metadataRollback),'all four constraints permit CPI before body failure');
+check(state().equals(metadataBefore) && balance(user.address)===metadataFrom && balance(recipient.address)===metadataTo,'metadata-checked body failure preserves state and balances');
+const result={checks,network:'Local LiteSVM',ownerAndAddress:true,nonzeroOwner:true,duplicateReferences:true,rejectionBeforeCpi:true,bodyFailureRollback:true,dataSizeAndExecutable:true};
 if(report)writeFileSync(report,JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));

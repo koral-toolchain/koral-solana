@@ -33,7 +33,7 @@ After state, up to eight ULong data parameters and eight external account refere
 | `AccountInfo` | External account reference, read-only contract |
 | `WritableAccount` | External account requiring writable permission |
 
-References come from the caller; programs cannot construct or cast them. `lamports(reference)` reads its current serialized lamport balance. A writable reference can be used through a read-only local. Fixed owner and address constraints are available through parameter annotations below. Reading account data, dynamic public-key expressions, token-account layouts, and account equality are not implemented.
+References come from the caller; programs cannot construct or cast them. `lamports(reference)` reads its current serialized lamport balance. A writable reference can be used through a read-only local. Fixed owner, address, exact data size and executable constraints are available through parameter annotations below. Reading account data, dynamic public-key expressions, token-account layouts, and account equality are not implemented.
 
 ## Fixed external account constraints
 
@@ -62,9 +62,21 @@ its transfer. Missing accounts return 3005, missing declared writable permission
 authority and CPI checks still apply. Duplicate references must independently
 satisfy every declaration's constraints; distinct accounts are not implied.
 
+`@AccountDataSize(8)` requires exactly eight data bytes, not a minimum. Its argument
+is a non-negative constant Int; zero explicitly requires an empty data buffer.
+`@AccountExecutable(true)` requires an executable program account;
+`@AccountExecutable(false)` requires a non-executable account. The Boolean is
+explicit, and an omitted annotation imposes no executable constraint.
+Both annotations target external instruction parameters, can combine with owner
+and address checks, and reject scalar/state/field placement. Size mismatch returns
+3012; executable mismatch returns 3013, before the selected body or CPI. Matching
+size does not establish the data's layout, discriminator, contents or token type.
+The executable flag does not establish a program's identity; combine it with a
+fixed address when identity matters. See [account structure](https://solana.com/docs/core/accounts/account-structure).
+
 Initialization retains its fixed account contract and does not use instruction
-parameter constraints. No account data validation, executable constraint, dynamic
-address relation, token authority check or additional signing privilege is added.
+parameter constraints. No account data decoding, dynamic address relation,
+token authority check or additional signing privilege is added.
 See [the complete constrained example](../examples/constrained-payments.kt) and
 [Solana's account model](https://solana.com/docs/core/accounts).
 
@@ -104,9 +116,12 @@ Tests verify actual source/destination balances, current reads after CPI, duplic
 
 ## Preview ABI
 
-Successful builds emit `counter.abi.json`: state fields/offsets/size/PDA seed, instruction discriminators, data offsets, account order/permissions, optional fixed owner/address constraints, and System transfer requirements. The payment tests use its discriminators to encode transactions. This is `koral-preview-abi/1`, not an Anchor IDL or stable public schema. No deployed program address or network operation is implied.
+Successful builds emit `counter.abi.json`: state fields/offsets/size/PDA seed, instruction discriminators, data offsets, account order/permissions, optional fixed owner/address/data-size/executable constraints, and System transfer requirements. The payment tests use its discriminators to encode transactions. This is `koral-preview-abi/1`, not an Anchor IDL or stable public schema. No deployed program address or network operation is implied.
 
-The preview model writer uses KOR5 to preserve constraints; its reader also accepts
-legacy KOR4 models without constraints. This internal model format is not a stable
-public interchange contract. The ABI keeps koral-preview-abi/1 with an optional
-owner field and the existing address field on constrained external accounts.
+The preview model writer uses KOR6 to preserve metadata constraints; its reader
+also accepts KOR4 (no constraints) and KOR5 (owner/address) models. Old readers
+cannot consume KOR6. This internal format is not a stable public interchange
+contract. The ABI keeps koral-preview-abi/1: optional owner, dataBytes and
+executable fields accompany the existing address field on external accounts.
+Absent metadata fields mean no declaration-level condition; zero and false are
+explicit conditions, not defaults. Runtime's implicit state/CPI rules still apply.

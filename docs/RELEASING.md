@@ -28,7 +28,7 @@ by merging this document or a product pull request.
   do not imply an untested platform matrix.
 - [ ] Confirm native Counter, typed state and System payment regressions, including
   permissions, checked arithmetic and CPI rollback. For a candidate containing
-  external account constraints, include actual owner/address rejection, aliases
+  external account constraints, include owner/address/data-size/executable rejection, aliases
   and later body-failure rollback tests.
 - [ ] Review benchmark evidence and any performance change using equivalent
   inputs and safety conditions. Explain changed validation costs and comparison

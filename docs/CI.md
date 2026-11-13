@@ -73,7 +73,7 @@ separate job with the legacy testing dependency layout.
 
 ## Source diagnostic regression coverage
 
-Every native consumer job also invokes the extracted CLI on fourteen rejected source
+Every native consumer job also invokes the extracted CLI on twenty-one rejected source
 fixtures and a valid control. Checks cover exact one-based file/line/column,
 readable reasons, no internal exception trace for expected rejections, and the
 file-start fallback for model validation. A nested initializer fixture checks that
@@ -81,7 +81,7 @@ the rejected local declaration retains its own location. Kotlin type/name errors
 remain Kotlin diagnostics. These checks do not require the SBF SDK or a live chain.
 
 The native suites also compile constrained-payments.kt and execute constraints.mjs
-against LiteSVM: fixed owner/address validation, independent alias constraints,
+against LiteSVM: fixed owner/address, exact data-size and true/false executable validation, independent alias constraints,
 rejection before CPI, permission failures and rollback after a later body failure.
 
 ## Publication decision

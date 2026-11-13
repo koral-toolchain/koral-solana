@@ -29,3 +29,11 @@ annotation class AccountOwner(val address: String)
 /** Requires an external account to have this fixed address. */
 @Target(AnnotationTarget.VALUE_PARAMETER)
 annotation class AccountAddress(val address: String)
+
+/** Requires an external account to have exactly this many data bytes. */
+@Target(AnnotationTarget.VALUE_PARAMETER)
+annotation class AccountDataSize(val bytes: Int)
+
+/** Requires the external account's executable flag to equal this value. */
+@Target(AnnotationTarget.VALUE_PARAMETER)
+annotation class AccountExecutable(val value: Boolean)

@@ -55,6 +55,19 @@ def verify_diagnostics(cli: Path, work: Path, env=None):
                                            '@AccountOwner("11111111111111111111111111111111") val balance'),
          4, 1, 'not state fields'),
     ]
+    cases.append(('negative-size', constrained.replace('@AccountOwner("bad")', '@AccountDataSize(-1)'),
+                  7, 5, '@AccountDataSize requires a constant non-negative Int'))
+    for name,value in [('AccountDataSize','0'),('AccountExecutable','false')]:
+        annotation=f'@{name}({value})'
+        cases += [
+            (name+'-scalar', constrained.replace('@AccountOwner("bad") target: AccountInfo', annotation+' amount: ULong'),
+             7, 5, 'requires an external AccountInfo or WritableAccount'),
+            (name+'-state', constrained.replace('count: ULong,', annotation+' count: ULong,')
+                                      .replace('@AccountOwner("bad") ', ''),
+             6, 5, 'requires an external AccountInfo or WritableAccount'),
+            (name+'-field', record.replace('var balance', annotation+' val balance'),
+             4, 1, 'not state fields'),
+        ]
     for name, source, line, column, reason in cases:
         file = folder / (name + '.kt')
         file.write_text(source)

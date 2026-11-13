@@ -22,7 +22,7 @@ object ProgramAbi {
         val instructions=program.instructions.map { instruction ->
             val cpi=hasTransfer(instruction.body)
             val accounts=mutableListOf(account(0,"authority",true,cpi),account(1,"state",false,true))
-            instruction.accounts.forEachIndexed { i,a -> accounts+=account(i+2,a.name,false,a.writable,a.address).apply { if(a.owner!=null)put("owner",a.owner) } }
+            instruction.accounts.forEachIndexed { i,a -> accounts+=account(i+2,a.name,false,a.writable,a.address).apply { if(a.owner!=null)put("owner",a.owner);if(a.dataSize!=null)put("dataBytes",a.dataSize);if(a.executable!=null)put("executable",a.executable) } }
             if(cpi)accounts+=account(2+instruction.accounts.size,"system_program",false,false,system)
             linkedMapOf("name" to instruction.name,"discriminatorHex" to discriminator("global:${instruction.name}"),
                 "data" to data(instruction.arguments),"accounts" to accounts,"systemTransferFromAuthority" to cpi)

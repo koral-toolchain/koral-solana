@@ -44,7 +44,7 @@ Supported: ULong/Boolean values, initialized `val`/`var`, local assignment, `if`
 - `lamports(account)`: current external balance.
 - `transferLamports(destination, amount)`: System Program transfer from the implicit signing authority. Destination must be writable.
 
-All paths must return the state type or legacy ULong. Unsupported IR shapes fail compilation. Frontend errors include source positions; model/toolchain errors may have less precise locations. Loops, arrays, strings as runtime values, nullable values, JVM APIs, general calls, arbitrary CPI, and SPL Token operations are unsupported.
+All paths must return the state type or legacy ULong. Unsupported IR shapes fail compilation. Frontend errors identify the source file and one-based line/column. Expected Koral source rejections stop without a compiler-internal exception trace. Positions refer to the rejected expression or declaration (including its annotation, where present); model validation currently falls back to file start and toolchain errors may have less precise locations. Kotlin syntax and type errors retain Kotlin's own diagnostics. Unsupported literal types use readable Kotlin names. Loops, arrays, strings as runtime values, nullable values, JVM APIs, general calls, arbitrary CPI, and SPL Token operations are unsupported.
 
 ## Serialization and account ordering
 

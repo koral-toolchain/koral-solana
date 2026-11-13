@@ -1,0 +1,4917 @@
+{
+  "generated": "2026-11-13T08:04:35.846Z",
+  "scope": "Selected deposit/withdraw on seeded canonical state; initializer and full ELF-size ranking excluded",
+  "programId": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+  "accountDataBytes": 57,
+  "authoritySeed": 6,
+  "canonicalBump": 254,
+  "pdaSearchAttempts": 2,
+  "roundsPerOperation": 20,
+  "checks": 65,
+  "identicalSignedTransactions": true,
+  "primaryEquivalence": true,
+  "primaryErrorCodesMatch": true,
+  "auxiliaryMismatches": [
+    {
+      "label": "nonexecutable-system",
+      "measured": false,
+      "outcome": {
+        "success": true,
+        "cu": 2700,
+        "error": null,
+        "cpi": true,
+        "after": {
+          "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d300000000000000d200000000000000fe",
+          "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+          "vaultLamports": "10000001",
+          "balances": [
+            "99999999790",
+            "100009060410"
+          ],
+          "feePayer": "99999355000"
+        }
+      },
+      "expected": {
+        "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+        "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+        "vaultLamports": "10000000",
+        "balances": [
+          "99999999791",
+          "100009060410"
+        ],
+        "feePayer": "99999355000"
+      }
+    }
+  ],
+  "auxiliaryErrorDifferences": [
+    {
+      "label": "insufficient-funds",
+      "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6003 } }",
+      "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3014 } }"
+    },
+    {
+      "label": "cross-rent-floor",
+      "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6003 } }",
+      "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3014 } }"
+    },
+    {
+      "label": "zero-withdraw",
+      "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6002 } }",
+      "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6100 } }"
+    },
+    {
+      "label": "zero-deposit",
+      "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6002 } }",
+      "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6100 } }"
+    },
+    {
+      "label": "readonly-depositor",
+      "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+      "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }"
+    },
+    {
+      "label": "readonly-recipient",
+      "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+      "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }"
+    },
+    {
+      "label": "readonly-vault",
+      "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+      "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }"
+    },
+    {
+      "label": "bad-bump",
+      "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6001 } }",
+      "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2006 } }"
+    },
+    {
+      "label": "unknown-instruction",
+      "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 101 } }",
+      "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 102 } }"
+    },
+    {
+      "label": "wrong-canonical-key",
+      "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6001 } }",
+      "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2006 } }"
+    },
+    {
+      "label": "nonexecutable-system",
+      "actual": null,
+      "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3008 } }"
+    }
+  ],
+  "additionalBaseline": "typesolInternal",
+  "implementations": {
+    "nativeRust": {
+      "deposit": {
+        "samples": 20,
+        "meanCu": 5925,
+        "minCu": 5925,
+        "maxCu": 5925
+      },
+      "withdraw": {
+        "samples": 20,
+        "meanCu": 4574,
+        "minCu": 4574,
+        "maxCu": 4574
+      },
+      "binarySha256": "19aed2c27cb81a56a0ffdeb5ea4f88e22403b975d5a0bf57ae66d946ffd9f181",
+      "binaryBytes": 29440
+    },
+    "pinocchio": {
+      "deposit": {
+        "samples": 20,
+        "meanCu": 4582,
+        "minCu": 4582,
+        "maxCu": 4582
+      },
+      "withdraw": {
+        "samples": 20,
+        "meanCu": 3468,
+        "minCu": 3468,
+        "maxCu": 3468
+      },
+      "binarySha256": "e972f579c60490c58db1050d7b2b6c018585a188c9e0d3f083aa2a20f389eecf",
+      "binaryBytes": 20752
+    },
+    "koral": {
+      "deposit": {
+        "samples": 20,
+        "meanCu": 4378,
+        "minCu": 4378,
+        "maxCu": 4378
+      },
+      "withdraw": {
+        "samples": 20,
+        "meanCu": 3761,
+        "minCu": 3761,
+        "maxCu": 3761
+      },
+      "binarySha256": "8856aa52be5f6b2c9d5b75b7ddbfe7553e5cfa177b0cd9b289790fa71fd056da",
+      "binaryBytes": 10648
+    },
+    "typesolInternal": {
+      "deposit": {
+        "samples": 20,
+        "meanCu": 2700,
+        "minCu": 2700,
+        "maxCu": 2700
+      },
+      "withdraw": {
+        "samples": 20,
+        "meanCu": 1719,
+        "minCu": 1719,
+        "maxCu": 1719
+      },
+      "binarySha256": "4a447187946e61a445b3defd84156479eb4156046629ca920afb21d5dc3a2f56",
+      "binaryBytes": 11872
+    }
+  },
+  "rows": [
+    {
+      "label": "deposit-1",
+      "instruction": "deposit",
+      "amount": "1",
+      "measured": true,
+      "wireTransactionSha256": "a34f64e8a764b452537c92b82151f10c68f798d59e531ba6a65f70bde3cc31f5",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 5925,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1701000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000001",
+            "balances": [
+              "99999999999",
+              "100000000000"
+            ],
+            "feePayer": "99999990000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 4582,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1701000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000001",
+            "balances": [
+              "99999999999",
+              "100000000000"
+            ],
+            "feePayer": "99999990000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 4378,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1701000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000001",
+            "balances": [
+              "99999999999",
+              "100000000000"
+            ],
+            "feePayer": "99999990000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1701000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000001",
+            "balances": [
+              "99999999999",
+              "100000000000"
+            ],
+            "feePayer": "99999990000"
+          }
+        }
+      }
+    },
+    {
+      "label": "deposit-2",
+      "instruction": "deposit",
+      "amount": "2",
+      "measured": true,
+      "wireTransactionSha256": "22276a70b524b71d9fbc470994884b99f143f8f4b49ead447540496b3f4c0fb5",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 5925,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1703000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000003",
+            "balances": [
+              "99999999997",
+              "100000000000"
+            ],
+            "feePayer": "99999980000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 4582,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1703000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000003",
+            "balances": [
+              "99999999997",
+              "100000000000"
+            ],
+            "feePayer": "99999980000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 4378,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1703000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000003",
+            "balances": [
+              "99999999997",
+              "100000000000"
+            ],
+            "feePayer": "99999980000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1703000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000003",
+            "balances": [
+              "99999999997",
+              "100000000000"
+            ],
+            "feePayer": "99999980000"
+          }
+        }
+      }
+    },
+    {
+      "label": "deposit-3",
+      "instruction": "deposit",
+      "amount": "3",
+      "measured": true,
+      "wireTransactionSha256": "4595ac74f996105d38cf68b3d87dba2bc5b711cae63f04e088a3ff536998e466",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 5925,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1706000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000006",
+            "balances": [
+              "99999999994",
+              "100000000000"
+            ],
+            "feePayer": "99999970000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 4582,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1706000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000006",
+            "balances": [
+              "99999999994",
+              "100000000000"
+            ],
+            "feePayer": "99999970000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 4378,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1706000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000006",
+            "balances": [
+              "99999999994",
+              "100000000000"
+            ],
+            "feePayer": "99999970000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1706000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000006",
+            "balances": [
+              "99999999994",
+              "100000000000"
+            ],
+            "feePayer": "99999970000"
+          }
+        }
+      }
+    },
+    {
+      "label": "deposit-4",
+      "instruction": "deposit",
+      "amount": "4",
+      "measured": true,
+      "wireTransactionSha256": "5d4f43243a5c4c00a3e52c1b5dcfa1da61fc0a3e296329cb21c6e79841171916",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 5925,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f170a000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000010",
+            "balances": [
+              "99999999990",
+              "100000000000"
+            ],
+            "feePayer": "99999960000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 4582,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f170a000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000010",
+            "balances": [
+              "99999999990",
+              "100000000000"
+            ],
+            "feePayer": "99999960000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 4378,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f170a000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000010",
+            "balances": [
+              "99999999990",
+              "100000000000"
+            ],
+            "feePayer": "99999960000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f170a000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000010",
+            "balances": [
+              "99999999990",
+              "100000000000"
+            ],
+            "feePayer": "99999960000"
+          }
+        }
+      }
+    },
+    {
+      "label": "deposit-5",
+      "instruction": "deposit",
+      "amount": "5",
+      "measured": true,
+      "wireTransactionSha256": "cd8467253eb041248231fc82d9b66917e6fa96aee76e762f3a84d112ce9477d1",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 5925,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f170f000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000015",
+            "balances": [
+              "99999999985",
+              "100000000000"
+            ],
+            "feePayer": "99999950000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 4582,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f170f000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000015",
+            "balances": [
+              "99999999985",
+              "100000000000"
+            ],
+            "feePayer": "99999950000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 4378,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f170f000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000015",
+            "balances": [
+              "99999999985",
+              "100000000000"
+            ],
+            "feePayer": "99999950000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f170f000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000015",
+            "balances": [
+              "99999999985",
+              "100000000000"
+            ],
+            "feePayer": "99999950000"
+          }
+        }
+      }
+    },
+    {
+      "label": "deposit-6",
+      "instruction": "deposit",
+      "amount": "6",
+      "measured": true,
+      "wireTransactionSha256": "0ede36ef37766f3147ab3c3386ce3203195e3d0d2f9075030b7197eb6fc3f2ab",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 5925,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1715000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000021",
+            "balances": [
+              "99999999979",
+              "100000000000"
+            ],
+            "feePayer": "99999940000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 4582,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1715000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000021",
+            "balances": [
+              "99999999979",
+              "100000000000"
+            ],
+            "feePayer": "99999940000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 4378,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1715000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000021",
+            "balances": [
+              "99999999979",
+              "100000000000"
+            ],
+            "feePayer": "99999940000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1715000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000021",
+            "balances": [
+              "99999999979",
+              "100000000000"
+            ],
+            "feePayer": "99999940000"
+          }
+        }
+      }
+    },
+    {
+      "label": "deposit-7",
+      "instruction": "deposit",
+      "amount": "7",
+      "measured": true,
+      "wireTransactionSha256": "00ac58c2530c0ae3ff80be3b689afa706027c0e3df390844be75fab105768ce7",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 5925,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f171c000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000028",
+            "balances": [
+              "99999999972",
+              "100000000000"
+            ],
+            "feePayer": "99999930000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 4582,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f171c000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000028",
+            "balances": [
+              "99999999972",
+              "100000000000"
+            ],
+            "feePayer": "99999930000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 4378,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f171c000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000028",
+            "balances": [
+              "99999999972",
+              "100000000000"
+            ],
+            "feePayer": "99999930000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f171c000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000028",
+            "balances": [
+              "99999999972",
+              "100000000000"
+            ],
+            "feePayer": "99999930000"
+          }
+        }
+      }
+    },
+    {
+      "label": "deposit-8",
+      "instruction": "deposit",
+      "amount": "8",
+      "measured": true,
+      "wireTransactionSha256": "fbd2577e78adbb9b19dfef2abe309049ee95357b0b85c42e97e5aacbdefbe1bf",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 5925,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1724000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000036",
+            "balances": [
+              "99999999964",
+              "100000000000"
+            ],
+            "feePayer": "99999920000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 4582,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1724000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000036",
+            "balances": [
+              "99999999964",
+              "100000000000"
+            ],
+            "feePayer": "99999920000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 4378,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1724000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000036",
+            "balances": [
+              "99999999964",
+              "100000000000"
+            ],
+            "feePayer": "99999920000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1724000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000036",
+            "balances": [
+              "99999999964",
+              "100000000000"
+            ],
+            "feePayer": "99999920000"
+          }
+        }
+      }
+    },
+    {
+      "label": "deposit-9",
+      "instruction": "deposit",
+      "amount": "9",
+      "measured": true,
+      "wireTransactionSha256": "4ab8d089c94014d261cf9cb57a1bf9ea5d364ab8a482fc51d24b323e8287ee5e",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 5925,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f172d000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000045",
+            "balances": [
+              "99999999955",
+              "100000000000"
+            ],
+            "feePayer": "99999910000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 4582,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f172d000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000045",
+            "balances": [
+              "99999999955",
+              "100000000000"
+            ],
+            "feePayer": "99999910000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 4378,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f172d000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000045",
+            "balances": [
+              "99999999955",
+              "100000000000"
+            ],
+            "feePayer": "99999910000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f172d000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000045",
+            "balances": [
+              "99999999955",
+              "100000000000"
+            ],
+            "feePayer": "99999910000"
+          }
+        }
+      }
+    },
+    {
+      "label": "deposit-10",
+      "instruction": "deposit",
+      "amount": "10",
+      "measured": true,
+      "wireTransactionSha256": "9b198a43d551ec6ba27aa5754e24f0f6716c15588b04757161e9f6e1305a4c72",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 5925,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1737000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000055",
+            "balances": [
+              "99999999945",
+              "100000000000"
+            ],
+            "feePayer": "99999900000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 4582,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1737000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000055",
+            "balances": [
+              "99999999945",
+              "100000000000"
+            ],
+            "feePayer": "99999900000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 4378,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1737000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000055",
+            "balances": [
+              "99999999945",
+              "100000000000"
+            ],
+            "feePayer": "99999900000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1737000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000055",
+            "balances": [
+              "99999999945",
+              "100000000000"
+            ],
+            "feePayer": "99999900000"
+          }
+        }
+      }
+    },
+    {
+      "label": "deposit-11",
+      "instruction": "deposit",
+      "amount": "11",
+      "measured": true,
+      "wireTransactionSha256": "f17d023f5f60c7a766ece7774d2b007e9f3a8ddca02cc5d69210f5ba82a36dec",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 5925,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1742000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000066",
+            "balances": [
+              "99999999934",
+              "100000000000"
+            ],
+            "feePayer": "99999890000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 4582,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1742000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000066",
+            "balances": [
+              "99999999934",
+              "100000000000"
+            ],
+            "feePayer": "99999890000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 4378,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1742000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000066",
+            "balances": [
+              "99999999934",
+              "100000000000"
+            ],
+            "feePayer": "99999890000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1742000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000066",
+            "balances": [
+              "99999999934",
+              "100000000000"
+            ],
+            "feePayer": "99999890000"
+          }
+        }
+      }
+    },
+    {
+      "label": "deposit-12",
+      "instruction": "deposit",
+      "amount": "12",
+      "measured": true,
+      "wireTransactionSha256": "d94c3725c13b7b15594210a1416aa060d86774ed58b9c851a808ac2c06763032",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 5925,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f174e000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000078",
+            "balances": [
+              "99999999922",
+              "100000000000"
+            ],
+            "feePayer": "99999880000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 4582,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f174e000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000078",
+            "balances": [
+              "99999999922",
+              "100000000000"
+            ],
+            "feePayer": "99999880000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 4378,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f174e000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000078",
+            "balances": [
+              "99999999922",
+              "100000000000"
+            ],
+            "feePayer": "99999880000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f174e000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000078",
+            "balances": [
+              "99999999922",
+              "100000000000"
+            ],
+            "feePayer": "99999880000"
+          }
+        }
+      }
+    },
+    {
+      "label": "deposit-13",
+      "instruction": "deposit",
+      "amount": "13",
+      "measured": true,
+      "wireTransactionSha256": "a59bb65d17a554855bf55e4eafa9589981dc3328bd3a298f728c804a367e2b5a",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 5925,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f175b000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000091",
+            "balances": [
+              "99999999909",
+              "100000000000"
+            ],
+            "feePayer": "99999870000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 4582,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f175b000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000091",
+            "balances": [
+              "99999999909",
+              "100000000000"
+            ],
+            "feePayer": "99999870000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 4378,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f175b000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000091",
+            "balances": [
+              "99999999909",
+              "100000000000"
+            ],
+            "feePayer": "99999870000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f175b000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000091",
+            "balances": [
+              "99999999909",
+              "100000000000"
+            ],
+            "feePayer": "99999870000"
+          }
+        }
+      }
+    },
+    {
+      "label": "deposit-14",
+      "instruction": "deposit",
+      "amount": "14",
+      "measured": true,
+      "wireTransactionSha256": "9741a843a24776ecd7a9c8f2290578c4f6445db88f87bb5f3bd4ea08ab11eee8",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 5925,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1769000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000105",
+            "balances": [
+              "99999999895",
+              "100000000000"
+            ],
+            "feePayer": "99999860000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 4582,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1769000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000105",
+            "balances": [
+              "99999999895",
+              "100000000000"
+            ],
+            "feePayer": "99999860000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 4378,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1769000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000105",
+            "balances": [
+              "99999999895",
+              "100000000000"
+            ],
+            "feePayer": "99999860000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1769000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000105",
+            "balances": [
+              "99999999895",
+              "100000000000"
+            ],
+            "feePayer": "99999860000"
+          }
+        }
+      }
+    },
+    {
+      "label": "deposit-15",
+      "instruction": "deposit",
+      "amount": "15",
+      "measured": true,
+      "wireTransactionSha256": "952ce1609a52313448887006804eaf863201a1a3eaa2f4f0d1604a6d2a1b5a47",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 5925,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1778000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000120",
+            "balances": [
+              "99999999880",
+              "100000000000"
+            ],
+            "feePayer": "99999850000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 4582,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1778000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000120",
+            "balances": [
+              "99999999880",
+              "100000000000"
+            ],
+            "feePayer": "99999850000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 4378,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1778000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000120",
+            "balances": [
+              "99999999880",
+              "100000000000"
+            ],
+            "feePayer": "99999850000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1778000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000120",
+            "balances": [
+              "99999999880",
+              "100000000000"
+            ],
+            "feePayer": "99999850000"
+          }
+        }
+      }
+    },
+    {
+      "label": "deposit-16",
+      "instruction": "deposit",
+      "amount": "16",
+      "measured": true,
+      "wireTransactionSha256": "d25c85db2f961835a488e93d19537a04b07449f19e66ff855b25227a05919395",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 5925,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1788000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000136",
+            "balances": [
+              "99999999864",
+              "100000000000"
+            ],
+            "feePayer": "99999840000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 4582,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1788000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000136",
+            "balances": [
+              "99999999864",
+              "100000000000"
+            ],
+            "feePayer": "99999840000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 4378,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1788000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000136",
+            "balances": [
+              "99999999864",
+              "100000000000"
+            ],
+            "feePayer": "99999840000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1788000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000136",
+            "balances": [
+              "99999999864",
+              "100000000000"
+            ],
+            "feePayer": "99999840000"
+          }
+        }
+      }
+    },
+    {
+      "label": "deposit-17",
+      "instruction": "deposit",
+      "amount": "17",
+      "measured": true,
+      "wireTransactionSha256": "5143a79a0e69fc7a9ce8e7bc3caa384150458e69b119159a8051df6524ccfb24",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 5925,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1799000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000153",
+            "balances": [
+              "99999999847",
+              "100000000000"
+            ],
+            "feePayer": "99999830000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 4582,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1799000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000153",
+            "balances": [
+              "99999999847",
+              "100000000000"
+            ],
+            "feePayer": "99999830000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 4378,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1799000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000153",
+            "balances": [
+              "99999999847",
+              "100000000000"
+            ],
+            "feePayer": "99999830000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f1799000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000153",
+            "balances": [
+              "99999999847",
+              "100000000000"
+            ],
+            "feePayer": "99999830000"
+          }
+        }
+      }
+    },
+    {
+      "label": "deposit-18",
+      "instruction": "deposit",
+      "amount": "18",
+      "measured": true,
+      "wireTransactionSha256": "1ceed78998bbdddf3951ae535f2c2fb0b03c0b0c608e363d850c733e89d8be20",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 5925,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17ab000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000171",
+            "balances": [
+              "99999999829",
+              "100000000000"
+            ],
+            "feePayer": "99999820000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 4582,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17ab000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000171",
+            "balances": [
+              "99999999829",
+              "100000000000"
+            ],
+            "feePayer": "99999820000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 4378,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17ab000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000171",
+            "balances": [
+              "99999999829",
+              "100000000000"
+            ],
+            "feePayer": "99999820000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17ab000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000171",
+            "balances": [
+              "99999999829",
+              "100000000000"
+            ],
+            "feePayer": "99999820000"
+          }
+        }
+      }
+    },
+    {
+      "label": "deposit-19",
+      "instruction": "deposit",
+      "amount": "19",
+      "measured": true,
+      "wireTransactionSha256": "8b100a904b589ca329cc460cbb613c101ecee1a05a956cff6ed7d4e5594023fc",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 5925,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17be000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000190",
+            "balances": [
+              "99999999810",
+              "100000000000"
+            ],
+            "feePayer": "99999810000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 4582,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17be000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000190",
+            "balances": [
+              "99999999810",
+              "100000000000"
+            ],
+            "feePayer": "99999810000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 4378,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17be000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000190",
+            "balances": [
+              "99999999810",
+              "100000000000"
+            ],
+            "feePayer": "99999810000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17be000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000190",
+            "balances": [
+              "99999999810",
+              "100000000000"
+            ],
+            "feePayer": "99999810000"
+          }
+        }
+      }
+    },
+    {
+      "label": "deposit-20",
+      "instruction": "deposit",
+      "amount": "20",
+      "measured": true,
+      "wireTransactionSha256": "ee86191f66efef6bff227e827bf611d4ce07daba09e38b692075f9ef98552dae",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 5925,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000210",
+            "balances": [
+              "99999999790",
+              "100000000000"
+            ],
+            "feePayer": "99999800000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 4582,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000210",
+            "balances": [
+              "99999999790",
+              "100000000000"
+            ],
+            "feePayer": "99999800000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 4378,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000210",
+            "balances": [
+              "99999999790",
+              "100000000000"
+            ],
+            "feePayer": "99999800000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000000000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000210",
+            "balances": [
+              "99999999790",
+              "100000000000"
+            ],
+            "feePayer": "99999800000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-1",
+      "instruction": "withdraw",
+      "amount": "1",
+      "measured": true,
+      "wireTransactionSha256": "ae8ebe5e35e79b5a1801df33492cf6428f44bebcefea02bc64c52704f114a1fe",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000100000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000209",
+            "balances": [
+              "99999999790",
+              "100000000001"
+            ],
+            "feePayer": "99999790000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000100000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000209",
+            "balances": [
+              "99999999790",
+              "100000000001"
+            ],
+            "feePayer": "99999790000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000100000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000209",
+            "balances": [
+              "99999999790",
+              "100000000001"
+            ],
+            "feePayer": "99999790000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000100000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000209",
+            "balances": [
+              "99999999790",
+              "100000000001"
+            ],
+            "feePayer": "99999790000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-2",
+      "instruction": "withdraw",
+      "amount": "2",
+      "measured": true,
+      "wireTransactionSha256": "a76a99d09abab1b2a05607877b959b017f9f3cbb00ec95f6fe19e545c83cc515",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000300000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000207",
+            "balances": [
+              "99999999790",
+              "100000000003"
+            ],
+            "feePayer": "99999780000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000300000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000207",
+            "balances": [
+              "99999999790",
+              "100000000003"
+            ],
+            "feePayer": "99999780000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000300000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000207",
+            "balances": [
+              "99999999790",
+              "100000000003"
+            ],
+            "feePayer": "99999780000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000300000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000207",
+            "balances": [
+              "99999999790",
+              "100000000003"
+            ],
+            "feePayer": "99999780000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-3",
+      "instruction": "withdraw",
+      "amount": "3",
+      "measured": true,
+      "wireTransactionSha256": "d8a8d870b728dd16ef6d5f4b0222d80a1a9250696d6901eef80cd439c0264505",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000600000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000204",
+            "balances": [
+              "99999999790",
+              "100000000006"
+            ],
+            "feePayer": "99999770000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000600000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000204",
+            "balances": [
+              "99999999790",
+              "100000000006"
+            ],
+            "feePayer": "99999770000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000600000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000204",
+            "balances": [
+              "99999999790",
+              "100000000006"
+            ],
+            "feePayer": "99999770000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000600000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000204",
+            "balances": [
+              "99999999790",
+              "100000000006"
+            ],
+            "feePayer": "99999770000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-4",
+      "instruction": "withdraw",
+      "amount": "4",
+      "measured": true,
+      "wireTransactionSha256": "65906f603830deff45e081761d93bc8a31458b7cb0d1fa3eb2e137f78bc5c721",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000a00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000200",
+            "balances": [
+              "99999999790",
+              "100000000010"
+            ],
+            "feePayer": "99999760000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000a00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000200",
+            "balances": [
+              "99999999790",
+              "100000000010"
+            ],
+            "feePayer": "99999760000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000a00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000200",
+            "balances": [
+              "99999999790",
+              "100000000010"
+            ],
+            "feePayer": "99999760000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000a00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000200",
+            "balances": [
+              "99999999790",
+              "100000000010"
+            ],
+            "feePayer": "99999760000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-5",
+      "instruction": "withdraw",
+      "amount": "5",
+      "measured": true,
+      "wireTransactionSha256": "f44dc458ddabeef333734d4a616416ad1379dcfccf8b21bafdbcea1fd3fc132a",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000f00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000195",
+            "balances": [
+              "99999999790",
+              "100000000015"
+            ],
+            "feePayer": "99999750000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000f00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000195",
+            "balances": [
+              "99999999790",
+              "100000000015"
+            ],
+            "feePayer": "99999750000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000f00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000195",
+            "balances": [
+              "99999999790",
+              "100000000015"
+            ],
+            "feePayer": "99999750000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000000f00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000195",
+            "balances": [
+              "99999999790",
+              "100000000015"
+            ],
+            "feePayer": "99999750000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-6",
+      "instruction": "withdraw",
+      "amount": "6",
+      "measured": true,
+      "wireTransactionSha256": "292778fc7b88257520922305ba2d390b5b2ac976a4cdf434a48d9b02b44feb0b",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000001500000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000189",
+            "balances": [
+              "99999999790",
+              "100000000021"
+            ],
+            "feePayer": "99999740000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000001500000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000189",
+            "balances": [
+              "99999999790",
+              "100000000021"
+            ],
+            "feePayer": "99999740000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000001500000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000189",
+            "balances": [
+              "99999999790",
+              "100000000021"
+            ],
+            "feePayer": "99999740000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000001500000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000189",
+            "balances": [
+              "99999999790",
+              "100000000021"
+            ],
+            "feePayer": "99999740000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-7",
+      "instruction": "withdraw",
+      "amount": "7",
+      "measured": true,
+      "wireTransactionSha256": "9bbe4ff3a5f929a30ea6c628afdbd4400bb64f8772fd4b5727d011dfb8c3ec87",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000001c00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000182",
+            "balances": [
+              "99999999790",
+              "100000000028"
+            ],
+            "feePayer": "99999730000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000001c00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000182",
+            "balances": [
+              "99999999790",
+              "100000000028"
+            ],
+            "feePayer": "99999730000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000001c00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000182",
+            "balances": [
+              "99999999790",
+              "100000000028"
+            ],
+            "feePayer": "99999730000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000001c00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000182",
+            "balances": [
+              "99999999790",
+              "100000000028"
+            ],
+            "feePayer": "99999730000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-8",
+      "instruction": "withdraw",
+      "amount": "8",
+      "measured": true,
+      "wireTransactionSha256": "55e2ac1cee8f9112deb1387ee003f8ed65b96d87156a08ebc4bdf1a20d6a0a8b",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000002400000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000174",
+            "balances": [
+              "99999999790",
+              "100000000036"
+            ],
+            "feePayer": "99999720000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000002400000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000174",
+            "balances": [
+              "99999999790",
+              "100000000036"
+            ],
+            "feePayer": "99999720000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000002400000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000174",
+            "balances": [
+              "99999999790",
+              "100000000036"
+            ],
+            "feePayer": "99999720000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000002400000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000174",
+            "balances": [
+              "99999999790",
+              "100000000036"
+            ],
+            "feePayer": "99999720000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-9",
+      "instruction": "withdraw",
+      "amount": "9",
+      "measured": true,
+      "wireTransactionSha256": "650da5f04438734dc5f8a78764b4cc2305b99ce5f8a9aeb7f9ae02cf0bd857da",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000002d00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000165",
+            "balances": [
+              "99999999790",
+              "100000000045"
+            ],
+            "feePayer": "99999710000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000002d00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000165",
+            "balances": [
+              "99999999790",
+              "100000000045"
+            ],
+            "feePayer": "99999710000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000002d00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000165",
+            "balances": [
+              "99999999790",
+              "100000000045"
+            ],
+            "feePayer": "99999710000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000002d00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000165",
+            "balances": [
+              "99999999790",
+              "100000000045"
+            ],
+            "feePayer": "99999710000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-10",
+      "instruction": "withdraw",
+      "amount": "10",
+      "measured": true,
+      "wireTransactionSha256": "8c82e57ced65710dc7db1d9fff5303ec2a025fe64278fc87da7fcfdb325eadc3",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000003700000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000155",
+            "balances": [
+              "99999999790",
+              "100000000055"
+            ],
+            "feePayer": "99999700000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000003700000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000155",
+            "balances": [
+              "99999999790",
+              "100000000055"
+            ],
+            "feePayer": "99999700000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000003700000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000155",
+            "balances": [
+              "99999999790",
+              "100000000055"
+            ],
+            "feePayer": "99999700000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000003700000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000155",
+            "balances": [
+              "99999999790",
+              "100000000055"
+            ],
+            "feePayer": "99999700000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-11",
+      "instruction": "withdraw",
+      "amount": "11",
+      "measured": true,
+      "wireTransactionSha256": "642aa94b7875e3837e86139f933ca11d72ff1052a8b6061d6c148a71784ce2bd",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000004200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000144",
+            "balances": [
+              "99999999790",
+              "100000000066"
+            ],
+            "feePayer": "99999690000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000004200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000144",
+            "balances": [
+              "99999999790",
+              "100000000066"
+            ],
+            "feePayer": "99999690000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000004200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000144",
+            "balances": [
+              "99999999790",
+              "100000000066"
+            ],
+            "feePayer": "99999690000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000004200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000144",
+            "balances": [
+              "99999999790",
+              "100000000066"
+            ],
+            "feePayer": "99999690000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-12",
+      "instruction": "withdraw",
+      "amount": "12",
+      "measured": true,
+      "wireTransactionSha256": "a48acdfa8c841d21311328ebc2f83b3225d5589ced31bfb9af00541e1a54c87d",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000004e00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000132",
+            "balances": [
+              "99999999790",
+              "100000000078"
+            ],
+            "feePayer": "99999680000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000004e00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000132",
+            "balances": [
+              "99999999790",
+              "100000000078"
+            ],
+            "feePayer": "99999680000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000004e00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000132",
+            "balances": [
+              "99999999790",
+              "100000000078"
+            ],
+            "feePayer": "99999680000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000004e00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000132",
+            "balances": [
+              "99999999790",
+              "100000000078"
+            ],
+            "feePayer": "99999680000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-13",
+      "instruction": "withdraw",
+      "amount": "13",
+      "measured": true,
+      "wireTransactionSha256": "4088a2ea8bda8e1f1a46b9cfaf680d15f5f8188675ccc332fa1af374e4c9c54a",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000005b00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000119",
+            "balances": [
+              "99999999790",
+              "100000000091"
+            ],
+            "feePayer": "99999670000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000005b00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000119",
+            "balances": [
+              "99999999790",
+              "100000000091"
+            ],
+            "feePayer": "99999670000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000005b00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000119",
+            "balances": [
+              "99999999790",
+              "100000000091"
+            ],
+            "feePayer": "99999670000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000005b00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000119",
+            "balances": [
+              "99999999790",
+              "100000000091"
+            ],
+            "feePayer": "99999670000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-14",
+      "instruction": "withdraw",
+      "amount": "14",
+      "measured": true,
+      "wireTransactionSha256": "48509691aca0e52d11848fa39fd4c80147ee5a2ba205ed63fad9249dafaad44d",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000006900000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000105",
+            "balances": [
+              "99999999790",
+              "100000000105"
+            ],
+            "feePayer": "99999660000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000006900000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000105",
+            "balances": [
+              "99999999790",
+              "100000000105"
+            ],
+            "feePayer": "99999660000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000006900000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000105",
+            "balances": [
+              "99999999790",
+              "100000000105"
+            ],
+            "feePayer": "99999660000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000006900000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000105",
+            "balances": [
+              "99999999790",
+              "100000000105"
+            ],
+            "feePayer": "99999660000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-15",
+      "instruction": "withdraw",
+      "amount": "15",
+      "measured": true,
+      "wireTransactionSha256": "9eabc46acdc77f429f4416aa8152f31a5f242ca9f97896bcfdd0433dbc3cd1b1",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000007800000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000090",
+            "balances": [
+              "99999999790",
+              "100000000120"
+            ],
+            "feePayer": "99999650000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000007800000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000090",
+            "balances": [
+              "99999999790",
+              "100000000120"
+            ],
+            "feePayer": "99999650000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000007800000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000090",
+            "balances": [
+              "99999999790",
+              "100000000120"
+            ],
+            "feePayer": "99999650000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000007800000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000090",
+            "balances": [
+              "99999999790",
+              "100000000120"
+            ],
+            "feePayer": "99999650000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-16",
+      "instruction": "withdraw",
+      "amount": "16",
+      "measured": true,
+      "wireTransactionSha256": "229f71061cc498965ad9c21b366d1615fafaecf64ee1303a50e62ade198c8bac",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000008800000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000074",
+            "balances": [
+              "99999999790",
+              "100000000136"
+            ],
+            "feePayer": "99999640000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000008800000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000074",
+            "balances": [
+              "99999999790",
+              "100000000136"
+            ],
+            "feePayer": "99999640000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000008800000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000074",
+            "balances": [
+              "99999999790",
+              "100000000136"
+            ],
+            "feePayer": "99999640000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000008800000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000074",
+            "balances": [
+              "99999999790",
+              "100000000136"
+            ],
+            "feePayer": "99999640000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-17",
+      "instruction": "withdraw",
+      "amount": "17",
+      "measured": true,
+      "wireTransactionSha256": "d2827201620fb5da621358ad264efca138e8d43b87a42700417d591026ac39ad",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000009900000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000057",
+            "balances": [
+              "99999999790",
+              "100000000153"
+            ],
+            "feePayer": "99999630000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000009900000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000057",
+            "balances": [
+              "99999999790",
+              "100000000153"
+            ],
+            "feePayer": "99999630000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000009900000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000057",
+            "balances": [
+              "99999999790",
+              "100000000153"
+            ],
+            "feePayer": "99999630000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000009900000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000057",
+            "balances": [
+              "99999999790",
+              "100000000153"
+            ],
+            "feePayer": "99999630000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-18",
+      "instruction": "withdraw",
+      "amount": "18",
+      "measured": true,
+      "wireTransactionSha256": "a183e3a4f6cebc1bc90c6cb2fcb8ef9054a4a357d10b666269e3ca5c80328945",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000ab00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000039",
+            "balances": [
+              "99999999790",
+              "100000000171"
+            ],
+            "feePayer": "99999620000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000ab00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000039",
+            "balances": [
+              "99999999790",
+              "100000000171"
+            ],
+            "feePayer": "99999620000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000ab00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000039",
+            "balances": [
+              "99999999790",
+              "100000000171"
+            ],
+            "feePayer": "99999620000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000ab00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000039",
+            "balances": [
+              "99999999790",
+              "100000000171"
+            ],
+            "feePayer": "99999620000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-19",
+      "instruction": "withdraw",
+      "amount": "19",
+      "measured": true,
+      "wireTransactionSha256": "30a99d7c2f8b00773d42bb7772f093b3eead1d0052bb68c0a4c82d1e95b36076",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000be00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000020",
+            "balances": [
+              "99999999790",
+              "100000000190"
+            ],
+            "feePayer": "99999610000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000be00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000020",
+            "balances": [
+              "99999999790",
+              "100000000190"
+            ],
+            "feePayer": "99999610000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000be00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000020",
+            "balances": [
+              "99999999790",
+              "100000000190"
+            ],
+            "feePayer": "99999610000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000be00000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000020",
+            "balances": [
+              "99999999790",
+              "100000000190"
+            ],
+            "feePayer": "99999610000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-20",
+      "instruction": "withdraw",
+      "amount": "20",
+      "measured": true,
+      "wireTransactionSha256": "9052298f5def6d472afe23d3593c177771853d913208dcffbfccab2fb1ecca12",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999600000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999600000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999600000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999600000"
+          }
+        }
+      }
+    },
+    {
+      "label": "deposit-accounting-overflow",
+      "instruction": "deposit",
+      "amount": "1",
+      "measured": false,
+      "wireTransactionSha256": "e8fe79f3eab3cd2dcc8abb977893ef8de01afbe6afdc18e0322614f1c9e9085f",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 5921,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 5100 } }",
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17ffffffffffffffffd200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999590000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 4579,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 5100 } }",
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17ffffffffffffffffd200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999590000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 4372,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 5100 } }",
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17ffffffffffffffffd200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999590000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 2803,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 5100 } }",
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17ffffffffffffffffd200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999590000"
+          }
+        }
+      }
+    },
+    {
+      "label": "withdraw-accounting-overflow",
+      "instruction": "withdraw",
+      "amount": "1",
+      "measured": false,
+      "wireTransactionSha256": "e9f1326df04fcf8ea8093ed36bc24551f6db9a0241bd35a7360b27432386a928",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 4559,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 5100 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000fffffffffffffffffe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999580000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 3466,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 5100 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000fffffffffffffffffe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999580000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 3752,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 5100 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000fffffffffffffffffe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999580000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 1822,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 5100 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000fffffffffffffffffe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999580000"
+          }
+        }
+      }
+    },
+    {
+      "label": "insufficient-funds",
+      "instruction": "withdraw",
+      "amount": "18446744073709551615",
+      "measured": false,
+      "wireTransactionSha256": "58ff1ab8762a478ddce9793a43dddf90f860e88abe69ae05be3e161e107a2314",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 4505,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3014 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999570000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 3440,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3014 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999570000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 3732,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3014 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999570000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 1810,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6003 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999570000"
+          }
+        }
+      }
+    },
+    {
+      "label": "cross-rent-floor",
+      "instruction": "withdraw",
+      "amount": "9060201",
+      "measured": false,
+      "wireTransactionSha256": "6f218a3c03dfccc15cfed5991453017b28aafcdb9d8887a9a59773a1fab6a855",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 4509,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3014 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999560000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 3443,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3014 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999560000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 3735,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3014 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999560000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 1810,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6003 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999560000"
+          }
+        }
+      }
+    },
+    {
+      "label": "zero-withdraw",
+      "instruction": "withdraw",
+      "amount": "0",
+      "measured": false,
+      "wireTransactionSha256": "6743b05a0671c3f9c7efe7df9de8423bc45e532ce6516ad16a01ba1a3eeb081b",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1185,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6100 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999550000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 171,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6100 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999550000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 128,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6100 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999550000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 228,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6002 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999550000"
+          }
+        }
+      }
+    },
+    {
+      "label": "zero-deposit",
+      "instruction": "deposit",
+      "amount": "0",
+      "measured": false,
+      "wireTransactionSha256": "760bf849666ffa3017a60d54659a6294dcd3f12cff354dc87f3fe5d271e2b258",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1179,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6100 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999540000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 166,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6100 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999540000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 123,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6100 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999540000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 240,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6002 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999540000"
+          }
+        }
+      }
+    },
+    {
+      "label": "unsigned-authority",
+      "instruction": "withdraw",
+      "amount": "1",
+      "measured": false,
+      "wireTransactionSha256": "05d77f31a7e3129e92a9fa905fb65465a8f26e64375f060e710480d78f129317",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1110,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3010 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999535000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 86,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3010 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999535000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 78,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3010 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999535000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 182,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3010 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999535000"
+          }
+        }
+      }
+    },
+    {
+      "label": "readonly-depositor",
+      "instruction": "deposit",
+      "amount": "1",
+      "measured": false,
+      "wireTransactionSha256": "cbcae05a9743815cfd475e01990e1b5f88b8433667e92b7cd8879d93b967aff7",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 4261,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999525000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 3252,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999525000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 3177,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999525000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 182,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999525000"
+          }
+        }
+      }
+    },
+    {
+      "label": "readonly-recipient",
+      "instruction": "withdraw",
+      "amount": "1",
+      "measured": false,
+      "wireTransactionSha256": "331255115814f4ca22669594e0cce5be27f49849ce3ca300f338d18a526762f2",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1106,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999515000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 83,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999515000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 75,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999515000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 208,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999515000"
+          }
+        }
+      }
+    },
+    {
+      "label": "readonly-vault",
+      "instruction": "withdraw",
+      "amount": "1",
+      "measured": false,
+      "wireTransactionSha256": "b2a484b639f65f3558133238a831656be2b35154ac2f060d149678c7864d0e4e",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1113,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999505000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 88,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999505000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 80,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999505000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 184,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999505000"
+          }
+        }
+      }
+    },
+    {
+      "label": "wrong-owner",
+      "instruction": "withdraw",
+      "amount": "1",
+      "measured": false,
+      "wireTransactionSha256": "1260c988138987ae05142d0e53703836b756ef6a210d47e1cf4863c771490807",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1119,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3007 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "11111111111111111111111111111111",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999495000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 95,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3007 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "11111111111111111111111111111111",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999495000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 84,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3007 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "11111111111111111111111111111111",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999495000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 192,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3007 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "11111111111111111111111111111111",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999495000"
+          }
+        }
+      }
+    },
+    {
+      "label": "wrong-discriminator",
+      "instruction": "withdraw",
+      "amount": "1",
+      "measured": false,
+      "wireTransactionSha256": "6661218f6b0e138c8b10055b9c5c3480d546a93f8737ade0c9d032857757bd53",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1146,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3002 } }",
+          "cpi": false,
+          "after": {
+            "data": "00000000000000008a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999485000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 147,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3002 } }",
+          "cpi": false,
+          "after": {
+            "data": "00000000000000008a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999485000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 101,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3002 } }",
+          "cpi": false,
+          "after": {
+            "data": "00000000000000008a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999485000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 206,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3002 } }",
+          "cpi": false,
+          "after": {
+            "data": "00000000000000008a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999485000"
+          }
+        }
+      }
+    },
+    {
+      "label": "short-state",
+      "instruction": "withdraw",
+      "amount": "1",
+      "measured": false,
+      "wireTransactionSha256": "39555baa96483317a1b2b4a7fa14c917f2653b9421773b9d4be2fa6ceba306e8",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1140,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3003 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999475000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 143,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3003 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999475000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 97,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3003 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999475000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 203,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3003 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999475000"
+          }
+        }
+      }
+    },
+    {
+      "label": "wrong-authority",
+      "instruction": "withdraw",
+      "amount": "1",
+      "measured": false,
+      "wireTransactionSha256": "a1aa76620110db423fb424a25e757ed5bad570d638f8430364da15e4df953df9",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1168,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6000 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999465000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 156,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6000 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999465000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 105,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6000 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999465000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 215,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6000 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999465000"
+          }
+        }
+      }
+    },
+    {
+      "label": "bad-bump",
+      "instruction": "withdraw",
+      "amount": "1",
+      "measured": false,
+      "wireTransactionSha256": "e1696d2bd23847f7dc9d4668799110f48da84f496417039e42ccab031046eb05",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 4249,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2006 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000ff",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999455000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 3240,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2006 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000ff",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999455000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 3167,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2006 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000ff",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999455000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 1618,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6001 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000ff",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999455000"
+          }
+        }
+      }
+    },
+    {
+      "label": "missing-recipient",
+      "instruction": "withdraw",
+      "amount": "1",
+      "measured": false,
+      "wireTransactionSha256": "7aa22e90a30814af1c5fe5d97f528d1e1ba88eb1ee56fdadac3dded0fe4657e6",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 789,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3005 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999445000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 59,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3005 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999445000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 58,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3005 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999445000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 166,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3005 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999445000"
+          }
+        }
+      }
+    },
+    {
+      "label": "missing-system",
+      "instruction": "deposit",
+      "amount": "1",
+      "measured": false,
+      "wireTransactionSha256": "d46a84562d165846d63220b22f43f806e85ec62919149de88ec881e7551e8756",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 3928,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3005 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999435000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 3213,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3005 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999435000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 3143,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3005 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999435000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 164,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3005 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999435000"
+          }
+        }
+      }
+    },
+    {
+      "label": "wrong-system",
+      "instruction": "deposit",
+      "amount": "1",
+      "measured": false,
+      "wireTransactionSha256": "7af3d81a725b6983387cc91f7d4d8b0a5d9b185237f03388b40667e88845e806",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 4248,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3008 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999425000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 3239,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3008 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999425000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 3170,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3008 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999425000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 212,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3008 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999425000"
+          }
+        }
+      }
+    },
+    {
+      "label": "truncated-argument",
+      "instruction": "withdraw",
+      "amount": "1",
+      "measured": false,
+      "wireTransactionSha256": "31a082cead2d1e9d614bc4d58447b03de9eabe449f97a2f1b419f707417d2b77",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1093,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 102 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999415000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 71,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 102 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999415000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 65,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 102 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999415000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 212,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 102 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999415000"
+          }
+        }
+      }
+    },
+    {
+      "label": "unknown-instruction",
+      "instruction": "withdraw",
+      "amount": "1",
+      "measured": false,
+      "wireTransactionSha256": "acbf7f2dcddccde7a2db5b1d88c35588f9a7f2364469827756b2c9831c3c1f63",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 1100,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 102 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999405000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 77,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 102 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999405000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 67,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 102 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999405000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 171,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 101 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999405000"
+          }
+        }
+      }
+    },
+    {
+      "label": "self-recipient",
+      "instruction": "withdraw",
+      "amount": "1",
+      "measured": false,
+      "wireTransactionSha256": "80711f804c3a5183185ee7b6c74ad1eecd80039df01b40cd9f5d8e0ba9a741f8",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 984,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2040 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999395000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 187,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2040 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999395000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 137,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2040 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999395000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 210,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2040 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999790",
+              "100000000210"
+            ],
+            "feePayer": "99999395000"
+          }
+        }
+      }
+    },
+    {
+      "label": "authority-recipient-alias",
+      "instruction": "withdraw",
+      "amount": "1",
+      "measured": false,
+      "wireTransactionSha256": "3833a59041f55b5980c6572c3b4fe4e2e37efc2d5d2e2e664797131a14a28191",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4352,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d300000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "9999999",
+            "balances": [
+              "99999999791",
+              "100000000210"
+            ],
+            "feePayer": "99999385000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3464,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d300000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "9999999",
+            "balances": [
+              "99999999791",
+              "100000000210"
+            ],
+            "feePayer": "99999385000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3764,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d300000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "9999999",
+            "balances": [
+              "99999999791",
+              "100000000210"
+            ],
+            "feePayer": "99999385000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d300000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "9999999",
+            "balances": [
+              "99999999791",
+              "100000000210"
+            ],
+            "feePayer": "99999385000"
+          }
+        }
+      }
+    },
+    {
+      "label": "exact-rent-floor",
+      "instruction": "withdraw",
+      "amount": "9060200",
+      "measured": false,
+      "wireTransactionSha256": "947f634a2729e11b2dfe7dbda0d35bc20436ee4b880e5e7bfcf96ad3ad3d4825",
+      "outcomes": {
+        "nativeRust": {
+          "success": true,
+          "cu": 4574,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000003a408a0000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "939800",
+            "balances": [
+              "99999999791",
+              "100009060410"
+            ],
+            "feePayer": "99999375000"
+          }
+        },
+        "pinocchio": {
+          "success": true,
+          "cu": 3468,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000003a408a0000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "939800",
+            "balances": [
+              "99999999791",
+              "100009060410"
+            ],
+            "feePayer": "99999375000"
+          }
+        },
+        "koral": {
+          "success": true,
+          "cu": 3761,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000003a408a0000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "939800",
+            "balances": [
+              "99999999791",
+              "100009060410"
+            ],
+            "feePayer": "99999375000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 1719,
+          "error": null,
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d2000000000000003a408a0000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "939800",
+            "balances": [
+              "99999999791",
+              "100009060410"
+            ],
+            "feePayer": "99999375000"
+          }
+        }
+      }
+    },
+    {
+      "label": "wrong-canonical-key",
+      "instruction": "withdraw",
+      "amount": "1",
+      "measured": false,
+      "wireTransactionSha256": "6592b03c4bb46c8ed5def7c1f1388d9293aba059bedffde5237df962afaab348",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 4243,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2006 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999791",
+              "100009060410"
+            ],
+            "feePayer": "99999365000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 3232,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2006 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999791",
+              "100009060410"
+            ],
+            "feePayer": "99999365000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 3155,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2006 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999791",
+              "100009060410"
+            ],
+            "feePayer": "99999365000"
+          }
+        },
+        "typesolInternal": {
+          "success": false,
+          "cu": 922,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6001 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999791",
+              "100009060410"
+            ],
+            "feePayer": "99999365000"
+          }
+        }
+      }
+    },
+    {
+      "label": "nonexecutable-system",
+      "instruction": "deposit",
+      "amount": "1",
+      "measured": false,
+      "wireTransactionSha256": "10757e0d337f0ccd8a2c6c980e36885c668fd8b69816941f399edf6bf4d06dad",
+      "outcomes": {
+        "nativeRust": {
+          "success": false,
+          "cu": 4257,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3008 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999791",
+              "100009060410"
+            ],
+            "feePayer": "99999355000"
+          }
+        },
+        "pinocchio": {
+          "success": false,
+          "cu": 3248,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3008 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999791",
+              "100009060410"
+            ],
+            "feePayer": "99999355000"
+          }
+        },
+        "koral": {
+          "success": false,
+          "cu": 3172,
+          "error": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3008 } }",
+          "cpi": false,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999791",
+              "100009060410"
+            ],
+            "feePayer": "99999355000"
+          }
+        },
+        "typesolInternal": {
+          "success": true,
+          "cu": 2700,
+          "error": null,
+          "cpi": true,
+          "after": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d300000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000001",
+            "balances": [
+              "99999999790",
+              "100009060410"
+            ],
+            "feePayer": "99999355000"
+          }
+        }
+      }
+    }
+  ]
+}

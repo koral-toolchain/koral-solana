@@ -27,7 +27,8 @@ by merging this document or a product pull request.
   minimum supported host. Distinguish hosted Linux pairs from local macOS evidence;
   do not imply an untested platform matrix.
 - [ ] Confirm native Counter, typed state and System payment regressions, including
-  permissions, checked arithmetic and CPI rollback. For a candidate containing
+  permissions, checked arithmetic and CPI rollback. Candidates with vault operations must also verify canonical
+  identity, actual rent retention and direct-balance/CPI rollback. For a candidate containing
   external account constraints, include owner/address/data-size/executable rejection, aliases
   and later body-failure rollback tests.
 - [ ] Review benchmark evidence and any performance change using equivalent

@@ -194,15 +194,25 @@ class KoralRegistrar : CompilerPluginRegistrar() {
                             val args=s.arguments.filterNotNull()
                             val intrinsic=target.fqNameWhenAvailable?.asString()
                             val isTrusted=target.fileOrNull?.fileEntry?.name?.let { File(it).canonicalFile }==api
-                            if(!isTrusted || args.size!=2) reject("Only ensure and transferLamports may be used as call statements")
+                            if(!isTrusted) reject("Only trusted ensure and lamport operations may be used as call statements")
+                            if(intrinsic=="dev.koral.api.depositLamports") {
+                                if(layout==null) reject("Vault operations require an owned @Account state")
+                                if(args.size!=1) reject("depositLamports requires one amount")
+                                return@at Statement.DepositLamports(expression(args[0]))
+                            }
+                            if(args.size!=2) reject("Expected two intrinsic arguments")
                             when(intrinsic) {
+                                "dev.koral.api.withdrawLamports" -> {
+                                    if(layout==null) reject("Vault operations require an owned @Account state")
+                                    Statement.WithdrawLamports(expression(args[0]),expression(args[1]))
+                                }
                                 "dev.koral.api.transferLamports" -> Statement.TransferLamports(expression(args[0]),expression(args[1]))
                                 "dev.koral.api.ensure" -> {
                                     val code=number(args[1]) ?: reject("ensure requires a constant error code")
                                     if(code==0uL || code>UInt.MAX_VALUE.toULong()) reject("Error code must be in 1..4294967295")
                                     Statement.Require(expression(args[0]),code.toUInt())
                                 }
-                                else -> reject("Only ensure and transferLamports may be used as call statements")
+                                else -> reject("Only trusted ensure and lamport operations may be used as call statements")
                             }
                         }
                         is IrLoop -> reject("Unsupported statement: loops are not supported; use explicit conditions instead")

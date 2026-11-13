@@ -91,6 +91,33 @@ Supported: ULong/Boolean values, initialized `val`/`var`, local assignment, `if`
 
 All paths must return the state type or legacy ULong. Unsupported IR shapes fail compilation. Frontend errors identify the source file and one-based line/column. Expected Koral source rejections stop without a compiler-internal exception trace. Positions refer to the rejected expression or declaration (including its annotation, where present); model validation currently falls back to file start and toolchain errors may have less precise locations. Kotlin syntax and type errors retain Kotlin's own diagnostics. Unsupported literal types use readable Kotlin names. Loops, arrays, strings as runtime values, nullable values, JVM APIs, general calls, arbitrary CPI, and SPL Token operations are unsupported.
 
+## Owned-state SOL vault operations
+
+Unreleased source builds support `depositLamports(amount)` and
+`withdrawLamports(recipient, amount)` as statements in a declared `@Account`
+program. Legacy no-class Counter programs cannot use these operations.
+
+Deposit transfers from the implicit signing authority into the owned state PDA
+through System Program CPI. Withdrawal directly debits the program-owned state
+and credits a writable external reference. It requires no System Program account
+and adds no PDA signature or general signed-CPI support. Solana's owner rules
+permit a program to debit its own accounts; a program-owned data account is not
+a valid source for a System transfer.
+
+Each operation verifies the canonical state PDA and stored bump using the declared
+seed and authority. Existing owner/discriminator/authority/signer/writable checks
+still apply. Withdrawal rejects its own state as recipient (2040), protects against
+recipient overflow (5100), and rejects insufficient funds or rent-floor violation
+(3014). The floor comes from the actual rent sysvar and actual state account data
+length. No close or arbitrary external-account debit API is exposed.
+A writable authority may also be the recipient. Later failures roll back deposits,
+direct balance changes and state writes together.
+
+The full [vault guide](VAULT.md) explains the example's extra positive-amount
+condition, accounting totals, test runner and benchmark scope. These intrinsics
+can run conditionally; the ABI conservatively describes any possible deposit.
+`vaultDeposit`/`vaultWithdrawal` are optional true flags in the preview ABI.
+
 ## Serialization and account ordering
 
 Owned state is serialized explicitly: eight-byte discriminator, 32-byte authority key, N little-endian ULong fields in constructor order, and one PDA bump. Size is `41 + 8*N` bytes. This metadata is supplied by the runtime and is not part of the source class's field list. The account must be program-owned, large enough, writable, and match the discriminator and stored authority.
@@ -118,9 +145,9 @@ Tests verify actual source/destination balances, current reads after CPI, duplic
 
 Successful builds emit `counter.abi.json`: state fields/offsets/size/PDA seed, instruction discriminators, data offsets, account order/permissions, optional fixed owner/address/data-size/executable constraints, and System transfer requirements. The payment tests use its discriminators to encode transactions. This is `koral-preview-abi/1`, not an Anchor IDL or stable public schema. No deployed program address or network operation is implied.
 
-The preview model writer uses KOR6 to preserve metadata constraints; its reader
-also accepts KOR4 (no constraints) and KOR5 (owner/address) models. Old readers
-cannot consume KOR6. This internal format is not a stable public interchange
+The preview model writer uses KOR7 to preserve metadata constraints; its reader
+also accepts KOR4 (no constraints), KOR5 (owner/address) and KOR6 (metadata) models. Old readers
+cannot consume KOR7. New vault statement tags are rejected in older model formats. This internal format is not a stable public interchange
 contract. The ABI keeps koral-preview-abi/1: optional owner, dataBytes and
 executable fields accompany the existing address field on external accounts.
 Absent metadata fields mean no declaration-level condition; zero and false are

@@ -1,0 +1,652 @@
+{
+  "scope": "Four explicitly selected PDA-bump strata, not a random population or universal ranking",
+  "roundsPerOperation": 20,
+  "sourceHash": "92872145ed6d257ad7faabfe9c7f46a9eafbee41b4974bf24f236ef2791dad9d",
+  "compilerJarSha256": "045fb86ae1d70aa13b4af4c88761387e1c816edc1122c232918b71ae1dafbd51",
+  "cases": [
+    {
+      "authoritySeed": 1,
+      "canonicalBump": 250,
+      "searchAttempts": 6,
+      "checks": 65,
+      "auxiliaryMismatches": [
+        {
+          "label": "nonexecutable-system",
+          "measured": false,
+          "outcome": {
+            "success": true,
+            "cu": 5284,
+            "error": null,
+            "cpi": true,
+            "after": {
+              "data": "e4c452a562d2eb988a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd300000000000000d200000000000000fa",
+              "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+              "vaultLamports": "10000001",
+              "balances": [
+                "99999999790",
+                "100009060410"
+              ],
+              "feePayer": "99999355000"
+            }
+          },
+          "expected": {
+            "data": "e4c452a562d2eb988a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5cd200000000000000d200000000000000fa",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999791",
+              "100009060410"
+            ],
+            "feePayer": "99999355000"
+          }
+        }
+      ],
+      "auxiliaryErrorDifferences": [
+        {
+          "label": "insufficient-funds",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6003 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3014 } }"
+        },
+        {
+          "label": "cross-rent-floor",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6003 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3014 } }"
+        },
+        {
+          "label": "zero-withdraw",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6002 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6100 } }"
+        },
+        {
+          "label": "zero-deposit",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6002 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6100 } }"
+        },
+        {
+          "label": "readonly-depositor",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }"
+        },
+        {
+          "label": "readonly-recipient",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }"
+        },
+        {
+          "label": "readonly-vault",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }"
+        },
+        {
+          "label": "bad-bump",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6001 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2006 } }"
+        },
+        {
+          "label": "unknown-instruction",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 101 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 102 } }"
+        },
+        {
+          "label": "wrong-canonical-key",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6001 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2006 } }"
+        },
+        {
+          "label": "nonexecutable-system",
+          "actual": null,
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3008 } }"
+        }
+      ],
+      "implementations": {
+        "nativeRust": {
+          "deposit": {
+            "samples": 20,
+            "meanCu": 11925,
+            "minCu": 11925,
+            "maxCu": 11925
+          },
+          "withdraw": {
+            "samples": 20,
+            "meanCu": 10574,
+            "minCu": 10574,
+            "maxCu": 10574
+          },
+          "binarySha256": "19aed2c27cb81a56a0ffdeb5ea4f88e22403b975d5a0bf57ae66d946ffd9f181",
+          "binaryBytes": 29440
+        },
+        "pinocchio": {
+          "deposit": {
+            "samples": 20,
+            "meanCu": 10582,
+            "minCu": 10582,
+            "maxCu": 10582
+          },
+          "withdraw": {
+            "samples": 20,
+            "meanCu": 9468,
+            "minCu": 9468,
+            "maxCu": 9468
+          },
+          "binarySha256": "e972f579c60490c58db1050d7b2b6c018585a188c9e0d3f083aa2a20f389eecf",
+          "binaryBytes": 20752
+        },
+        "koral": {
+          "deposit": {
+            "samples": 20,
+            "meanCu": 10378,
+            "minCu": 10378,
+            "maxCu": 10378
+          },
+          "withdraw": {
+            "samples": 20,
+            "meanCu": 9761,
+            "minCu": 9761,
+            "maxCu": 9761
+          },
+          "binarySha256": "8856aa52be5f6b2c9d5b75b7ddbfe7553e5cfa177b0cd9b289790fa71fd056da",
+          "binaryBytes": 10648
+        },
+        "typesolInternal": {
+          "deposit": {
+            "samples": 20,
+            "meanCu": 5284,
+            "minCu": 5284,
+            "maxCu": 5284
+          },
+          "withdraw": {
+            "samples": 20,
+            "meanCu": 4303,
+            "minCu": 4303,
+            "maxCu": 4303
+          },
+          "binarySha256": "4a447187946e61a445b3defd84156479eb4156046629ca920afb21d5dc3a2f56",
+          "binaryBytes": 11872
+        }
+      }
+    },
+    {
+      "authoritySeed": 5,
+      "canonicalBump": 255,
+      "searchAttempts": 1,
+      "checks": 65,
+      "auxiliaryMismatches": [
+        {
+          "label": "nonexecutable-system",
+          "measured": false,
+          "outcome": {
+            "success": true,
+            "cu": 2054,
+            "error": null,
+            "cpi": true,
+            "after": {
+              "data": "e4c452a562d2eb986e7a1cdd29b0b78fd13af4c5598feff4ef2a97166e3ca6f2e4fbfccd80505bf1d300000000000000d200000000000000ff",
+              "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+              "vaultLamports": "10000001",
+              "balances": [
+                "99999999790",
+                "100009060410"
+              ],
+              "feePayer": "99999355000"
+            }
+          },
+          "expected": {
+            "data": "e4c452a562d2eb986e7a1cdd29b0b78fd13af4c5598feff4ef2a97166e3ca6f2e4fbfccd80505bf1d200000000000000d200000000000000ff",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999791",
+              "100009060410"
+            ],
+            "feePayer": "99999355000"
+          }
+        }
+      ],
+      "auxiliaryErrorDifferences": [
+        {
+          "label": "insufficient-funds",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6003 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3014 } }"
+        },
+        {
+          "label": "cross-rent-floor",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6003 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3014 } }"
+        },
+        {
+          "label": "zero-withdraw",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6002 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6100 } }"
+        },
+        {
+          "label": "zero-deposit",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6002 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6100 } }"
+        },
+        {
+          "label": "readonly-depositor",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }"
+        },
+        {
+          "label": "readonly-recipient",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }"
+        },
+        {
+          "label": "readonly-vault",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }"
+        },
+        {
+          "label": "bad-bump",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6001 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2006 } }"
+        },
+        {
+          "label": "unknown-instruction",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 101 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 102 } }"
+        },
+        {
+          "label": "wrong-canonical-key",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6001 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2006 } }"
+        },
+        {
+          "label": "nonexecutable-system",
+          "actual": null,
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3008 } }"
+        }
+      ],
+      "implementations": {
+        "nativeRust": {
+          "deposit": {
+            "samples": 20,
+            "meanCu": 4425,
+            "minCu": 4425,
+            "maxCu": 4425
+          },
+          "withdraw": {
+            "samples": 20,
+            "meanCu": 3074,
+            "minCu": 3074,
+            "maxCu": 3074
+          },
+          "binarySha256": "19aed2c27cb81a56a0ffdeb5ea4f88e22403b975d5a0bf57ae66d946ffd9f181",
+          "binaryBytes": 29440
+        },
+        "pinocchio": {
+          "deposit": {
+            "samples": 20,
+            "meanCu": 3082,
+            "minCu": 3082,
+            "maxCu": 3082
+          },
+          "withdraw": {
+            "samples": 20,
+            "meanCu": 1968,
+            "minCu": 1968,
+            "maxCu": 1968
+          },
+          "binarySha256": "e972f579c60490c58db1050d7b2b6c018585a188c9e0d3f083aa2a20f389eecf",
+          "binaryBytes": 20752
+        },
+        "koral": {
+          "deposit": {
+            "samples": 20,
+            "meanCu": 2878,
+            "minCu": 2878,
+            "maxCu": 2878
+          },
+          "withdraw": {
+            "samples": 20,
+            "meanCu": 2261,
+            "minCu": 2261,
+            "maxCu": 2261
+          },
+          "binarySha256": "8856aa52be5f6b2c9d5b75b7ddbfe7553e5cfa177b0cd9b289790fa71fd056da",
+          "binaryBytes": 10648
+        },
+        "typesolInternal": {
+          "deposit": {
+            "samples": 20,
+            "meanCu": 2054,
+            "minCu": 2054,
+            "maxCu": 2054
+          },
+          "withdraw": {
+            "samples": 20,
+            "meanCu": 1073,
+            "minCu": 1073,
+            "maxCu": 1073
+          },
+          "binarySha256": "4a447187946e61a445b3defd84156479eb4156046629ca920afb21d5dc3a2f56",
+          "binaryBytes": 11872
+        }
+      }
+    },
+    {
+      "authoritySeed": 6,
+      "canonicalBump": 254,
+      "searchAttempts": 2,
+      "checks": 65,
+      "auxiliaryMismatches": [
+        {
+          "label": "nonexecutable-system",
+          "measured": false,
+          "outcome": {
+            "success": true,
+            "cu": 2700,
+            "error": null,
+            "cpi": true,
+            "after": {
+              "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d300000000000000d200000000000000fe",
+              "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+              "vaultLamports": "10000001",
+              "balances": [
+                "99999999790",
+                "100009060410"
+              ],
+              "feePayer": "99999355000"
+            }
+          },
+          "expected": {
+            "data": "e4c452a562d2eb988a875fff1eb38451577acd5afee405456568dd7c89e090863a0557bc7af49f17d200000000000000d200000000000000fe",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999791",
+              "100009060410"
+            ],
+            "feePayer": "99999355000"
+          }
+        }
+      ],
+      "auxiliaryErrorDifferences": [
+        {
+          "label": "insufficient-funds",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6003 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3014 } }"
+        },
+        {
+          "label": "cross-rent-floor",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6003 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3014 } }"
+        },
+        {
+          "label": "zero-withdraw",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6002 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6100 } }"
+        },
+        {
+          "label": "zero-deposit",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6002 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6100 } }"
+        },
+        {
+          "label": "readonly-depositor",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }"
+        },
+        {
+          "label": "readonly-recipient",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }"
+        },
+        {
+          "label": "readonly-vault",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }"
+        },
+        {
+          "label": "bad-bump",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6001 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2006 } }"
+        },
+        {
+          "label": "unknown-instruction",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 101 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 102 } }"
+        },
+        {
+          "label": "wrong-canonical-key",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6001 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2006 } }"
+        },
+        {
+          "label": "nonexecutable-system",
+          "actual": null,
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3008 } }"
+        }
+      ],
+      "implementations": {
+        "nativeRust": {
+          "deposit": {
+            "samples": 20,
+            "meanCu": 5925,
+            "minCu": 5925,
+            "maxCu": 5925
+          },
+          "withdraw": {
+            "samples": 20,
+            "meanCu": 4574,
+            "minCu": 4574,
+            "maxCu": 4574
+          },
+          "binarySha256": "19aed2c27cb81a56a0ffdeb5ea4f88e22403b975d5a0bf57ae66d946ffd9f181",
+          "binaryBytes": 29440
+        },
+        "pinocchio": {
+          "deposit": {
+            "samples": 20,
+            "meanCu": 4582,
+            "minCu": 4582,
+            "maxCu": 4582
+          },
+          "withdraw": {
+            "samples": 20,
+            "meanCu": 3468,
+            "minCu": 3468,
+            "maxCu": 3468
+          },
+          "binarySha256": "e972f579c60490c58db1050d7b2b6c018585a188c9e0d3f083aa2a20f389eecf",
+          "binaryBytes": 20752
+        },
+        "koral": {
+          "deposit": {
+            "samples": 20,
+            "meanCu": 4378,
+            "minCu": 4378,
+            "maxCu": 4378
+          },
+          "withdraw": {
+            "samples": 20,
+            "meanCu": 3761,
+            "minCu": 3761,
+            "maxCu": 3761
+          },
+          "binarySha256": "8856aa52be5f6b2c9d5b75b7ddbfe7553e5cfa177b0cd9b289790fa71fd056da",
+          "binaryBytes": 10648
+        },
+        "typesolInternal": {
+          "deposit": {
+            "samples": 20,
+            "meanCu": 2700,
+            "minCu": 2700,
+            "maxCu": 2700
+          },
+          "withdraw": {
+            "samples": 20,
+            "meanCu": 1719,
+            "minCu": 1719,
+            "maxCu": 1719
+          },
+          "binarySha256": "4a447187946e61a445b3defd84156479eb4156046629ca920afb21d5dc3a2f56",
+          "binaryBytes": 11872
+        }
+      }
+    },
+    {
+      "authoritySeed": 19,
+      "canonicalBump": 253,
+      "searchAttempts": 3,
+      "checks": 65,
+      "auxiliaryMismatches": [
+        {
+          "label": "nonexecutable-system",
+          "measured": false,
+          "outcome": {
+            "success": true,
+            "cu": 3346,
+            "error": null,
+            "cpi": true,
+            "after": {
+              "data": "e4c452a562d2eb9866cd608b928b88e50e0efeaa33faf1c43cefe07294b0b87e9fe0aba6a3cf7633d300000000000000d200000000000000fd",
+              "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+              "vaultLamports": "10000001",
+              "balances": [
+                "99999999790",
+                "100009060410"
+              ],
+              "feePayer": "99999355000"
+            }
+          },
+          "expected": {
+            "data": "e4c452a562d2eb9866cd608b928b88e50e0efeaa33faf1c43cefe07294b0b87e9fe0aba6a3cf7633d200000000000000d200000000000000fd",
+            "owner": "EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN",
+            "vaultLamports": "10000000",
+            "balances": [
+              "99999999791",
+              "100009060410"
+            ],
+            "feePayer": "99999355000"
+          }
+        }
+      ],
+      "auxiliaryErrorDifferences": [
+        {
+          "label": "insufficient-funds",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6003 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3014 } }"
+        },
+        {
+          "label": "cross-rent-floor",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6003 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3014 } }"
+        },
+        {
+          "label": "zero-withdraw",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6002 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6100 } }"
+        },
+        {
+          "label": "zero-deposit",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6002 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6100 } }"
+        },
+        {
+          "label": "readonly-depositor",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }"
+        },
+        {
+          "label": "readonly-recipient",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }"
+        },
+        {
+          "label": "readonly-vault",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2000 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3006 } }"
+        },
+        {
+          "label": "bad-bump",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6001 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2006 } }"
+        },
+        {
+          "label": "unknown-instruction",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 101 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 102 } }"
+        },
+        {
+          "label": "wrong-canonical-key",
+          "actual": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6001 } }",
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 2006 } }"
+        },
+        {
+          "label": "nonexecutable-system",
+          "actual": null,
+          "expected": "TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3008 } }"
+        }
+      ],
+      "implementations": {
+        "nativeRust": {
+          "deposit": {
+            "samples": 20,
+            "meanCu": 7425,
+            "minCu": 7425,
+            "maxCu": 7425
+          },
+          "withdraw": {
+            "samples": 20,
+            "meanCu": 6074,
+            "minCu": 6074,
+            "maxCu": 6074
+          },
+          "binarySha256": "19aed2c27cb81a56a0ffdeb5ea4f88e22403b975d5a0bf57ae66d946ffd9f181",
+          "binaryBytes": 29440
+        },
+        "pinocchio": {
+          "deposit": {
+            "samples": 20,
+            "meanCu": 6082,
+            "minCu": 6082,
+            "maxCu": 6082
+          },
+          "withdraw": {
+            "samples": 20,
+            "meanCu": 4968,
+            "minCu": 4968,
+            "maxCu": 4968
+          },
+          "binarySha256": "e972f579c60490c58db1050d7b2b6c018585a188c9e0d3f083aa2a20f389eecf",
+          "binaryBytes": 20752
+        },
+        "koral": {
+          "deposit": {
+            "samples": 20,
+            "meanCu": 5878,
+            "minCu": 5878,
+            "maxCu": 5878
+          },
+          "withdraw": {
+            "samples": 20,
+            "meanCu": 5261,
+            "minCu": 5261,
+            "maxCu": 5261
+          },
+          "binarySha256": "8856aa52be5f6b2c9d5b75b7ddbfe7553e5cfa177b0cd9b289790fa71fd056da",
+          "binaryBytes": 10648
+        },
+        "typesolInternal": {
+          "deposit": {
+            "samples": 20,
+            "meanCu": 3346,
+            "minCu": 3346,
+            "maxCu": 3346
+          },
+          "withdraw": {
+            "samples": 20,
+            "meanCu": 2365,
+            "minCu": 2365,
+            "maxCu": 2365
+          },
+          "binarySha256": "4a447187946e61a445b3defd84156479eb4156046629ca920afb21d5dc3a2f56",
+          "binaryBytes": 11872
+        }
+      }
+    }
+  ]
+}

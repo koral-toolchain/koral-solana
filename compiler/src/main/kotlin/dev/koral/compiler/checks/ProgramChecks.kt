@@ -84,6 +84,15 @@ object ProgramChecks {
                     require(type(s.to,env,layout)==ValueType.ACCOUNT_WRITABLE) { "Transfer destination must be writable" }
                     require(type(s.amount,env,layout)==ValueType.U64)
                 }
+                is Statement.DepositLamports -> {
+                    require(layout!=null) { "Vault operations require an owned @Account state" }
+                    require(type(s.amount,env,layout)==ValueType.U64)
+                }
+                is Statement.WithdrawLamports -> {
+                    require(layout!=null) { "Vault operations require an owned @Account state" }
+                    require(type(s.to,env,layout)==ValueType.ACCOUNT_WRITABLE) { "Withdrawal destination must be writable" }
+                    require(type(s.amount,env,layout)==ValueType.U64)
+                }
                 is Statement.Return -> { require(type(s.value,env,layout)==if(layout==null)ValueType.U64 else ValueType.STATE);returns=true }
                 is Statement.Require -> { require(type(s.condition,env,layout)==ValueType.BOOL);require(s.code!=0u) { "Error code must be nonzero" } }
                 is Statement.Branch -> {

@@ -37,3 +37,8 @@ annotation class AccountDataSize(val bytes: Int)
 /** Requires the external account's executable flag to equal this value. */
 @Target(AnnotationTarget.VALUE_PARAMETER)
 annotation class AccountExecutable(val value: Boolean)
+
+/** Moves authority SOL into the canonical owned state PDA through System CPI. */
+fun depositLamports(amount: ULong): Unit = error("Compile with Koral")
+/** Withdraws from the canonical program-owned state PDA, retaining its rent floor. */
+fun withdrawLamports(to: WritableAccount, amount: ULong): Unit = error("Compile with Koral")

@@ -17,7 +17,7 @@ private fun distributionHome()=File(System.getProperty("koral.home") ?: File(Mai
 fun main(args:Array<String>) {
     try {
         if(args.isEmpty() || args[0] in listOf("help","--help")) {
-            println("Koral 0.1.0-dev\n  koral init <new-directory>\n  koral doctor [--sdk <SDK>]\n  koral setup\n  koral check [source.kt]\n  koral build [source.kt] [--out <directory>] [--sdk <SDK>]\n  koral test [counter.so]\nInside an initialized project, source/output paths come from koral.properties.\nsetup explicitly installs pinned Node VM tools into your user cache.\nTargets: owned ULong state or Counter; test is Counter-only. No deployment.")
+            println("Koral 0.1.0-dev\n  koral init <new-directory>\n  koral doctor [--sdk <SDK>]\n  koral setup\n  koral check [source.kt]\n  koral build [source.kt] [--out <directory>] [--sdk <SDK>]\n  koral test [counter.so]\nInside an initialized project, source/output paths come from koral.properties.\nsetup explicitly installs pinned Node VM tools into your user cache.\nTargets: owned ULong state, SOL vaults or Counter; test is Counter-only. No deployment.")
             return
         }
         val options=Options.parse(args.drop(1),when(args[0]) { "build" -> setOf("--out","--sdk");"doctor" -> setOf("--sdk");else -> emptySet() })
@@ -66,7 +66,7 @@ fun main(args:Array<String>) {
                 File(include,"koral.h").writeText(resource("include/koral.h"))
                 val binary=File(out,"counter.so")
                 sdk.build(c,include,binary)
-                val manifest=linkedMapOf("compiler" to "koral-0.1.0-dev","kotlin" to "2.2.21","target" to "sbpf-v0","scope" to "Owned ULong state, external account references and authority-funded System transfer; own C backend", "compilerJarSha256" to hash(File(CounterC::class.java.protectionDomain.codeSource.location.toURI()).readBytes()),"sourceSha256" to hash(source.readBytes()),"runtimeSha256" to hash(runtime.toByteArray()),"generatedCSha256" to hash(c.readBytes()),"binarySha256" to hash(binary.readBytes()),"binaryBytes" to binary.length().toString(),"accountDataBytes" to (41+8*(program.account?.fields?.size ?: 1)).toString(),"accountType" to (program.account?.name ?: "Counter"),"stateFields" to (program.account?.fields?.joinToString(",") ?: "count"),"pdaSeed" to (program.account?.seed ?: "counter"),"clang" to sdk.version())
+                val manifest=linkedMapOf("compiler" to "koral-0.1.0-dev","kotlin" to "2.2.21","target" to "sbpf-v0","scope" to "Owned ULong state, external references, authority System transfers and rent-preserving owned-state SOL vault; own C backend", "compilerJarSha256" to hash(File(CounterC::class.java.protectionDomain.codeSource.location.toURI()).readBytes()),"sourceSha256" to hash(source.readBytes()),"runtimeSha256" to hash(runtime.toByteArray()),"generatedCSha256" to hash(c.readBytes()),"binarySha256" to hash(binary.readBytes()),"binaryBytes" to binary.length().toString(),"accountDataBytes" to (41+8*(program.account?.fields?.size ?: 1)).toString(),"accountType" to (program.account?.name ?: "Counter"),"stateFields" to (program.account?.fields?.joinToString(",") ?: "count"),"pdaSeed" to (program.account?.seed ?: "counter"),"clang" to sdk.version())
                 File(out,"counter.build.json").writeText(manifest.entries.joinToString(",\n","{\n","\n}\n") { "  ${quote(it.key)}: ${quote(it.value)}" })
                 File(out,"counter.abi.json").writeText(ProgramAbi.encode(program))
                 println("Built ${binary.path} (${binary.length()} bytes)")

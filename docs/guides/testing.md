@@ -57,7 +57,7 @@ This source-checkout harness builds multiple programs and checks source changes,
 | --- | --- |
 | 102 | Invalid instruction or serialized input data |
 | 2006 | Initialization PDA does not match the canonical address |
-| 2040 | Initialization authority and state alias |
+| 2040 | Initialization authority/state or withdrawal state/recipient alias |
 | 3002 | State discriminator mismatch |
 | 3003 | State data too short |
 | 3005 | Required accounts missing |
@@ -68,6 +68,7 @@ This source-checkout harness builds multiple programs and checks source changes,
 | 3011 | Declared external account address mismatch |
 | 3012 | Declared exact external data size mismatch |
 | 3013 | Declared external executable flag mismatch |
+| 3014 | Insufficient owned-vault funds after retaining rent |
 | 5100 | Checked arithmetic overflow or underflow |
 | 6000 | Stored state authority mismatch |
 

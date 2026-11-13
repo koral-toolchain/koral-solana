@@ -1,0 +1,22 @@
+{
+  "runnerSha256": "43137c744371fe235d56223ca35fb01e84f1f629a7e69cf7d51abe4797ac8b72",
+  "node": "v22.22.3",
+  "sourceFiles": [
+    {
+      "file": "benchmarks/vault/native/src/lib.rs",
+      "sha256": "f538f53a74dcd7e1dc77f8bd2e6e24afd5c3c3b8bef7adcf8b46639a756d63af"
+    },
+    {
+      "file": "benchmarks/vault/pinocchio/src/lib.rs",
+      "sha256": "1261ee1c400ae1ee494510e41363c4af5be9bc1732b7af920814ad3d340f32d6"
+    },
+    {
+      "file": "benchmarks/vault/kotlin/vault.kt",
+      "sha256": "92872145ed6d257ad7faabfe9c7f46a9eafbee41b4974bf24f236ef2791dad9d"
+    },
+    {
+      "file": "benchmarks/vault/typesol/vault.ts",
+      "sha256": "6bc5a0805d0bf3ec695f667a845c2a469c5ff4944d4390b713c28dcbf8925552"
+    }
+  ]
+}

@@ -69,3 +69,17 @@ The emitted ABI includes an optional owner and the fixed address; clients should
 inspect the ABI from their actual build. Unannotated references retain their
 existing behavior. Mismatches return 3007 (owner) or 3011 (address) before CPI or
 state writes. A later body failure still requires transaction rollback.
+
+### Exact data size and executable status
+
+Source builds also support `@AccountDataSize(8)` and `@AccountExecutable(false)`
+on external parameters. Size means exactly the declared non-negative constant
+Int byte count; zero requires empty data. Executable accepts an explicit true or
+false. Omitting a marker imposes no corresponding metadata condition.
+
+They combine with owner/address constraints and run before the selected body,
+including unselected transfer branches. Errors are 3012 (size) and 3013
+(executable). The ABI includes optional dataBytes/executable fields, preserving
+zero/false separately from absent fields. Size/flags do not decode or validate
+contents, establish token-account type, or identify a trusted program by themselves.
+The existing state layout and System Program checks remain independent.

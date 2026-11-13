@@ -10,6 +10,8 @@ fun pay(
     state: PaymentState,
     @AccountOwner("11111111111111111111111111111111")
     @AccountAddress("GyGKxMyg1p9SsHfm15MkNUu1u9TN2JtTspcdmrtGUdse")
+    @AccountDataSize(0)
+    @AccountExecutable(false)
     recipient: WritableAccount,
     amount: ULong
 ): PaymentState {
@@ -46,7 +48,10 @@ fun pair(
 fun pay_if(
     state: PaymentState,
     @AccountOwner("11111111111111111111111111111111")
-    @AccountAddress("GyGKxMyg1p9SsHfm15MkNUu1u9TN2JtTspcdmrtGUdse") recipient: WritableAccount,
+    @AccountAddress("GyGKxMyg1p9SsHfm15MkNUu1u9TN2JtTspcdmrtGUdse")
+    @AccountDataSize(0)
+    @AccountExecutable(false)
+    recipient: WritableAccount,
     amount: ULong
 ): PaymentState {
     if (amount > 0uL) transferLamports(recipient, amount)
@@ -57,10 +62,52 @@ fun pay_if(
 fun pay_then_fail(
     state: PaymentState,
     @AccountOwner("11111111111111111111111111111111")
-    @AccountAddress("GyGKxMyg1p9SsHfm15MkNUu1u9TN2JtTspcdmrtGUdse") recipient: WritableAccount,
+    @AccountAddress("GyGKxMyg1p9SsHfm15MkNUu1u9TN2JtTspcdmrtGUdse")
+    @AccountDataSize(0)
+    @AccountExecutable(false)
+    recipient: WritableAccount,
     amount: ULong
 ): PaymentState {
     transferLamports(recipient, amount)
     ensure(false, 6200uL)
     return state
 }
+
+@Instruction
+fun observe_data(
+    state: PaymentState,
+    @AccountOwner("EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN")
+    @AccountDataSize(8) @AccountExecutable(false) target: AccountInfo
+): PaymentState = PaymentState(state.paid, lamports(target))
+
+@Instruction
+fun observe_empty(
+    state: PaymentState,
+    @AccountOwner("11111111111111111111111111111111")
+    @AccountDataSize(0) @AccountExecutable(false) target: AccountInfo
+): PaymentState = PaymentState(state.paid, lamports(target))
+
+@Instruction
+fun observe_program(state: PaymentState, @AccountExecutable(true) target: AccountInfo): PaymentState =
+    PaymentState(state.paid, lamports(target))
+
+@Instruction
+fun observe_non_program(state: PaymentState, @AccountExecutable(false) target: AccountInfo): PaymentState =
+    PaymentState(state.paid, lamports(target))
+
+@Instruction
+fun observe_state(
+    state: PaymentState,
+    @AccountOwner("EqGyjYr2RHtEV5zQXCPpZ8neqU9tMgmruvuJRW4Pz2aN")
+    @AccountDataSize(57) @AccountExecutable(false) target: AccountInfo
+): PaymentState = PaymentState(state.paid, lamports(target))
+
+@Instruction
+fun metadata_pair(
+    state: PaymentState, @AccountDataSize(8) first: AccountInfo,
+    @AccountDataSize(0) second: AccountInfo
+): PaymentState = PaymentState(state.paid, checkedAdd(lamports(first), lamports(second)))
+
+@Instruction
+fun observe_any(state: PaymentState, target: AccountInfo): PaymentState =
+    PaymentState(state.paid, lamports(target))

@@ -2,9 +2,15 @@
 
 ## Unreleased
 
+- Add exact external account data-size and executable true/false constraints,
+  enforced before the instruction body. Preserve explicit zero/false in ABI
+  metadata and KOR6 models; continue reading KOR4/KOR5. No data decoding is added.
+- Exercise metadata mismatch, aliases, unconditional validation and CPI rollback
+  with the installed CLI and native LiteSVM.
+
 - Add fixed owner and address constraints on external account parameters,
   validated at compilation and enforced before the selected instruction body.
-  Preserve constraints in the preview ABI and KOR5 model; continue reading KOR4.
+  Preserve constraints in the preview ABI and internal model, including legacy reads.
 - Verify constrained payment success, mismatches, aliases and rollback in native CI.
 
 - Report expected source rejections without compiler-internal exception traces,

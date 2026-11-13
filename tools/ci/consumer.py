@@ -91,7 +91,8 @@ def verify(archive_path, sdk, mode):
             constrained = work / 'constrained-payments'
             run(cli, 'build', root / 'examples/constrained-payments.kt', '--out', constrained, '--sdk', sdk)
             run('node', runners[0].parent / 'constraints.mjs', constrained / 'counter.so', constrained / 'tests.json')
-            if not json.loads((constrained / 'tests.json').read_text())['bodyFailureRollback']:
+            if not all(json.loads((constrained / 'tests.json').read_text())[key]
+                       for key in ['bodyFailureRollback', 'dataSizeAndExecutable']):
                 raise ValueError('Constrained account rollback verification was incomplete')
 
             source = project / 'src/counter.kt'

@@ -112,7 +112,9 @@ class CounterC {
                     }.joinToString(",") { "${it}ULL" }
                     return "const uint64_t koral_${field}_$i[4]={$words}; if(!equal32(account_$field(p.accounts[${i+2}]),koral_${field}_$i)) return $code;"
                 }
-                check(a.owner,"owner",3007)+check(a.address,"key",3011)
+                check(a.owner,"owner",3007)+check(a.address,"key",3011)+
+                    (a.dataSize?.let { "if(account_len(p.accounts[${i+2}])!=${it}ULL) return 3012;" } ?: "")+
+                    (a.executable?.let { "if((p.accounts[${i+2}][3]!=0)!=${if(it)1 else 0}) return 3013;" } ?: "")
             }.joinToString(" ")
             "if(selector==${discriminator("global:${instruction.name}")}ULL) { if(p.ix_len<${8+instruction.arguments.size*8}) return INVALID_DATA; $countCheck $writableChecks $constraints }"
         }+" else return INVALID_DATA;"

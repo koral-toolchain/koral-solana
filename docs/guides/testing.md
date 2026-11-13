@@ -66,6 +66,8 @@ This source-checkout harness builds multiple programs and checks source changes,
 | 3008 | Invalid System Program address or executable flag |
 | 3010 | Required signer missing |
 | 3011 | Declared external account address mismatch |
+| 3012 | Declared exact external data size mismatch |
+| 3013 | Declared external executable flag mismatch |
 | 5100 | Checked arithmetic overflow or underflow |
 | 6000 | Stored state authority mismatch |
 

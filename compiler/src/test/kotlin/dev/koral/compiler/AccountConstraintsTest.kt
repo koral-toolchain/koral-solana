@@ -54,4 +54,37 @@ class AccountConstraintsTest {
             assertEquals(listOf(AccountParameter("to",false)),ProgramCodec.read(file).instructions.single().accounts)
         } finally { Files.delete(file) }
     }
+    @Test fun metadataPreservesZeroFalseTrueAndUnspecifiedValues() {
+        val file=Files.createTempFile("koral-metadata-", ".ir")
+        try {
+            for(account in listOf(AccountParameter("to",false),
+                                  AccountParameter("to",false,dataSize=0,executable=false),
+                                  AccountParameter("to",false,dataSize=8,executable=true))) {
+                val source=program(account)
+                ProgramCodec.write(source,file);assertEquals(source,ProgramCodec.read(file))
+                val abi=ProgramAbi.encode(source)
+                if(account.dataSize!=null)assertContains(abi,"\"dataBytes\":${account.dataSize}")
+                else assertFalse(abi.contains("dataBytes"))
+                if(account.executable!=null)assertContains(abi,"\"executable\":${account.executable}")
+                else assertFalse(abi.contains("executable"))
+            }
+        } finally { Files.delete(file) }
+    }
+    @Test fun rejectsNegativeDataSizeInModel() {
+        assertFailsWith<IllegalArgumentException> { ProgramChecks.validate(program(AccountParameter("to",false,dataSize=-1))) }
+    }
+    @Test fun legacyOwnerAddressModelsKeepConstraintsAndDefaultNewMetadata() {
+        val file=Files.createTempFile("koral-kor5-", ".ir")
+        try {
+            DataOutputStream(Files.newOutputStream(file)).use { out ->
+                out.writeInt(0x4b4f5235);out.writeUTF("legacy.kt");out.writeBoolean(false)
+                out.writeInt(1);out.writeUTF("observe");out.writeInt(0)
+                out.writeInt(1);out.writeUTF("to");out.writeBoolean(false)
+                out.writeBoolean(true);out.writeUTF(system);out.writeBoolean(true);out.writeUTF(recipient)
+                out.writeInt(1);out.writeByte(2);out.writeByte(2);out.writeUTF("count")
+            }
+            assertEquals(listOf(AccountParameter("to",false,system,recipient)),ProgramCodec.read(file).instructions.single().accounts)
+        } finally { Files.delete(file) }
+    }
+
 }

@@ -70,3 +70,12 @@ to overwrite a project, unsupported changed source, stale success artifacts,
 explicit legacy binary/source commands, payment compatibility and an unchanged
 installed distribution. The full existing native integration suite remains a
 separate job with the legacy testing dependency layout.
+
+## Source diagnostic regression coverage
+
+Every native consumer job also invokes the extracted CLI on nine rejected source
+fixtures and a valid control. Checks cover exact one-based file/line/column,
+readable reasons, no internal exception trace for expected rejections, and the
+file-start fallback for model validation. A nested initializer fixture checks that
+the rejected local declaration retains its own location. Kotlin type/name errors
+remain Kotlin diagnostics. These checks do not require the SBF SDK or a live chain.

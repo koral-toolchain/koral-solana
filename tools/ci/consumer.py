@@ -9,6 +9,8 @@ import tarfile
 import tempfile
 from pathlib import Path
 
+from diagnostics import verify_diagnostics
+
 
 def verify(archive_path, sdk, mode):
     with tempfile.TemporaryDirectory(prefix='koral-consumer-') as folder:
@@ -43,6 +45,7 @@ def verify(archive_path, sdk, mode):
         cli = root / 'bin/koral'
         run('java', '-version')
         run('node', '--version')
+        diagnostic_checks = verify_diagnostics(cli, work, env)
         if mode == 'integration':
             run('npm', 'ci', '--ignore-scripts', '--prefix', root / 'testing')
             run(cli, 'doctor', '--sdk', sdk)
@@ -96,7 +99,8 @@ def verify(archive_path, sdk, mode):
                      for p in root.rglob('*') if p.is_file()}
             if installed != after:
                 raise ValueError('The first-project workflow modified the installed distribution')
-        print(json.dumps({'consumerVerification': 'passed', 'mode': mode, 'sourceCheckoutRequired': False}))
+        print(json.dumps({'consumerVerification': 'passed', 'mode': mode, 'sourceCheckoutRequired': False,
+                          'sourceDiagnosticChecks': diagnostic_checks}))
 
 
 if __name__ == '__main__':

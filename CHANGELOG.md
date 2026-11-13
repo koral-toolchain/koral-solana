@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Report expected source rejections without compiler-internal exception traces,
+  restore diagnostic locations after nested expressions, and display readable
+  unsupported literal types. Model validation reports a file-start fallback.
+- Verify installed-CLI diagnostic positions and failure behavior in native CI.
+
 ## 0.1.0-dev — initial development preview
 
 - Compile the restricted Kotlin subset through Koral's independent checks/C

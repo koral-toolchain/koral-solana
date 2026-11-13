@@ -38,7 +38,7 @@ Maintain owner/signature/writable/size/discriminator and overflow checks in ever
 
 ## Explicitly deferred
 
-SPL Token/Token-2022, PDA-signed token transfers, arbitrary external data types/owner constraints, wider DEX arithmetic, actual DEX programs, broad Kotlin compatibility, stable Anchor IDL/client compatibility, RPC services, deployment automation, and browser execution are post-MVP work. They are not blockers for an honestly described technical preview.
+SPL Token/Token-2022, PDA-signed token transfers, arbitrary external data types/dynamic account constraints, wider DEX arithmetic, actual DEX programs, broad Kotlin compatibility, stable Anchor IDL/client compatibility, RPC services, deployment automation, and browser execution are post-MVP work. They are not blockers for an honestly described technical preview.
 
 ## Updates after launch
 

@@ -84,6 +84,8 @@ try {
     }
     const paymentBinary=build(path.join(root,'examples/payments.kt'),'payments');
     run(process.execPath,[path.join(here,'payments.mjs'),paymentBinary,path.join(temp,'payments.json')]);
+    const constrained=build(path.join(root,'examples/constrained-payments.kt'),'constrained-payments');
+    run(process.execPath,[path.join(here,'constraints.mjs'),constrained,path.join(temp,'constraints.json')]);
     const original=readFileSync(path.join(root,'examples/counter.kt'),'utf8');
     const changed=path.join(temp,'changed.kt');
     writeFileSync(changed,original.replace('checkedAdd(count, by)','checkedAdd(by, by)'));

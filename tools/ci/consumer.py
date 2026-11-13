@@ -88,6 +88,12 @@ def verify(archive_path, sdk, mode):
             if json.loads((output / 'tests.json').read_text())['checks'] != 37:
                 raise ValueError('Payment compatibility verification was incomplete')
 
+            constrained = work / 'constrained-payments'
+            run(cli, 'build', root / 'examples/constrained-payments.kt', '--out', constrained, '--sdk', sdk)
+            run('node', runners[0].parent / 'constraints.mjs', constrained / 'counter.so', constrained / 'tests.json')
+            if not json.loads((constrained / 'tests.json').read_text())['bodyFailureRollback']:
+                raise ValueError('Constrained account rollback verification was incomplete')
+
             source = project / 'src/counter.kt'
             source.write_text(source.read_text().replace('checkedAdd(state.count, by)', 'state.count + by'))
             reject(cli, 'build', cwd=project, contains='Unsupported call')

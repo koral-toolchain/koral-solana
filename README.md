@@ -1,6 +1,6 @@
 # Koral
 
-An experimental Kotlin compiler for Solana. Current targets are Counter and a restricted owned ULong-state account, with external balance reads and System transfer CPI. This is a development build, not a general Kotlin implementation or a production release.
+An experimental Kotlin compiler for Solana. Current targets are Counter and a restricted owned ULong-state account, with external balance reads, optional fixed owner/address constraints, and System transfer CPI. This is a development build, not a general Kotlin implementation or a production release.
 
 ```text
 Kotlin source

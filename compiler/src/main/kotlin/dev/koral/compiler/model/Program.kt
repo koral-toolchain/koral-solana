@@ -22,7 +22,7 @@ sealed interface Statement {
     data class TransferLamports(val to: Expression, val amount: Expression) : Statement
 }
 /** Counter state is implicit; arguments are instruction-data ULong values in declaration order. */
-data class AccountParameter(val name: String, val writable: Boolean)
+data class AccountParameter(val name: String, val writable: Boolean, val owner: String? = null, val address: String? = null)
 data class CounterInstruction(val name: String, val arguments: List<String>, val body: List<Statement>, val accounts: List<AccountParameter> = emptyList())
 data class StateLayout(val name: String, val seed: String, val fields: List<String>)
 data class CounterProgram(val source: String, val instructions: List<CounterInstruction>, val account: StateLayout? = null)

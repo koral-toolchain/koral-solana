@@ -49,3 +49,20 @@ A transfer needs a writable signing authority, writable destination, and the exa
 Owned state is stored after successful instruction execution. External transfers are actual CPIs; if later arithmetic or a second transfer fails, transaction rollback must revert both the CPI effects and state. Local tests exercise these cases. This is not arbitrary CPI, SPL Token support, a complete DEX, or a production payment system.
 
 Implementation basis: runtime/src/counter.c, CounterC.kt, and ProgramAbi.kt.
+
+## Fixed external account constraints
+
+Add `@AccountOwner("<program address>")` or `@AccountAddress("<account address>")`
+to an external `AccountInfo` or `WritableAccount` instruction parameter. Keys are
+constant Base58 strings encoding exactly 32 bytes. The owner is the owning
+program, not the wallet authority. Both constraints run before the selected
+instruction body, even when an inner branch skips a transfer. They do not grant
+signing privileges or validate a token-account layout.
+
+See [the complete example](../../examples/constrained-payments.kt) and the
+[language contract](../LANGUAGE.md#fixed-external-account-constraints). The example's
+fixed recipient is for deterministic local tests, not a payment recommendation.
+The emitted ABI includes an optional owner and the fixed address; clients should
+inspect the ABI from their actual build. Unannotated references retain their
+existing behavior. Mismatches return 3007 (owner) or 3011 (address) before CPI or
+state writes. A later body failure still requires transaction rollback.

@@ -62,9 +62,10 @@ This source-checkout harness builds multiple programs and checks source changes,
 | 3003 | State data too short |
 | 3005 | Required accounts missing |
 | 3006 | Required writable permission missing |
-| 3007 | State account owner mismatch |
+| 3007 | State owner or declared external owner mismatch |
 | 3008 | Invalid System Program address or executable flag |
 | 3010 | Required signer missing |
+| 3011 | Declared external account address mismatch |
 | 5100 | Checked arithmetic overflow or underflow |
 | 6000 | Stored state authority mismatch |
 

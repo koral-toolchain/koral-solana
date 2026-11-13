@@ -19,6 +19,10 @@ object ProgramChecks {
             require(instruction.arguments.size<=8 && instruction.arguments.distinct().size==instruction.arguments.size) { "Expected up to eight distinct arguments" }
             val stateName=if(layout==null)"count" else "state"
             require(instruction.accounts.size<=8) { "Expected up to eight external accounts" }
+            instruction.accounts.forEach { account ->
+                account.owner?.let(PublicKey::decode)
+                account.address?.let(PublicKey::decode)
+            }
             val allNames=instruction.arguments+instruction.accounts.map { it.name }
             require(allNames.distinct().size==allNames.size) { "Duplicate parameter name" }
             require(allNames.all { it!=stateName && it.matches(Regex("[A-Za-z_][A-Za-z0-9_]*")) }) { "Invalid argument name" }

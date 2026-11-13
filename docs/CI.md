@@ -83,3 +83,10 @@ remain Kotlin diagnostics. These checks do not require the SBF SDK or a live cha
 The native suites also compile constrained-payments.kt and execute constraints.mjs
 against LiteSVM: fixed owner/address validation, independent alias constraints,
 rejection before CPI, permission failures and rollback after a later body failure.
+
+## Publication decision
+
+[The product release checklist](RELEASING.md) applies organization release policy
+v1. Product CI verifies its declared jobs; it does not approve release timing,
+publish a candidate or announce changes. Handbook policy metadata is checked in
+the handbook repository and does not silently replace the checker pinned here.

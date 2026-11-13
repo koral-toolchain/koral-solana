@@ -2,6 +2,8 @@
 
 An experimental Kotlin compiler for Solana. Current targets are Counter and a restricted owned ULong-state account, with external balance reads, optional fixed owner/address constraints, and System transfer CPI. This is a development build, not a general Kotlin implementation or a production release.
 
+Fixed owner/address constraints are unreleased and require a build from current source; the published `v0.1.0-dev` archive does not include them.
+
 ```text
 Kotlin source
   -> pinned Kotlin compiler and Koral IR frontend

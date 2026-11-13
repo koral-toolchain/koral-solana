@@ -52,6 +52,9 @@ Implementation basis: runtime/src/counter.c, CounterC.kt, and ProgramAbi.kt.
 
 ## Fixed external account constraints
 
+This feature requires a build from current source; it is not included in the
+published v0.1.0-dev archive.
+
 Add `@AccountOwner("<program address>")` or `@AccountAddress("<account address>")`
 to an external `AccountInfo` or `WritableAccount` instruction parameter. Keys are
 constant Base58 strings encoding exactly 32 bytes. The owner is the owning

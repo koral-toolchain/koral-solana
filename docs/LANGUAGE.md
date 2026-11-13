@@ -37,6 +37,9 @@ References come from the caller; programs cannot construct or cast them. `lampor
 
 ## Fixed external account constraints
 
+Unreleased: build the CLI from current source to use these annotations. The
+published v0.1.0-dev archive does not include this feature.
+
 ```kotlin
 @Instruction
 fun observe(

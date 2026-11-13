@@ -29,7 +29,7 @@ def verify_diagnostics(cli: Path, work: Path, env=None):
         ('missing-marker', base.replace('@Instruction', ''),
          5, 1, 'Missing trusted @Instruction'),
         ('signature', base.replace('ULong', 'Long').replace('checkedAdd(count, by)', 'count'),
-         4, 1, 'Expected instruction'),
+         5, 1, 'Expected instruction'),
         ('mutable-field', record, 4, 1, 'Account fields must be immutable'),
         # Model validation currently falls back to file start, not a precise field location.
         ('invalid-seed', record.replace('var balance', 'val balance').replace('"pool"', '"INVALID"'),

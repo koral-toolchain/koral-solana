@@ -15,3 +15,7 @@ The external website adapter entries describe reviewed sources, not files bundle
 with this product.
 
 No public hosting, package coordinate, arbitrary CPI, general Kotlin compatibility, or production-readiness claim follows from this documentation.
+
+Release maintainers use [RELEASING.md](RELEASING.md), which applies the organization
+release policy to this compiler and separates mandatory evidence from selective
+announcements. A merged source change is not a package release.

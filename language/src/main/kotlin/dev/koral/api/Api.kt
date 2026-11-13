@@ -21,3 +21,11 @@ class WritableAccount private constructor() : AccountInfo()
 fun lamports(account: AccountInfo): ULong = error("Compile with Koral")
 /** Transfers from the implicit signing authority through the System Program. */
 fun transferLamports(to: WritableAccount, amount: ULong): Unit = error("Compile with Koral")
+
+/** Requires an external account to be owned by this fixed program address. */
+@Target(AnnotationTarget.VALUE_PARAMETER)
+annotation class AccountOwner(val address: String)
+
+/** Requires an external account to have this fixed address. */
+@Target(AnnotationTarget.VALUE_PARAMETER)
+annotation class AccountAddress(val address: String)

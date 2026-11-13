@@ -20,7 +20,7 @@ The toolchain invokes installed SDK binaries using argument lists, with timeout/
 - One declared data class with 1..16 ULong fields, or the legacy Counter form.
 - Per instruction, up to eight ULong arguments and eight external references.
 - Scalar/state locals, conditions and returns; checked add/subtract/multiply.
-- External lamport reads; signing-authority System transfer CPI.
+- External lamport reads; optional fixed owner/address constraints; signing-authority System transfer CPI.
 - Preview ABI output, local VM checks, and separate Counter comparisons.
 
 These features still use a single owned state account and implicit authority/PDA convention. There is no general Kotlin runtime, multiple owned account types, token-account decoding, arbitrary byte data, arbitrary CPI/PDA signing, IDL/client compatibility, RPC service, or deploy command. Output files retain the early `counter` basename for now; a non-Counter state program can also produce `counter.so`.
@@ -31,6 +31,6 @@ These features still use a single owned state account and implicit authority/PDA
 
 ## Post-MVP directions
 
-External public-key/owner constraints and account-data decoding, SPL Token and PDA signing, wider arithmetic and selected DEX instructions remain possible next work. They must not silently become new launch blockers. Stable ABI/language contracts, additional platforms, and external developer feedback can be added incrementally.
+Dynamic public-key relations and account-data decoding, SPL Token and PDA signing, wider arithmetic and selected DEX instructions remain possible next work. They must not silently become new launch blockers. Stable ABI/language contracts, additional platforms, and external developer feedback can be added incrementally.
 
 The separate design session owns presentation. Only implemented and tested behavior may be described as available.

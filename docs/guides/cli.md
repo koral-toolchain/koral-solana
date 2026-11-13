@@ -30,7 +30,7 @@ The counter basename is retained even for a differently named source file. The t
 
 ## Preview ABI
 
-The schema is koral-preview-abi/1 targeting sbpf-v0. It includes state type, size, field offsets, discriminator, PDA seed, initialization, instruction discriminators, data offsets, account order and permissions, and authority-funded transfer requirements.
+The schema is koral-preview-abi/1 targeting sbpf-v0. It includes state type, size, field offsets, discriminator, PDA seed, initialization, instruction discriminators, data offsets, account order and permissions, optional fixed owner/address constraints, and authority-funded transfer requirements.
 
 This is not an Anchor IDL, a stable published client schema, or a deployed program address. Instruction discriminators are the first eight SHA-256 bytes of global:name. Account discriminators use account:TypeName.
 

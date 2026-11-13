@@ -33,7 +33,40 @@ After state, up to eight ULong data parameters and eight external account refere
 | `AccountInfo` | External account reference, read-only contract |
 | `WritableAccount` | External account requiring writable permission |
 
-References come from the caller; programs cannot construct or cast them. `lamports(reference)` reads its current serialized lamport balance. A writable reference can be used through a read-only local. Reading account data, arbitrary owners, token-account types, public-key fields, and account equality are not implemented.
+References come from the caller; programs cannot construct or cast them. `lamports(reference)` reads its current serialized lamport balance. A writable reference can be used through a read-only local. Fixed owner and address constraints are available through parameter annotations below. Reading account data, dynamic public-key expressions, token-account layouts, and account equality are not implemented.
+
+## Fixed external account constraints
+
+Unreleased: build the CLI from current source to use these annotations. The
+published v0.1.0-dev archive does not include this feature.
+
+```kotlin
+@Instruction
+fun observe(
+    count: ULong,
+    @AccountOwner("11111111111111111111111111111111") target: AccountInfo
+): ULong = lamports(target)
+```
+
+`@AccountOwner("<Base58 program address>")` checks the external account's owning
+program. It does not check a wallet authority or token-account authority.
+`@AccountAddress("<Base58 address>")` checks the account's own public key. Both may
+be combined on an `AccountInfo` or `WritableAccount` instruction parameter; they
+are rejected on the implicit state, scalar parameters and state fields.
+
+Each annotation requires a constant Base58 key encoding exactly 32 bytes. Keys
+are decoded and checked at compilation, not on-chain. For a selected instruction,
+all declared constraints run before the body, including when a branch will skip
+its transfer. Missing accounts return 3005, missing declared writable permission
+3006, owner mismatch 3007, and fixed address mismatch 3011. Existing state,
+authority and CPI checks still apply. Duplicate references must independently
+satisfy every declaration's constraints; distinct accounts are not implied.
+
+Initialization retains its fixed account contract and does not use instruction
+parameter constraints. No account data validation, executable constraint, dynamic
+address relation, token authority check or additional signing privilege is added.
+See [the complete constrained example](../examples/constrained-payments.kt) and
+[Solana's account model](https://solana.com/docs/core/accounts).
 
 ## Expressions and statements
 
@@ -71,4 +104,9 @@ Tests verify actual source/destination balances, current reads after CPI, duplic
 
 ## Preview ABI
 
-Successful builds emit `counter.abi.json`: state fields/offsets/size/PDA seed, instruction discriminators, data offsets, account order/permissions, and System transfer requirements. The payment tests use its discriminators to encode transactions. This is `koral-preview-abi/1`, not an Anchor IDL or stable public schema. No deployed program address or network operation is implied.
+Successful builds emit `counter.abi.json`: state fields/offsets/size/PDA seed, instruction discriminators, data offsets, account order/permissions, optional fixed owner/address constraints, and System transfer requirements. The payment tests use its discriminators to encode transactions. This is `koral-preview-abi/1`, not an Anchor IDL or stable public schema. No deployed program address or network operation is implied.
+
+The preview model writer uses KOR5 to preserve constraints; its reader also accepts
+legacy KOR4 models without constraints. This internal model format is not a stable
+public interchange contract. The ABI keeps koral-preview-abi/1 with an optional
+owner field and the existing address field on constrained external accounts.

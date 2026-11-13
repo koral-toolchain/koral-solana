@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Add fixed owner and address constraints on external account parameters,
+  validated at compilation and enforced before the selected instruction body.
+  Preserve constraints in the preview ABI and KOR5 model; continue reading KOR4.
+- Verify constrained payment success, mismatches, aliases and rollback in native CI.
+
 - Report expected source rejections without compiler-internal exception traces,
   restore diagnostic locations after nested expressions, and display readable
   unsupported literal types. Model validation reports a file-start fallback.

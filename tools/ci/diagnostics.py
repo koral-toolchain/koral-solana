@@ -37,6 +37,24 @@ def verify_diagnostics(cli: Path, work: Path, env=None):
         ('kotlin-error', base.replace('checkedAdd(count, by)', 'missingFunction(count)'),
          6, 12, "unresolved reference 'missingFunction'"),
     ]
+    constrained = ('package example\nimport dev.koral.api.*\n\n@Instruction\n'
+                   'fun observe(\n    count: ULong,\n'
+                   '    @AccountOwner("bad") target: AccountInfo\n): ULong = count\n')
+    cases += [
+        ('invalid-owner', constrained, 7, 5, '@AccountOwner: Public key'),
+        ('invalid-address', constrained.replace('@AccountOwner("bad")', '@AccountAddress("")'),
+         7, 5, '@AccountAddress: Public key'),
+        ('scalar-constraint', constrained.replace('@AccountOwner("bad") target: AccountInfo',
+                                                  '@AccountOwner("11111111111111111111111111111111") amount: ULong'),
+         7, 5, 'requires an external AccountInfo or WritableAccount'),
+        ('state-constraint', constrained.replace('count: ULong,',
+                                                 '@AccountOwner("11111111111111111111111111111111") count: ULong,')
+                                       .replace('@AccountOwner("bad") ', ''),
+         6, 5, 'requires an external AccountInfo or WritableAccount'),
+        ('field-constraint', record.replace('var balance',
+                                           '@AccountOwner("11111111111111111111111111111111") val balance'),
+         4, 1, 'not state fields'),
+    ]
     for name, source, line, column, reason in cases:
         file = folder / (name + '.kt')
         file.write_text(source)

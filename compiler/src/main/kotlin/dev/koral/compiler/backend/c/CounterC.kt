@@ -104,7 +104,17 @@ class CounterC {
         val validation=program.instructions.joinToString(" else ") { instruction ->
             val countCheck=if(instruction.accounts.isEmpty())"" else "if(p.count<${2+instruction.accounts.size}) return 3005;"
             val writableChecks=instruction.accounts.mapIndexedNotNull { i,a -> if(a.writable)"if(!p.accounts[${2+i}][2]) return 3006;" else null }.joinToString(" ")
-            "if(selector==${discriminator("global:${instruction.name}")}ULL) { if(p.ix_len<${8+instruction.arguments.size*8}) return INVALID_DATA; $countCheck $writableChecks }"
+            val constraints=instruction.accounts.mapIndexed { i,a ->
+                fun check(value:String?,field:String,code:Int):String {
+                    if(value==null)return ""
+                    val words=PublicKey.decode(value).toList().chunked(8).map { bytes ->
+                        bytes.withIndex().fold(0uL) { word,entry -> word or ((entry.value.toInt() and 255).toULong() shl (entry.index*8)) }
+                    }.joinToString(",") { "${it}ULL" }
+                    return "const uint64_t koral_${field}_$i[4]={$words}; if(!equal32(account_$field(p.accounts[${i+2}]),koral_${field}_$i)) return $code;"
+                }
+                check(a.owner,"owner",3007)+check(a.address,"key",3011)
+            }.joinToString(" ")
+            "if(selector==${discriminator("global:${instruction.name}")}ULL) { if(p.ix_len<${8+instruction.arguments.size*8}) return INVALID_DATA; $countCheck $writableChecks $constraints }"
         }+" else return INVALID_DATA;"
         val dispatch=program.instructions.mapIndexed { i,instruction ->
             val values=(listOf(if(layout==null)"load64(state+40)" else "current")+instruction.arguments.indices.map { "load64(p.ix+${8+it*8})" }+instruction.accounts.indices.map { "p.accounts[${2+it}]" }+listOf("&p","&next")).joinToString(",")

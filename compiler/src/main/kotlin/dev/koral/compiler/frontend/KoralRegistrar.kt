@@ -63,6 +63,7 @@ class KoralRegistrar : CompilerPluginRegistrar() {
                     val constructor=klass.primaryConstructor ?: reject("Account needs a primary constructor")
                     val fields=constructor.parameters.filter { it.kind==IrParameterKind.Regular }
                     if(fields.size !in 1..16 || fields.any { !isU64(it.type) || it.defaultValue!=null || it.varargElementType!=null }) reject("Account requires 1..16 ULong fields without defaults")
+                    if(fields.any { parameter -> parameter.annotations.any { trusted(it,"dev.koral.api.AccountOwner") || trusted(it,"dev.koral.api.AccountAddress") } }) reject("Account constraints require external instruction parameters, not state fields")
                     val properties=klass.declarations.filterIsInstance<IrProperty>()
                     if(properties.map { it.name.asString() }!=fields.map { it.name.asString() } || properties.any { it.isVar || it.isDelegated || it.backingField==null }) reject("Account fields must be immutable primary constructor properties")
                     if(klass.declarations.any { it is IrAnonymousInitializer || it is IrClass || (it is IrSimpleFunction && it.origin==IrDeclarationOrigin.DEFINED) }) reject("Account methods and init blocks are unsupported")
@@ -79,6 +80,17 @@ class KoralRegistrar : CompilerPluginRegistrar() {
                     "dev.koral.api.WritableAccount" -> ValueType.ACCOUNT_WRITABLE
                     else -> null
                 }
+                fun constraint(parameter: IrValueParameter, name: String): String? = at(parameter.startOffset) {
+                    val annotation=parameter.annotations.singleOrNull { trusted(it,"dev.koral.api.$name") } ?: return@at null
+                    if(parameter==parameters.firstOrNull() || accountType(parameter.type)==null) reject("@$name requires an external AccountInfo or WritableAccount parameter")
+                    val value=(annotation.arguments.filterNotNull().singleOrNull() as? IrConst)?.value as? String
+                        ?: reject("@$name requires a constant Base58 public key")
+                    try { PublicKey.decode(value) } catch (failure: IllegalArgumentException) {
+                        reject("@$name: ${failure.message}")
+                    }
+                    value
+                }
+                val constraints=parameters.associateWith { Pair(constraint(it,"AccountOwner"),constraint(it,"AccountAddress")) }
                 val dataParameters=parameters.drop(1).filter { isU64(it.type) }
                 val accountParameters=parameters.drop(1).filter { accountType(it.type)!=null }
                 val validState=parameters.firstOrNull()?.let { if(layout==null) it.name.asString()=="count" && isU64(it.type) else isState(it.type) }==true
@@ -187,7 +199,7 @@ class KoralRegistrar : CompilerPluginRegistrar() {
                     }
                 } }
                 val body=fn.body as? IrBlockBody ?: reject("Missing function body")
-                CounterInstruction(fn.name.asString(),dataParameters.map { it.name.asString() },statements(body.statements),accountParameters.map { AccountParameter(it.name.asString(),accountType(it.type)==ValueType.ACCOUNT_WRITABLE) })
+                CounterInstruction(fn.name.asString(),dataParameters.map { it.name.asString() },statements(body.statements),accountParameters.map { AccountParameter(it.name.asString(),accountType(it.type)==ValueType.ACCOUNT_WRITABLE,constraints.getValue(it).first,constraints.getValue(it).second) })
                 } }
                 val program=CounterProgram(source.name,instructions,layout)
                 try {

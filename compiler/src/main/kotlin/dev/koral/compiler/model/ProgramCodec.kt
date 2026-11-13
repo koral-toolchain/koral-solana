@@ -7,7 +7,7 @@ import java.nio.file.Path
 
 /** A bounded data-only format; it does not deserialize Java objects or load classes. */
 object ProgramCodec {
-    private const val MAGIC = 0x4b4f5234
+    private const val MAGIC = 0x4b4f5235
     fun write(program: CounterProgram, path: Path) {
         DataOutputStream(Files.newOutputStream(path)).use { out ->
             out.writeInt(MAGIC); out.writeUTF(program.source)
@@ -21,7 +21,11 @@ object ProgramCodec {
                 out.writeUTF(instruction.name);out.writeInt(instruction.arguments.size)
                 instruction.arguments.forEach(out::writeUTF)
                 out.writeInt(instruction.accounts.size)
-                instruction.accounts.forEach { out.writeUTF(it.name);out.writeBoolean(it.writable) }
+                instruction.accounts.forEach {
+                    out.writeUTF(it.name);out.writeBoolean(it.writable)
+                    out.writeBoolean(it.owner!=null);it.owner?.let(out::writeUTF)
+                    out.writeBoolean(it.address!=null);it.address?.let(out::writeUTF)
+                }
                 writeStatements(out,instruction.body)
             }
         }
@@ -29,7 +33,8 @@ object ProgramCodec {
     fun read(path: Path): CounterProgram {
         require(Files.size(path) <= 1_048_576) { "Compiler model is too large" }
         DataInputStream(Files.newInputStream(path)).use { input ->
-            require(input.readInt() == MAGIC) { "Unsupported compiler model" }
+            val format = input.readInt()
+            require(format == MAGIC || format == 0x4b4f5234) { "Unsupported compiler model" }
             val source=input.readUTF()
             val layout=if(input.readBoolean()) {
                 val name=input.readUTF();val seed=input.readUTF();val size=input.readInt()
@@ -42,7 +47,12 @@ object ProgramCodec {
                 require(size in 0..8) { "Too many instruction arguments" }
                 val arguments=List(size) { input.readUTF() }
                 val accountCount=input.readInt();require(accountCount in 0..8) { "Too many external accounts" }
-                val accounts=List(accountCount) { AccountParameter(input.readUTF(),input.readBoolean()) }
+                val accounts=List(accountCount) {
+                    val accountName=input.readUTF();val writable=input.readBoolean()
+                    val owner=if(format==MAGIC && input.readBoolean())input.readUTF() else null
+                    val address=if(format==MAGIC && input.readBoolean())input.readUTF() else null
+                    AccountParameter(accountName,writable,owner,address)
+                }
                 CounterInstruction(name,arguments,readStatements(input,0),accounts)
             }
             val program=CounterProgram(source,instructions,layout)

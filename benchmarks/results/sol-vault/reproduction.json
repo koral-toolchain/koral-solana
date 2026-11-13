@@ -1,0 +1,11 @@
+{
+  "localSecondBuildMatchesElfCuTransactionsAndOutcomes": true,
+  "primaryEquivalenceAcrossStrata": true,
+  "strata": 4,
+  "scenariosPerStratum": 65,
+  "measuredCallsPerOperationPerStratum": 20,
+  "auxiliaryMeasuredOutcomesMatch": true,
+  "auxiliaryNonexecutableSystemMismatchPerStratum": 1,
+  "auxiliaryErrorDifferencesPerStratum": 11,
+  "negativeControlPassed": true
+}

@@ -20,6 +20,8 @@ sealed interface Statement {
     data class Branch(val condition: Expression, val yes: List<Statement>, val no: List<Statement>) : Statement
     data class Require(val condition: Expression, val code: UInt) : Statement
     data class TransferLamports(val to: Expression, val amount: Expression) : Statement
+    data class DepositLamports(val amount: Expression) : Statement
+    data class WithdrawLamports(val to: Expression, val amount: Expression) : Statement
 }
 /** Counter state is implicit; arguments are instruction-data ULong values in declaration order. */
 data class AccountParameter(val name: String, val writable: Boolean, val owner: String? = null, val address: String? = null, val dataSize: Int? = null, val executable: Boolean? = null)

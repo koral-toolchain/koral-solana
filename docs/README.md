@@ -19,3 +19,6 @@ No public hosting, package coordinate, arbitrary CPI, general Kotlin compatibili
 Release maintainers use [RELEASING.md](RELEASING.md), which applies the organization
 release policy to this compiler and separates mandatory evidence from selective
 announcements. A merged source change is not a package release.
+
+[The SOL vault guide](VAULT.md) covers unreleased owned-state deposits/withdrawals,
+local verification, authority/rent checks and selected-update comparison evidence.

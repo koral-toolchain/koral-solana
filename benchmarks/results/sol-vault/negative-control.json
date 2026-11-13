@@ -1,0 +1,8 @@
+{
+  "mutation": "Removed withdrawLamports while retaining accounting changes",
+  "compilerJarSha256": "045fb86ae1d70aa13b4af4c88761387e1c816edc1122c232918b71ae1dafbd51",
+  "sourceSha256": "280d0246d96c83342528bc8c115806ee6ea71c08689ff9634dcaeeab47b76b14",
+  "binarySha256": "650e5c6dc3354bab5343fc282bcde65b4870366592fc52fa8c213a3737c1ba82",
+  "rejected": true,
+  "assertion": "withdraw-1: koral exact vault debit"
+}

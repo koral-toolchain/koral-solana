@@ -1,0 +1,32 @@
+{
+  "cargoBuildSbf": "solana-cargo-build-sbf 3.1.10\nplatform-tools v1.52\nrustc 1.89.0",
+  "sdk": "clang version 20.1.7-rust-dev (https://github.com/anza-xyz/llvm-project.git 78496716176191b2dfb728e5e38501812e7467db)",
+  "target": "v0",
+  "rustProfile": {
+    "lto": "fat",
+    "codegenUnits": 1,
+    "overflowChecks": true
+  },
+  "rustLockSha256": "8ee6241ac288ee93a56e549ba353d3857a617df2f83577d34e39a02b35022394",
+  "native": "solana-program=5.1.0",
+  "pinocchio": "0.10.2",
+  "typesol": {
+    "version": "0.43.0",
+    "revision": "543786e850ad426425956e497971f88103f6c987",
+    "manifest": {
+      "program": "vault",
+      "compiler": "0.43.0",
+      "clang": "clang version 20.1.7-rust-dev (https://github.com/anza-xyz/llvm-project.git 78496716176191b2dfb728e5e38501812e7467db)",
+      "typescript": "6.0.3",
+      "sbpf": "v0",
+      "profile": false,
+      "sources": {
+        "vault.ts": "6bc5a0805d0bf3ec695f667a845c2a469c5ff4944d4390b713c28dcbf8925552",
+        "<runtime>/typesol_rt.h": "91b21d8876bd8e8f34825a9070fea830e46512afc52246de72a5afa2d15767d3"
+      },
+      "binary": "4a447187946e61a445b3defd84156479eb4156046629ca920afb21d5dc3a2f56"
+    }
+  },
+  "runnerSha256": "43137c744371fe235d56223ca35fb01e84f1f629a7e69cf7d51abe4797ac8b72",
+  "builderSha256": "b9731f9c26190fbdcc5de527e0b16a8c5687a670285b0a19270d3262d0457cb4"
+}

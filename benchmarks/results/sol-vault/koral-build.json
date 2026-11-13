@@ -1,0 +1,17 @@
+{
+  "compiler": "koral-0.1.0-dev",
+  "kotlin": "2.2.21",
+  "target": "sbpf-v0",
+  "scope": "Owned ULong state, external references, authority System transfers and rent-preserving owned-state SOL vault; own C backend",
+  "compilerJarSha256": "045fb86ae1d70aa13b4af4c88761387e1c816edc1122c232918b71ae1dafbd51",
+  "sourceSha256": "92872145ed6d257ad7faabfe9c7f46a9eafbee41b4974bf24f236ef2791dad9d",
+  "runtimeSha256": "53d1422d7a0fd2fb0e16e7d6899839791cc1725a06130c8ee4d72925b5ef35ba",
+  "generatedCSha256": "3072b42af65f1c8746d3adfa3d8fa4f05cd91cc71df6ede2b037f58b6e1eba33",
+  "binarySha256": "8856aa52be5f6b2c9d5b75b7ddbfe7553e5cfa177b0cd9b289790fa71fd056da",
+  "binaryBytes": "10648",
+  "accountDataBytes": "57",
+  "accountType": "VaultState",
+  "stateFields": "deposited,withdrawn",
+  "pdaSeed": "vault",
+  "clang": "clang version 20.1.7-rust-dev (https://github.com/anza-xyz/llvm-project.git 78496716176191b2dfb728e5e38501812e7467db)"
+}

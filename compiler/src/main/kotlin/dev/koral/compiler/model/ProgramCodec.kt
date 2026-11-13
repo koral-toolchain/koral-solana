@@ -7,7 +7,7 @@ import java.nio.file.Path
 
 /** A bounded data-only format; it does not deserialize Java objects or load classes. */
 object ProgramCodec {
-    private const val MAGIC = 0x4b4f5236
+    private const val MAGIC = 0x4b4f5237
     fun write(program: CounterProgram, path: Path) {
         DataOutputStream(Files.newOutputStream(path)).use { out ->
             out.writeInt(MAGIC); out.writeUTF(program.source)
@@ -36,7 +36,7 @@ object ProgramCodec {
         require(Files.size(path) <= 1_048_576) { "Compiler model is too large" }
         DataInputStream(Files.newInputStream(path)).use { input ->
             val format = input.readInt()
-            require(format == MAGIC || format == 0x4b4f5235 || format == 0x4b4f5234) { "Unsupported compiler model" }
+            require(format in 0x4b4f5234..MAGIC) { "Unsupported compiler model" }
             val source=input.readUTF()
             val layout=if(input.readBoolean()) {
                 val name=input.readUTF();val seed=input.readUTF();val size=input.readInt()
@@ -53,11 +53,11 @@ object ProgramCodec {
                     val accountName=input.readUTF();val writable=input.readBoolean()
                     val owner=if(format!=0x4b4f5234 && input.readBoolean())input.readUTF() else null
                     val address=if(format!=0x4b4f5234 && input.readBoolean())input.readUTF() else null
-                    val dataSize=if(format==MAGIC && input.readBoolean())input.readInt() else null
-                    val executable=if(format==MAGIC && input.readBoolean())input.readBoolean() else null
+                    val dataSize=if(format>=0x4b4f5236 && input.readBoolean())input.readInt() else null
+                    val executable=if(format>=0x4b4f5236 && input.readBoolean())input.readBoolean() else null
                     AccountParameter(accountName,writable,owner,address,dataSize,executable)
                 }
-                CounterInstruction(name,arguments,readStatements(input,0),accounts)
+                CounterInstruction(name,arguments,readStatements(input,0,format==MAGIC),accounts)
             }
             val program=CounterProgram(source,instructions,layout)
             require(input.read() == -1) { "Unexpected trailing compiler model data" }
@@ -102,9 +102,11 @@ object ProgramCodec {
             is Statement.Branch -> { out.writeByte(3); writeExpression(out,s.condition); writeStatements(out,s.yes); writeStatements(out,s.no) }
             is Statement.Require -> { out.writeByte(4); writeExpression(out,s.condition); out.writeInt(s.code.toInt()) }
             is Statement.TransferLamports -> { out.writeByte(5);writeExpression(out,s.to);writeExpression(out,s.amount) }
+            is Statement.DepositLamports -> { out.writeByte(6);writeExpression(out,s.amount) }
+            is Statement.WithdrawLamports -> { out.writeByte(7);writeExpression(out,s.to);writeExpression(out,s.amount) }
         }
     }
-    private fun readStatements(input: DataInputStream, depth: Int): List<Statement> {
+    private fun readStatements(input: DataInputStream, depth: Int, vault: Boolean): List<Statement> {
         require(depth < 128) { "Statement nesting is too deep" }
         val size=input.readInt();require(size in 0..10000) { "Too many statements" }
         return List(size) {
@@ -112,9 +114,11 @@ object ProgramCodec {
                 0 -> Statement.Bind(input.readUTF(),ValueType.valueOf(input.readUTF()),input.readBoolean(),readExpression(input,0))
                 1 -> Statement.Assign(input.readUTF(),readExpression(input,0))
                 2 -> Statement.Return(readExpression(input,0))
-                3 -> Statement.Branch(readExpression(input,0),readStatements(input,depth+1),readStatements(input,depth+1))
+                3 -> Statement.Branch(readExpression(input,0),readStatements(input,depth+1,vault),readStatements(input,depth+1,vault))
                 4 -> Statement.Require(readExpression(input,0),input.readInt().toUInt())
                 5 -> Statement.TransferLamports(readExpression(input,0),readExpression(input,0))
+                6 -> { require(vault) { "Vault statement in legacy model" };Statement.DepositLamports(readExpression(input,0)) }
+                7 -> { require(vault) { "Vault statement in legacy model" };Statement.WithdrawLamports(readExpression(input,0),readExpression(input,0)) }
                 else -> error("Unknown statement in compiler model")
             }
         }

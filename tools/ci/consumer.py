@@ -95,6 +95,12 @@ def verify(archive_path, sdk, mode):
                        for key in ['bodyFailureRollback', 'dataSizeAndExecutable']):
                 raise ValueError('Constrained account rollback verification was incomplete')
 
+            vault = work / 'sol-vault'
+            run(cli, 'build', root / 'examples/sol-vault.kt', '--out', vault, '--sdk', sdk)
+            run('node', runners[0].parent / 'vault.mjs', vault / 'counter.so', vault / 'tests.json')
+            if not json.loads((vault / 'tests.json').read_text())['bodyFailureRollback']:
+                raise ValueError('Owned-state vault rollback verification was incomplete')
+
             source = project / 'src/counter.kt'
             source.write_text(source.read_text().replace('checkedAdd(state.count, by)', 'state.count + by'))
             reject(cli, 'build', cwd=project, contains='Unsupported call')

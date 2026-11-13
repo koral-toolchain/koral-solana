@@ -2,9 +2,17 @@
 
 ## Unreleased
 
+- Add source-only owned-state SOL vault deposits and withdrawals, canonical PDA
+  and bump checks, actual-size rent retention, authority permissions and rollback.
+  Deposits use System CPI; withdrawals directly debit program-owned lamports.
+- Preserve new vault statement tags in KOR7 while reading KOR4/KOR5/KOR6 models;
+  older formats reject vault tags. General PDA signing is still not exposed.
+- Include the executable vault example, VM safety tests and selected-update
+  Native Rust/Pinocchio comparison with an executed auxiliary TypeSOL baseline.
+
 - Add exact external account data-size and executable true/false constraints,
   enforced before the instruction body. Preserve explicit zero/false in ABI
-  metadata and KOR6 models; continue reading KOR4/KOR5. No data decoding is added.
+  metadata and internal models, retaining legacy-format readers. No data decoding is added.
 - Exercise metadata mismatch, aliases, unconditional validation and CPI rollback
   with the installed CLI and native LiteSVM.
 

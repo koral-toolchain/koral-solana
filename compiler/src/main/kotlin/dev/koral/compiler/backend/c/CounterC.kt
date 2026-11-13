@@ -72,6 +72,16 @@ class CounterC {
                 line("uint64_t $status = koral_transfer_lamports(input, $to, $amount, $systemIndex);")
                 line("if ($status) return $status;")
             }
+            is Statement.DepositLamports -> {
+                val amount=expression(s.amount);val status=temp()
+                line("uint64_t $status = koral_deposit_lamports(input, $amount, $systemIndex);")
+                line("if ($status) return $status;")
+            }
+            is Statement.WithdrawLamports -> {
+                val to=expression(s.to);val amount=expression(s.amount);val status=temp()
+                line("uint64_t $status = koral_withdraw_lamports(input, $to, $amount);")
+                line("if ($status) return $status;")
+            }
             is Statement.Return -> { val value=expression(s.value);line("*out_count = $value;");line("return 0;") }
             is Statement.Require -> { val value=expression(s.condition);line("if (!($value)) return ${s.code}ULL;") }
             is Statement.Branch -> {

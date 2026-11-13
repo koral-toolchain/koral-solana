@@ -1,6 +1,6 @@
 # Koral
 
-An experimental Kotlin compiler for Solana. Current targets are Counter and a restricted owned ULong-state account, with external balance reads, optional fixed owner/address/data-size/executable constraints, and System transfer CPI. This is a development build, not a general Kotlin implementation or a production release.
+An experimental Kotlin compiler for Solana. Current targets are Counter and a restricted owned ULong-state account, with external balance reads, optional fixed owner/address/data-size/executable constraints, System transfer CPI, and a minimal rent-preserving owned-state SOL vault. This is a development build, not a general Kotlin implementation or a production release.
 
 External account constraints are unreleased and require a build from current source; the published `v0.1.0-dev` archive does not include them.
 
@@ -116,3 +116,6 @@ External modification and redistribution require prior written permission;
 external contributions are not currently accepted. Third-party dependencies
 retain their own licenses. See [contribution status](CONTRIBUTING.md) and
 [the CI contract](docs/CI.md).
+
+[The source-only SOL vault example](docs/VAULT.md) demonstrates initialization,
+authority deposits/withdrawals and rollback. It does not add generic PDA signing.

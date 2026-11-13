@@ -98,6 +98,44 @@ static __attribute__((noinline)) uint64_t initialize(Input *p) {
     return SUCCESS;
 }
 
+/* Entry validation establishes state ownership, authority, size and writable access. */
+INLINE uint64_t koral_check_vault(Input *p) {
+    SolPubkey expected; uint8_t bump;
+    uint64_t status=counter_pda(account_key(p->accounts[0]),p->id,&expected,&bump);
+    if(status) return status;
+    uint8_t *state=p->accounts[1];
+    if(!equal32(account_key(state),&expected) || account_data(state)[STATE_SIZE-1]!=bump) return 2006;
+    return SUCCESS;
+}
+INLINE uint64_t koral_deposit_lamports(Input *p,uint64_t amount,uint64_t program_index) {
+    uint64_t status=koral_check_vault(p);if(status) return status;
+    return koral_transfer_lamports(p,p->accounts[1],amount,program_index);
+}
+/* Program-owned SOL is debited directly, not through a System transfer CPI. */
+INLINE uint64_t koral_withdraw_lamports(Input *p,uint8_t *to,uint64_t amount) {
+    uint8_t *from=p->accounts[1];
+    if(!to[2]) return 3006;
+    if(from==to) return 2040;
+    uint64_t status=koral_check_vault(p);if(status) return status;
+    struct {uint64_t per_year; double threshold; uint8_t burn;} rent={0};
+    status=sol_get_rent_sysvar(&rent);if(status) return status;
+    uint64_t size=account_len(from),floor;
+    if(size>UINT64_MAX/2-128) return OVERFLOW;
+    if(load64(&rent.threshold)==0x4000000000000000ULL) {
+        if(rent.per_year>UINT64_MAX/(2*(size+128))) return OVERFLOW;
+        floor=rent.per_year*(2*(size+128));
+    } else {
+        double balance=(double)(size+128)*(double)rent.per_year*rent.threshold;
+        if(!(balance>=0.0) || balance>=18446744073709551616.0) return OVERFLOW;
+        floor=(uint64_t)balance;
+    }
+    uint64_t available=load64(from+72),next;
+    if(amount>available || available-amount<floor) return 3014;
+    if(__builtin_add_overflow(load64(to+72),amount,&next)) return OVERFLOW;
+    store64(from+72,available-amount);store64(to+72,next);
+    return SUCCESS;
+}
+
 @KORAL_FUNCTION@
 
 extern uint64_t entrypoint(const uint8_t *raw) {

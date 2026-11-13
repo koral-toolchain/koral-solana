@@ -7,7 +7,11 @@ import java.security.MessageDigest
 /** Preview client metadata, not an Anchor IDL or a stable published schema. */
 object ProgramAbi {
     private fun hasTransfer(body: List<Statement>): Boolean = body.any {
-        it is Statement.TransferLamports || (it is Statement.Branch && (hasTransfer(it.yes) || hasTransfer(it.no)))
+        (it is Statement.TransferLamports || it is Statement.DepositLamports) || (it is Statement.Branch && (hasTransfer(it.yes) || hasTransfer(it.no)))
+    }
+    private fun hasVault(body: List<Statement>, deposit: Boolean): Boolean = body.any {
+        (if(deposit)it is Statement.DepositLamports else it is Statement.WithdrawLamports) ||
+            (it is Statement.Branch && (hasVault(it.yes,deposit) || hasVault(it.no,deposit)))
     }
     private fun discriminator(name: String)=MessageDigest.getInstance("SHA-256").digest(name.toByteArray()).take(8).joinToString("") { "%02x".format(it) }
     private fun account(index:Int,name:String,signer:Boolean,writable:Boolean,address:String?=null)=linkedMapOf<String,Any?>(
@@ -25,7 +29,10 @@ object ProgramAbi {
             instruction.accounts.forEachIndexed { i,a -> accounts+=account(i+2,a.name,false,a.writable,a.address).apply { if(a.owner!=null)put("owner",a.owner);if(a.dataSize!=null)put("dataBytes",a.dataSize);if(a.executable!=null)put("executable",a.executable) } }
             if(cpi)accounts+=account(2+instruction.accounts.size,"system_program",false,false,system)
             linkedMapOf("name" to instruction.name,"discriminatorHex" to discriminator("global:${instruction.name}"),
-                "data" to data(instruction.arguments),"accounts" to accounts,"systemTransferFromAuthority" to cpi)
+                "data" to data(instruction.arguments),"accounts" to accounts,"systemTransferFromAuthority" to cpi).apply {
+                    if(hasVault(instruction.body,true))put("vaultDeposit",true)
+                    if(hasVault(instruction.body,false))put("vaultWithdrawal",true)
+                }
         }
         val value=linkedMapOf(
             "schema" to "koral-preview-abi/1","target" to "sbpf-v0",

@@ -83,3 +83,10 @@ including unselected transfer branches. Errors are 3012 (size) and 3013
 zero/false separately from absent fields. Size/flags do not decode or validate
 contents, establish token-account type, or identify a trusted program by themselves.
 The existing state layout and System Program checks remain independent.
+
+## Program-owned SOL vault
+
+Source builds can use depositLamports/withdrawLamports on the owned state PDA.
+See [the vault guide](../VAULT.md). Deposits use authority-funded System CPI;
+withdrawals directly debit the program-owned state and preserve its rent floor.
+This does not add generic PDA signing or arbitrary account-data access.

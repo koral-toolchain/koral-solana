@@ -68,6 +68,15 @@ def verify_diagnostics(cli: Path, work: Path, env=None):
             (name+'-field', record.replace('var balance', annotation+' val balance'),
              4, 1, 'not state fields'),
         ]
+    cases += [
+        ('legacy-vault-deposit', base.replace('    return checkedAdd(count, by)',
+                                              '    depositLamports(by)\n    return count'),
+         6, 5, 'Vault operations require an owned @Account state'),
+        ('legacy-vault-withdraw', base.replace('by: ULong):', 'by: ULong, target: WritableAccount):')
+                                     .replace('    return checkedAdd(count, by)',
+                                              '    withdrawLamports(target, by)\n    return count'),
+         6, 5, 'Vault operations require an owned @Account state'),
+    ]
     for name, source, line, column, reason in cases:
         file = folder / (name + '.kt')
         file.write_text(source)

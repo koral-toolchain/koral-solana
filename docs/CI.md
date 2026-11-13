@@ -73,7 +73,7 @@ separate job with the legacy testing dependency layout.
 
 ## Source diagnostic regression coverage
 
-Every native consumer job also invokes the extracted CLI on twenty-one rejected source
+Every native consumer job also invokes the extracted CLI on twenty-three rejected source
 fixtures and a valid control. Checks cover exact one-based file/line/column,
 readable reasons, no internal exception trace for expected rejections, and the
 file-start fallback for model validation. A nested initializer fixture checks that
@@ -90,3 +90,9 @@ rejection before CPI, permission failures and rollback after a later body failur
 v1. Product CI verifies its declared jobs; it does not approve release timing,
 publish a candidate or announce changes. Handbook policy metadata is checked in
 the handbook repository and does not silently replace the checker pinned here.
+
+The candidate suites also build sol-vault.kt and execute vault.mjs. Tests cover
+canonical initialization, System-CPI deposits, direct owned-state withdrawals,
+authority/permissions, actual-size rent retention, alias/overflow rejection and
+CPI/direct-update rollback. Rust/Pinocchio/auxiliary performance comparisons are
+separate reproducible evidence, not silently added product build dependencies.

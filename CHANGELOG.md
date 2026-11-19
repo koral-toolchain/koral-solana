@@ -2,9 +2,13 @@
 
 ## Unreleased
 
-The entries below are grouped into the 0.3.0-preview.1 candidate. The exact
-verified CI archive will be promoted under the owner's four-step readiness task;
-this source preparation alone is not publication.
+No additional changes are currently recorded.
+
+## 0.3.0-preview.1 — 2026-11-19
+
+The exact successful main-CI archive was published as v0.3.0-preview.1. Public
+downloads and SHA256SUMS were independently verified; release assets preserve
+the source, CI and artifact identity.
 
 - Add an independent aggregate-inventory consumer example and tests, recording
   both verified zero-initialized behavior and the unsupported initial-state policy.
@@ -19,7 +23,7 @@ this source preparation alone is not publication.
   assertion details without internal loader/client frames. Imported consumer
   helpers remain debuggable; unavailable source locations are labeled honestly.
 
-- Add an Unreleased custom project with editable Kotlin and user-authored tests.
+- Add a custom project with editable Kotlin and user-authored tests.
 - Provide a preview ABI instruction/state client and local VM fixture helpers,
   reducing manual argument encoding, PDA derivation and account-order handling.
 - Explain fixed-template ABI mismatches without leaking internal Node TypeErrors;

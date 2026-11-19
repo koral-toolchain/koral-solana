@@ -7,8 +7,8 @@ actual consumer evidence, rather than growing a feature checklist without use.
 
 | Work | Evidence and status |
 | --- | --- |
-| Existing public CLI | 0.2.0-preview.1, immutable archive and source |
-| Custom projects/client/diagnostics | Implemented in source; grouped into 0.3.0-preview.1 candidate |
+| Existing public CLI | 0.3.0-preview.1 published; older archives remain immutable |
+| Custom projects/client/diagnostics | Published in 0.3.0-preview.1 |
 | Fresh installation | New Ubuntu24.04 x64 container, fresh JDK/Node/SDK and empty VM cache; public Counter/payment checks passed |
 | Independent consumer | Aggregate inventory: zero-initialized transitions, quantities, permissions and overflow passed 66 assertions; unmet initialization requirement recorded |
 | Platform qualification | Hosted Linux x64 JDK17/Node22 and JDK21/Node24; local macOS arm64; container x64 run is emulated on Apple Silicon |
@@ -19,6 +19,8 @@ is not a new physical machine. Evidence is summarized in
 [the consumer review](consumer-reviews/0.3.0-preview.1.md).
 
 ## Next selected capability: opt-in initialization policy
+
+Track implementation in [issue #26](https://github.com/koral-toolchain/koral-solana/issues/26).
 
 The inventory user could define invariants for every update but could not reject
 an invalid initial-state payload. Implement a small, explicit zero-only policy

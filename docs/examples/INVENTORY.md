@@ -5,7 +5,7 @@ payments: received, available, reserved and sold counts, with receive/reserve/
 cancel/dispatch/return operations. It moves no funds and implements no token.
 It is an owner-operated quantity ledger, not a multi-customer reservation service.
 
-From an extracted 0.3.0-preview.1 candidate installation, create a custom project,
+From an extracted 0.3.0-preview.1 installation, create a custom project,
 copy the bundled examples/inventory.kt over its src/custom.kt, and copy the bundled
 testing/inventory-test.mjs over tests/program.test.mjs. Then run setup/check/build/test.
 For example, set KORAL_HOME to the extracted installation directory:

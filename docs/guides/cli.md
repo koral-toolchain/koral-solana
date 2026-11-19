@@ -1,21 +1,27 @@
 # CLI and generated artifacts
 
-The installed executable provides init, setup, check, build, doctor, and test. The current published development preview is 0.2.0-preview.1.
+The installed executable provides init, setup, check, build, doctor, and test. The current published development preview is 0.3.0-preview.1.
 
 ## Commands
 
 ```text
-koral init <new-directory> [--template counter|payments|sol-vault]
+koral init <new-directory> [--template counter|payments|sol-vault|custom]
 koral setup
 koral check [source.kt]
 koral build [source.kt] [--out <directory>] [--sdk <SDK>]
 koral doctor [--sdk <SDK>]
-koral test [counter.so] [--suite counter|payments|sol-vault]
+koral test [counter.so] [--suite counter|payments|sol-vault|custom]
 ```
 
-check and build accept one source path, or use koral.properties in the current project when it is omitted. build supports --out and --sdk as distinct option/value pairs. The default output directory is build/koral. An explicit --sdk takes precedence over KORAL_SBF_SDK. doctor reports Java and the installed Clang version. test delegates to the selected bundled contract verifier. Payment/vault projects select their suite through format=2 configuration; format=1 and explicit binaries without --suite retain Counter. See [the first-project workflow](../FIRST-PROJECT.md).
+check and build accept one source path, or use koral.properties in the current project when it is omitted. build supports --out and --sdk as distinct option/value pairs. The default output directory is build/koral. An explicit --sdk takes precedence over KORAL_SBF_SDK. doctor reports Java and the installed Clang version. test delegates to the selected bundled contract verifier. Payment/vault projects select their suite through format=2 configuration; format=1 and explicit binaries without --suite retain Counter. See [the first-project workflow](https://github.com/koral-toolchain/koral-solana/blob/main/docs/FIRST-PROJECT.md).
 
 Errors are written to stderr with the Koral: prefix and a nonzero exit status. There is no deploy command. The Counter, payments and sol-vault suites each require their specific contract. A suite is not a general test generator for arbitrary user code.
+
+## Your own program and tests
+
+Use `koral init my-program --template custom`, enter the directory and run setup/check/build/test. Edit the Kotlin and `tests/program.test.mjs` together. The bundled preview ABI client handles named inputs/accounts, encoding, canonical PDA and state decoding. Your script owns its assertions; successful execution does not imply inferred coverage or safety.
+
+Fixed suites require their exact template contract. A mismatch explains the custom workflow. Failed assertions preserve your source file and line; syntax and import errors retain native Node context without rerunning your test. See [the custom guide](https://github.com/koral-toolchain/koral-solana/blob/v0.3.0-preview.1/docs/CUSTOM-PROGRAM.md) and [the inventory example](https://github.com/koral-toolchain/koral-solana/blob/v0.3.0-preview.1/docs/examples/INVENTORY.md).
 
 ## Output files
 
@@ -45,11 +51,3 @@ Before recompiling into an existing output directory, the CLI removes old counte
 The build manifest hashes source, compiler JAR, runtime, generated C, and binary, and records actual Clang details. This makes a result inspectable; it is not a guarantee of identical bytes on every operating system or SDK version.
 
 Implementation basis: cli/Main.kt, ProgramAbi.kt, and SbfToolchain.kt.
-
-## Your own program (Unreleased)
-
-Current source/candidates also accept --template custom for init and --suite custom
-for project tests. A custom project executes its trusted tests/program.test.mjs
-with a bundled ABI client, not an existing template's regression suite. Edit the
-source and independent assertions together. See [custom programs](../CUSTOM-PROGRAM.md).
-The published 0.2.0-preview.1 download does not include this later capability.

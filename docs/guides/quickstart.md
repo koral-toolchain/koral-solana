@@ -1,25 +1,25 @@
 # Install and run your first Counter
 
-The 0.2.0-preview.1 development preview provides a CLI archive and local Counter,
+The 0.3.0-preview.1 development preview provides a CLI archive and local Counter,
 payment and SOL-vault workflows.
 Koral remains proprietary with all rights reserved. Read the license and known limits in
-[the release notes](https://github.com/koral-toolchain/koral-solana/releases/tag/v0.2.0-preview.1).
+[the release notes](https://github.com/koral-toolchain/koral-solana/releases/tag/v0.3.0-preview.1).
 
 ## Download and requirements
 
-[Download the CLI TAR](https://github.com/koral-toolchain/koral-solana/releases/download/v0.2.0-preview.1/koral-0.2.0-preview.1.tar) and check it against
-[SHA256SUMS](https://github.com/koral-toolchain/koral-solana/releases/download/v0.2.0-preview.1/SHA256SUMS).
+[Download the CLI TAR](https://github.com/koral-toolchain/koral-solana/releases/download/v0.3.0-preview.1/koral-0.3.0-preview.1.tar) and check it against
+[SHA256SUMS](https://github.com/koral-toolchain/koral-solana/releases/download/v0.3.0-preview.1/SHA256SUMS).
 
 Use JDK 17+, Node 22.12+ with npm for VM tests, and the external Agave 3.1.10 /
 platform-tools 1.52 SBF SDK. Node is not required to compile. The release records
 the exact tested Linux x64 and macOS arm64 runtime pairs. Follow the
-[SDK installation guide](https://github.com/koral-toolchain/koral-solana/blob/v0.2.0-preview.1/docs/SDK-SETUP.md) if needed.
+[SDK installation guide](https://github.com/koral-toolchain/koral-solana/blob/v0.3.0-preview.1/docs/SDK-SETUP.md) if needed.
 
 ## Install the CLI
 
 ```sh
-tar -xf koral-0.2.0-preview.1.tar
-export PATH="$PWD/koral-0.2.0-preview.1/bin:$PATH"
+tar -xf koral-0.3.0-preview.1.tar
+export PATH="$PWD/koral-0.3.0-preview.1/bin:$PATH"
 export KORAL_SBF_SDK=/path/to/solana-release/bin/platform-tools-sdk/sbf
 koral doctor
 ```
@@ -80,5 +80,9 @@ A failed test removes its selected result report. Missing
 project, SDK, binary or VM tools produces an actionable diagnostic.
 
 The original explicit-source commands remain available. Read
-[the complete first-project guide](https://github.com/koral-toolchain/koral-solana/blob/v0.2.0-preview.1/docs/FIRST-PROJECT.md)
+[the complete first-project guide](https://github.com/koral-toolchain/koral-solana/blob/v0.3.0-preview.1/docs/FIRST-PROJECT.md)
 for configuration, legacy commands, source builds and failure recovery.
+
+## Write your own contract
+
+Create `koral init my-program --template custom` for editable Kotlin and your own local VM tests. Run setup/check/build/test, then edit source and assertions together. The fixed Counter/payment/vault suites are for their exact contracts. [Follow the custom guide](https://github.com/koral-toolchain/koral-solana/blob/v0.3.0-preview.1/docs/CUSTOM-PROGRAM.md).

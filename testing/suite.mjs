@@ -1,6 +1,7 @@
 // Built-in suites assert fixed contracts. Custom tests are explicitly user-authored code.
 import {readFileSync,existsSync,writeFileSync} from 'node:fs';
 import path from 'node:path';
+import {formatCustomTestError} from './test-errors.mjs';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 const [suite,binary,report,script]=process.argv.slice(2);
 const directory=path.dirname(fileURLToPath(import.meta.url));
@@ -32,5 +33,5 @@ try {
   await import(pathToFileURL(runner).href);
  }
 } catch(error) {
- console.error(`Koral: ${error.message}`);process.exitCode=1;
+ console.error(suite==='custom'&&script?formatCustomTestError(error,script):`Koral: ${error.message}`);process.exitCode=1;
 }

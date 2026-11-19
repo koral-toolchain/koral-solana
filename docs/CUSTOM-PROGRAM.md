@@ -62,6 +62,16 @@ the tested behavior; the CLI cannot prove arbitrary scripts tested anything usef
 Failed/timed-out runs remove the selected report, and rebuilds remove default
 reports. Missing scripts fail with recovery guidance. Tests must stay in the project.
 
+## Find a failing assertion
+
+A failed custom assertion keeps its message and expected/actual details, then
+shows up to three user file/line/column locations. Project paths are relative;
+consumer helpers outside the project retain their actual file paths. Node loader,
+node_modules and bundled-client frames are omitted. A missing source position is
+labeled unavailable with the test entry path, rather than inventing a line.
+Failed tests still invalidate their report. Useful failure messages do not prove
+that the user authored sufficient assertions or that the contract is secure.
+
 ## Preview ABI client
 
 - createProgramClient({abi, programAddress}) builds a client for koral-preview-abi/1

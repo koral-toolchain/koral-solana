@@ -1,7 +1,7 @@
 plugins { kotlin("jvm") version "2.2.21" apply false }
 allprojects {
     group = "dev.koral"
-    version = "0.1.0-dev"
+    version = "0.2.0-preview.1"
 }
 subprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")

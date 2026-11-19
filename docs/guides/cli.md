@@ -1,6 +1,6 @@
 # CLI and generated artifacts
 
-The installed executable provides init, setup, check, build, doctor, and test. The current development version is 0.1.0-dev.
+The installed executable provides init, setup, check, build, doctor, and test. The current development candidate is 0.2.0-preview.1; it is not yet published.
 
 ## Commands
 

@@ -39,6 +39,6 @@ jobs:
           MODE: ${{ inputs.mode }}
         run: |
           python3 tools/ci/consumer.py \
-            --archive candidate/koral-0.1.0-dev.tar \
+            --archive candidate/koral-0.2.0-preview.1.tar \
             --sdk "$RUNNER_TEMP/koral-sdk" \
             --mode "$MODE"

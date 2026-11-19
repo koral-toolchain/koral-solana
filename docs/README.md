@@ -22,3 +22,6 @@ announcements. A merged source change is not a package release.
 
 [The SOL vault guide](VAULT.md) covers unreleased owned-state deposits/withdrawals,
 local verification, authority/rent checks and selected-update comparison evidence.
+
+[The next candidate notes](release-candidates/0.2.0-preview.1.md) describe the proposed
+preview, compatibility and publication boundary; they are not a released changelog.

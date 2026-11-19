@@ -3,9 +3,8 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 const tools=path.dirname(fileURLToPath(import.meta.url));
 const within=(root,file)=>{const relative=path.relative(root,file);return !path.isAbsolute(relative)&&relative!=='..'&&!relative.startsWith('..'+path.sep);};
-export function formatCustomTestError(error,script) {
+export function customTestErrorLocations(error,script) {
  const entry=path.resolve(script),project=path.dirname(path.dirname(entry));
- const message=error?.message??String(error);
  const locations=[];
  for(const line of String(error?.stack??'').split('\n')) {
   if(!/^\s+at\s/.test(line)||/(?:\(|\s)node:/.test(line))continue;
@@ -19,6 +18,12 @@ export function formatCustomTestError(error,script) {
   if(!locations.includes(location))locations.push(location);
   if(locations.length===3)break;
  }
+ return locations;
+}
+export function formatCustomTestError(error,script) {
+ const entry=path.resolve(script),project=path.dirname(path.dirname(entry));
+ const message=error?.message??String(error);
+ const locations=customTestErrorLocations(error,script);
  const detail=locations.length?locations.map(v=>'  at '+v).join('\n'):`  Test entry: ${path.relative(project,entry)} (source location unavailable)`;
  return `Koral: Custom test failed: ${message}\n${detail}`;
 }

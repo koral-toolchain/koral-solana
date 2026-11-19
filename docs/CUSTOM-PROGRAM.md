@@ -69,6 +69,13 @@ shows up to three user file/line/column locations. Project paths are relative;
 consumer helpers outside the project retain their actual file paths. Node loader,
 node_modules and bundled-client frames are omitted. A missing source position is
 labeled unavailable with the test entry path, rather than inventing a line.
+Module parse errors retain Node's native file URL, line and source/caret frame,
+including syntax errors in imported helpers outside the project. They reuse the
+original exception; the test is not executed again to discover its location.
+Runtime-created SyntaxErrors (for example JSON.parse in user code) keep the normal
+compact user-source frames. Missing-import errors retain the requested module and
+entry context; unavailable locations are not invented.
+
 Failed tests still invalidate their report. Useful failure messages do not prove
 that the user authored sufficient assertions or that the contract is secure.
 

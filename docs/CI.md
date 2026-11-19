@@ -124,3 +124,10 @@ Consumer jobs also execute real Node assertion-location fixtures in paths with
 spaces and parentheses, external helpers, missing positions and filtered internal
 frames. The wrong-price SBF regression must identify the consumer test file/line
 while invalidating its report. These checks do not relax required success gates.
+
+Custom syntax fixtures exercise the actual dispatcher for entry/helper parse
+errors, external imported modules, runtime SyntaxErrors and missing imports.
+Native file/line/code frames must survive, internal loader frames must not leak,
+and a side-effect marker must show exactly one execution. Extracted-CLI tests
+also verify report invalidation and a successful return to the real SBF test after
+the user fixes those source/import errors.

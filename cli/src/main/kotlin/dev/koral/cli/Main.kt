@@ -105,7 +105,7 @@ fun main(args:Array<String>) {
                 try {
                     val p=builder.start()
                     if(!p.waitFor(90,java.util.concurrent.TimeUnit.SECONDS)) { p.destroyForcibly().waitFor(5,java.util.concurrent.TimeUnit.SECONDS);error("Local ${template.id} verification timed out") }
-                    check(p.exitValue()==0) { if(template==ProjectTemplate.CUSTOM) "Custom test script failed. Review your assertions and the source locations above. Run koral setup if VM tools are missing." else "${template.id} verification failed. This suite expects the ${template.id} template contract; review your source and generated ABI. Run koral setup if VM dependencies are missing." }
+                    check(p.exitValue()==0) { if(template==ProjectTemplate.CUSTOM) "Custom test script failed. Review your test script and the source locations above. Run koral setup if VM tools are missing." else "${template.id} verification failed. This suite expects the ${template.id} template contract; review your source and generated ABI. Run koral setup if VM dependencies are missing." }
                     if(report!=null) check(report.isFile) { "${template.id} verification did not produce its result report" }
                     println(if(template==ProjectTemplate.CUSTOM) "Custom test script completed successfully. Assertions and coverage are defined by your script." else "${template.id} verified in a local VM. No blockchain transaction was sent.")
                 } catch(e:Exception) {

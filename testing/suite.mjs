@@ -1,7 +1,7 @@
 // Built-in suites assert fixed contracts. Custom tests are explicitly user-authored code.
 import {readFileSync,existsSync,writeFileSync} from 'node:fs';
 import path from 'node:path';
-import {formatCustomTestError} from './test-errors.mjs';
+import {formatCustomTestError,customTestErrorLocations} from './test-errors.mjs';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 const [suite,binary,report,script]=process.argv.slice(2);
 const directory=path.dirname(fileURLToPath(import.meta.url));
@@ -33,5 +33,11 @@ try {
   await import(pathToFileURL(runner).href);
  }
 } catch(error) {
+ if(suite==='custom'&&script&&error instanceof SyntaxError&&customTestErrorLocations(error,script).length===0) {
+  // Rethrow the original parse error: Node retains its native file/line/code frame.
+  // Re-execution or private V8 fields would lose provenance or duplicate side effects.
+  try { error.stack=`SyntaxError: ${error.message}\n  Koral test entry: ${path.resolve(script)}`; } catch {}
+  throw error;
+ }
  console.error(suite==='custom'&&script?formatCustomTestError(error,script):`Koral: ${error.message}`);process.exitCode=1;
 }

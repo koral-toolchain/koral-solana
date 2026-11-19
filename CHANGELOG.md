@@ -2,7 +2,13 @@
 
 ## Unreleased
 
-No additional changes recorded yet.
+- Add an Unreleased custom project with editable Kotlin and user-authored tests.
+- Provide a preview ABI instruction/state client and local VM fixture helpers,
+  reducing manual argument encoding, PDA derivation and account-order handling.
+- Explain fixed-template ABI mismatches without leaking internal Node TypeErrors;
+  retain real regression assertions rather than treating an ABI match as success.
+- Verify actual custom SBF, independent price/rollback assertions, consumer input
+  failures and rejection of a compiled wrong-price mutation outside the checkout.
 
 ## 0.2.0-preview.1 — 2026-11-19
 

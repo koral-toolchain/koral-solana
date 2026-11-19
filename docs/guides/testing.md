@@ -88,3 +88,12 @@ This source-checkout harness builds multiple programs and checks source changes,
 System Program errors may also propagate from CPI; this table is not a complete Solana error catalog or a stable public error specification. A custom ensure code may reuse a numeric value, so inspect the actual source too. Passing local checks is not an audit.
 
 Implementation basis: testing/, CompilerTest.kt, cli/Main.kt, and runtime/src/counter.c.
+
+## Independently authored contracts (Unreleased)
+
+A current custom project runs its own editable JavaScript assertions using the
+bundled preview ABI client. The CLI supplies KORAL_TEST_BINARY/KORAL_TEST_CLIENT;
+setup provides pinned local VM tools. It does not infer tests for changed contracts.
+Use [the custom workflow](../CUSTOM-PROGRAM.md). Fixed-suite ABI mismatches now
+explain the supported consumer path; actual native tests remain required after
+that preflight. Script completion does not establish coverage or a security audit.

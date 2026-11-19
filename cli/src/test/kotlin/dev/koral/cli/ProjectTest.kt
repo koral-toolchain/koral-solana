@@ -32,6 +32,18 @@ class ProjectTest {
         }
     }
 
+    @Test fun customProjectBundlesEditableSourceAndIndependentTestScript() = inTemporaryDirectory { root ->
+        val project = KoralProject.create(File(root, "custom project"), ProjectTemplate.CUSTOM)
+        assertEquals(ProjectTemplate.CUSTOM, KoralProject.load(project.root).template)
+        assertEquals(KoralProject::class.java.getResource("/koral/templates/custom.kt")!!.readText(), project.source.readText())
+        val script = File(project.root, "tests/program.test.mjs")
+        assertEquals(KoralProject::class.java.getResource("/koral/templates/custom-template.test.mjs")!!.readText(), script.readText())
+        script.writeText("// consumer owns these assertions\n")
+        assertFailsWith<IllegalArgumentException> { KoralProject.create(project.root, ProjectTemplate.CUSTOM) }
+        assertEquals("// consumer owns these assertions\n", script.readText())
+        assertTrue(File(project.root, "README.md").readText().contains("user-authored"))
+    }
+
     @Test fun formatOneRemainsCounterAndFormatTwoRequiresAKnownSuite() = inTemporaryDirectory { root ->
         val project = KoralProject.create(File(root,"legacy"))
         assertEquals(ProjectTemplate.COUNTER, project.template)

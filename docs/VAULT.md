@@ -49,7 +49,7 @@ constraints can be combined with recipient declarations as needed.
 
 ## Comparison evidence
 
-The separate [benchmark](../benchmarks/vault/README.md) compares selected deposit
+The separate [benchmark](https://github.com/koral-toolchain/koral-solana/blob/v0.3.0-preview.1/benchmarks/vault/README.md) compares selected deposit
 and withdrawal updates on seeded state against independent Native Rust and
 Pinocchio programs, with a directly executed TypeSOL baseline. Initialization
 costs and full-program ELF-size rankings are excluded. PDA search attempts affect

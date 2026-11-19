@@ -23,11 +23,11 @@ announcements. A merged source change is not a package release.
 [The SOL vault guide](VAULT.md) covers owned-state deposits/withdrawals,
 local verification, authority/rent checks and selected-update comparison evidence.
 
-[The 0.2.0-preview.1 release notes](release-candidates/0.2.0-preview.1.md) record the published
+[The 0.3.0-preview.1 release notes](release-candidates/0.3.0-preview.1.md) record the published
 preview, compatibility and exact verified source. See CHANGELOG.md for the version history.
 
-[Custom programs](CUSTOM-PROGRAM.md) covers the Unreleased user-authored test scaffold
-and ABI client; this workflow is not in the published 0.2.0-preview.1 archive.
+[Custom programs](CUSTOM-PROGRAM.md) covers the user-authored test scaffold and ABI
+client shipped in 0.3.0-preview.1. The older 0.2.0-preview.1 archive lacks this workflow.
 
 [The post-launch roadmap](ROADMAP.md) follows fresh installation and an independent
 [inventory consumer](examples/INVENTORY.md), distinguishing verified behavior from

@@ -1,4 +1,8 @@
-# Launch MVP: Frozen Scope
+# Initial Launch MVP: Historical Scope
+
+This is the dated initial launch scope, not the current release status. The
+0.1.0-dev and 0.2.0-preview.1 previews have been published. See [ROADMAP.md](ROADMAP.md)
+for current consumer work, verification limits and the next feature decision.
 
 Owner decision, 2026-11-11: launch a small usable compiler preview with credible benchmarks, then develop it further. TypeSOL's full feature surface is not a launch requirement.
 

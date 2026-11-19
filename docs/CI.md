@@ -52,7 +52,7 @@ From this directory's parent (the utility root):
 ```sh
 ./gradlew --no-daemon test :cli:distTar
 python3 tools/ci/consumer.py \
-  --archive cli/build/distributions/koral-0.2.0-preview.1.tar \
+  --archive cli/build/distributions/koral-0.3.0-preview.1.tar \
   --sdk "$KORAL_SBF_SDK" --mode integration
 ```
 
@@ -131,3 +131,9 @@ Native file/line/code frames must survive, internal loader frames must not leak,
 and a side-effect marker must show exactly one execution. Extracted-CLI tests
 also verify report invalidation and a successful return to the real SBF test after
 the user fixes those source/import errors.
+
+Consumer and compatibility jobs also run the independent inventory example. Its
+four-field conservation, reservation transitions, permission/overflow rejection
+and explicit initialization-policy finding are recorded separately. A passing
+zero-initialized core scope does not mean arbitrary initial-state invariants or
+per-reservation IDs are supported.

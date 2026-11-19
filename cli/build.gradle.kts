@@ -20,6 +20,10 @@ distributions.main {
         from(rootProject.file("docs/FIRST-PROJECT.md")) { into("docs") }
         from(rootProject.file("docs/VAULT.md")) { into("docs") }
         from(rootProject.file("docs/CUSTOM-PROGRAM.md")) { into("docs") }
+        from(rootProject.file("docs/ROADMAP.md")) { into("docs") }
+        from(rootProject.file("docs/MVP.md")) { into("docs") }
+        from(rootProject.file("docs/consumer-reviews/0.3.0-preview.1.md")) { into("docs/consumer-reviews") }
+        from(rootProject.file("docs/examples/INVENTORY.md")) { into("docs/examples") }
         from(rootProject.file("docs/SDK-SETUP.md")) { into("docs") }
         from(rootProject.file("testing")) { into("testing"); exclude("node_modules/**") }
         from(rootProject.file("examples")) { into("examples") }

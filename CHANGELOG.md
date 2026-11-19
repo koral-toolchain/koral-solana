@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+The entries below are grouped into the 0.3.0-preview.1 candidate. The exact
+verified CI archive will be promoted under the owner's four-step readiness task;
+this source preparation alone is not publication.
+
+- Add an independent aggregate-inventory consumer example and tests, recording
+  both verified zero-initialized behavior and the unsupported initial-state policy.
+- Refresh the post-launch roadmap and consumer evidence instead of treating the
+  initial launch snapshot as the current product status.
+
 - Preserve Node's original file/line/code frame for custom entry or imported-helper
   syntax errors, without re-executing consumer code or exposing loader frames.
   Runtime-created SyntaxErrors retain the normal compact user-source diagnostic.

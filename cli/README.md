@@ -12,7 +12,7 @@ Extract the complete package and add its bin directory to PATH. In a writable
 workspace outside that installation:
 
 ```sh
-export PATH="/path/to/koral-0.2.0-preview.1/bin:$PATH"
+export PATH="/path/to/koral-0.3.0-preview.1/bin:$PATH"
 export KORAL_SBF_SDK=/path/to/solana-release/bin/platform-tools-sdk/sbf
 koral doctor
 koral init hello-counter
@@ -60,11 +60,11 @@ Build outputs retain the early `counter` basename: `.so`, `.c`, `.ir`, `.build.j
 
 This preview does not implement general Kotlin, SPL Token, PDA-signed token transfers, arbitrary CPI, or DEX programs. No production-readiness or audit claim is made. Koral's original materials are proprietary, with all rights reserved; see LICENSE. Third-party attribution is in THIRD_PARTY_NOTICES.md.
 
-## Your own contract (Unreleased)
+## Your own contract (0.3.0-preview.1)
 
-Use `koral init my-program --template custom` from a current source/candidate build.
+Use `koral init my-program --template custom` from the 0.3.0-preview.1 distribution or corresponding source/candidate.
 Then run setup/check/build/test in the project. Edit src/custom.kt and
 tests/program.test.mjs together; the test imports the bundled ABI client through
 KORAL_TEST_CLIENT. Its report records user-script completion, not automatic
-contract coverage. The published 0.2.0-preview.1 archive lacks this later workflow.
+contract coverage. The older 0.2.0-preview.1 archive lacks this workflow.
 See docs/CUSTOM-PROGRAM.md in the candidate installation.

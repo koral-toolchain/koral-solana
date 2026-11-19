@@ -13,22 +13,23 @@ does not change the proprietary terms.
 - Node 22.12+ and npm for local VM testing. Compilation does not need Node.
 - Network access for the explicit, one-time `koral setup` dependency installation.
 
-The published 0.2.0-preview.1 CLI is available with checksums from the
-[release page](https://github.com/koral-toolchain/koral-solana/releases/tag/v0.2.0-preview.1).
-Later features labeled Unreleased require a candidate built from current source;
-a candidate is not the same published artifact. To build one from a checkout:
+This guide targets 0.3.0-preview.1. Find its versioned downloads and checksums on
+[the release page](https://github.com/koral-toolchain/koral-solana/releases/tag/v0.3.0-preview.1).
+A source/CI candidate can carry this development version before publication;
+verify the selected artifact's source and checksum rather than assuming every
+locally built TAR is the published release. To build a candidate from a checkout:
 
 ```sh
 ./gradlew --no-daemon test :cli:distTar
 ```
 
-The candidate is cli/build/distributions/koral-0.2.0-preview.1.tar. An extracted CLI
+The candidate is cli/build/distributions/koral-0.3.0-preview.1.tar. An extracted CLI
 does not need Gradle or the source checkout. Extract it into your chosen install
 directory and add its bin directory to PATH:
 
 ```sh
-tar -xf /path/to/koral-0.2.0-preview.1.tar -C /your/install/directory
-export PATH="/your/install/directory/koral-0.2.0-preview.1/bin:$PATH"
+tar -xf /path/to/koral-0.3.0-preview.1.tar -C /your/install/directory
+export PATH="/your/install/directory/koral-0.3.0-preview.1/bin:$PATH"
 export KORAL_SBF_SDK=/path/to/solana-release/bin/platform-tools-sdk/sbf
 koral doctor
 ```
@@ -161,7 +162,7 @@ checkout for the exact qualified runtime pairs and hosted run results.
 
 ## When your contract differs from a template
 
-The Unreleased custom workflow creates an independent editable test:
+The 0.3.0-preview.1 custom workflow creates an independent editable test:
 `koral init my-program --template custom`. Then use the same setup/check/build/test
 commands. The local test script defines its own assertions with the bundled ABI
 client. See [custom programs](CUSTOM-PROGRAM.md). The CLI never infers arbitrary

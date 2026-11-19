@@ -33,8 +33,8 @@ def verify(archive_path, sdk, mode):
         env['npm_config_cache'] = str(Path(folder) / 'npm-cache')
         env['KORAL_CACHE_DIR'] = str(Path(folder) / 'user cache')
 
-        def run(*args, cwd=work):
-            subprocess.run([str(a) for a in args], cwd=cwd, env=env, check=True, timeout=600)
+        def run(*args, cwd=work, process_env=None):
+            subprocess.run([str(a) for a in args], cwd=cwd, env=process_env or env, check=True, timeout=600)
 
         def reject(*args, cwd=work, contains, process_env=None):
             result = subprocess.run([str(a) for a in args], cwd=cwd, env=process_env or env,
@@ -231,6 +231,19 @@ def verify(archive_path, sdk, mode):
             script.unlink()
             script.write_bytes(original_script)
             run(cli, 'test', cwd=custom)
+
+            # A different consumer domain: four-field aggregate stock, with explicit limits.
+            inventory = work / 'inventory consumer'
+            run(cli, 'init', inventory, '--template', 'custom')
+            (inventory / 'src/custom.kt').write_bytes((root / 'examples/inventory.kt').read_bytes())
+            (inventory / 'tests/program.test.mjs').write_bytes((root / 'testing/inventory-test.mjs').read_bytes())
+            run(cli, 'check', cwd=inventory)
+            run(cli, 'build', cwd=inventory)
+            inventory_report = inventory / 'build/koral/inventory.test.json'
+            run(cli, 'test', cwd=inventory, process_env={**env, 'KORAL_INVENTORY_RESULT': str(inventory_report)})
+            findings = json.loads(inventory_report.read_text())
+            if not findings['corePassed'] or findings['assertions'] < 64 or not findings['findings']:
+                raise ValueError('Inventory consumer scope or explicit findings were not recorded')
 
             reject(cli, 'init', work / 'unknown project', '--template', 'unknown', contains='Choose counter, payments, sol-vault or custom')
             if (work / 'unknown project').exists():

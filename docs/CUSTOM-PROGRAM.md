@@ -1,7 +1,7 @@
 # Write and test your own program
 
-Status: Unreleased source/candidate workflow. The published 0.2.0-preview.1 archive
-does not contain this custom scaffold or client. Existing published bytes are unchanged.
+Available in 0.3.0-preview.1 distributions and corresponding source/candidates.
+The older 0.2.0-preview.1 archive does not contain this custom scaffold or client.
 
 ```sh
 koral init my-program --template custom

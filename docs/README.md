@@ -28,3 +28,7 @@ preview, compatibility and exact verified source. See CHANGELOG.md for the versi
 
 [Custom programs](CUSTOM-PROGRAM.md) covers the Unreleased user-authored test scaffold
 and ABI client; this workflow is not in the published 0.2.0-preview.1 archive.
+
+[The post-launch roadmap](ROADMAP.md) follows fresh installation and an independent
+[inventory consumer](examples/INVENTORY.md), distinguishing verified behavior from
+unmet application requirements and the proposed next initialization policy.

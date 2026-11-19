@@ -8,7 +8,7 @@ data class Inventory(val received: ULong, val available: ULong, val reserved: UL
 fun receive(state: Inventory, quantity: ULong): Inventory {
     ensure(checkedAdd(state.available, checkedAdd(state.reserved, state.sold)) == state.received, 7100uL)
     ensure(quantity > 0uL, 7101uL)
-    
+
     return Inventory(checkedAdd(state.received, quantity), checkedAdd(state.available, quantity), state.reserved, state.sold)
 }
 
@@ -43,4 +43,3 @@ fun restock_return(state: Inventory, quantity: ULong): Inventory {
     ensure(quantity <= state.sold, 7104uL)
     return Inventory(state.received, checkedAdd(state.available, quantity), state.reserved, checkedSubtract(state.sold, quantity))
 }
-

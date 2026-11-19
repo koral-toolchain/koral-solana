@@ -119,3 +119,8 @@ report paths fail without overwriting the consumer's test. Built-in suites still
 execute all native assertions after a template-contract preflight, and an edited
 custom contract must receive actionable guidance without an internal TypeError.
 A custom completion report does not certify arbitrary user-defined coverage.
+
+Consumer jobs also execute real Node assertion-location fixtures in paths with
+spaces and parentheses, external helpers, missing positions and filtered internal
+frames. The wrong-price SBF regression must identify the consumer test file/line
+while invalidating its report. These checks do not relax required success gates.

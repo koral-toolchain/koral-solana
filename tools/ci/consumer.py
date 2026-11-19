@@ -41,11 +41,13 @@ def verify(archive_path, sdk, mode):
                                     capture_output=True, text=True, timeout=120)
             if result.returncode == 0 or contains not in result.stdout + result.stderr:
                 raise ValueError('Expected an actionable rejection: ' + contains + '\n' + result.stdout + result.stderr)
+            return result
 
         cli = root / 'bin/koral'
         run('java', '-version')
         run('node', '--version')
         diagnostic_checks = verify_diagnostics(cli, work, env)
+        run('node', root / 'testing/test-errors-test.mjs')
         if mode == 'integration':
             run('npm', 'ci', '--ignore-scripts', '--prefix', root / 'testing')
             run(cli, 'doctor', '--sdk', sdk)
@@ -184,7 +186,10 @@ def verify(archive_path, sdk, mode):
             if custom_report.exists():
                 raise ValueError('Custom rebuild retained an old success report')
             custom_report.write_text('{"old": "success"}')
-            reject(cli, 'test', cwd=custom, contains='exact independent price expectation')
+            rejected_price = reject(cli, 'test', cwd=custom, contains='exact independent price expectation')
+            diagnostic = rejected_price.stdout + rejected_price.stderr
+            if 'tests/program.test.mjs:' not in diagnostic or 'ModuleJob' in diagnostic or 'custom template contract' in diagnostic:
+                raise ValueError('Custom assertion failure lost its user source location or leaked loader frames')
             if custom_report.exists():
                 raise ValueError('A failing custom assertion retained a success report')
             custom_source.write_text(correct)

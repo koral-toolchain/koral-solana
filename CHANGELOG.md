@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Show user test file/line locations with failed custom assertions, retaining
+  assertion details without internal loader/client frames. Imported consumer
+  helpers remain debuggable; unavailable source locations are labeled honestly.
+
 - Add an Unreleased custom project with editable Kotlin and user-authored tests.
 - Provide a preview ABI instruction/state client and local VM fixture helpers,
   reducing manual argument encoding, PDA derivation and account-order handling.

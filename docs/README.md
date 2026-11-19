@@ -25,3 +25,6 @@ local verification, authority/rent checks and selected-update comparison evidenc
 
 [The 0.2.0-preview.1 release notes](release-candidates/0.2.0-preview.1.md) record the published
 preview, compatibility and exact verified source. See CHANGELOG.md for the version history.
+
+[Custom programs](CUSTOM-PROGRAM.md) covers the Unreleased user-authored test scaffold
+and ABI client; this workflow is not in the published 0.2.0-preview.1 archive.

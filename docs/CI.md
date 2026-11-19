@@ -107,3 +107,15 @@ Wrong suites, unknown templates/configuration, missing ABI and protected report
 paths must fail. A compiled but behaviorally mutated payment/vault must fail its
 real SBF test and remove a planted stale success report. Restored source must pass
 again, and the installed distribution's files must remain unchanged.
+
+## Custom consumer regression coverage (Unreleased)
+
+The extracted candidate creates a custom project with spaces in its path and
+runs its user-owned assertions on actual SBF. A compiled wrong-price mutation
+must fail independent balance expectations and invalidate the prior report.
+Client checks cover named inputs, u64 boundaries, initialized fields, permission
+failures and owner/layout decoding. Missing or escaped scripts and protected
+report paths fail without overwriting the consumer's test. Built-in suites still
+execute all native assertions after a template-contract preflight, and an edited
+custom contract must receive actionable guidance without an internal TypeError.
+A custom completion report does not certify arbitrary user-defined coverage.

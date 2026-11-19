@@ -7,11 +7,12 @@ import java.util.Properties
 internal enum class ProjectTemplate(val id: String, val sourceFile: String, val runner: String, val reportFile: String) {
     COUNTER("counter", "counter.kt", "counter.mjs", "counter.test.json"),
     PAYMENTS("payments", "payments.kt", "payments.mjs", "payments.test.json"),
-    SOL_VAULT("sol-vault", "sol-vault.kt", "vault.mjs", "sol-vault.test.json");
+    SOL_VAULT("sol-vault", "sol-vault.kt", "vault.mjs", "sol-vault.test.json"),
+    CUSTOM("custom", "custom.kt", "suite.mjs", "custom.test.json");
 
     companion object {
         fun parse(value: String): ProjectTemplate = entries.find { it.id == value }
-            ?: throw IllegalArgumentException("Unknown test suite or template '$value'. Choose counter, payments or sol-vault.")
+            ?: throw IllegalArgumentException("Unknown test suite or template '$value'. Choose counter, payments, sol-vault or custom.")
     }
 }
 
@@ -78,6 +79,10 @@ internal data class KoralProject(val root: File, val source: File, val output: F
                 requireNotNull(KoralProject::class.java.getResourceAsStream("/koral/templates/${template.sourceFile}")) {
                     "Missing ${template.id} project template; reinstall the complete CLI distribution"
                 }.bufferedReader(Charsets.UTF_8).use { it.readText() }
+            val suppliedTest = if (template != ProjectTemplate.CUSTOM) null else
+                requireNotNull(KoralProject::class.java.getResourceAsStream("/koral/templates/custom-template.test.mjs")) {
+                    "Missing custom test starter; reinstall the complete CLI distribution"
+                }.bufferedReader(Charsets.UTF_8).use { it.readText() }
             Files.createDirectory(target)
             Files.createDirectory(target.resolve("src"))
             target.resolve("src/${template.sourceFile}").toFile().writeText(suppliedSource ?: """
@@ -96,7 +101,31 @@ internal data class KoralProject(val root: File, val source: File, val output: F
                 else "format=2\nsource=src/${template.sourceFile}\noutput=build/koral\ntest=${template.id}\n"
             )
             target.resolve(".gitignore").toFile().writeText("/build/\n*.keypair.json\n*-keypair.json\n")
-            target.resolve("README.md").toFile().writeText(if (template != ProjectTemplate.COUNTER) templateReadme(template) else """
+            if (template == ProjectTemplate.CUSTOM) {
+                Files.createDirectory(target.resolve("tests"))
+                target.resolve("tests/program.test.mjs").toFile().writeText(requireNotNull(suppliedTest))
+            }
+            target.resolve("README.md").toFile().writeText(if (template == ProjectTemplate.CUSTOM) """
+                # Your Koral program
+
+                Run koral doctor, koral setup, koral check, koral build and koral test here.
+                Set KORAL_SBF_SDK to the installed Agave SBF SDK. JDK17+ and Node22.12+
+                with npm are required. setup explicitly installs pinned VM dependencies.
+
+                Edit src/custom.kt and tests/program.test.mjs together. test executes your
+                trusted local JavaScript file with KORAL_TEST_BINARY and KORAL_TEST_CLIENT
+                supplied by the CLI. The bundled ABI client handles arguments, accounts,
+                PDA derivation, state decoding and a local VM; it does not generate assertions.
+                This is user-authored code execution, not an automatic contract audit.
+                Keep independent price/state/rollback expectations in your tests.
+
+                Result: build/koral/custom.test.json. Failed runs remove the old result.
+                The report records script completion, not independently proven coverage.
+                The sample identities and balances are local VM fixtures, never real wallets.
+                No RPC or deployment feature is provided. See docs/CUSTOM-PROGRAM.md in
+                the CLI installation for the client API, limitations and recovery steps.
+                Original Koral materials remain subject to the supplied LICENSE.
+            """.trimIndent() + "\n" else if (template != ProjectTemplate.COUNTER) templateReadme(template) else """
                 # First Koral Counter
 
                 A local Kotlin-to-Solana example. No wallet or blockchain deployment is needed.

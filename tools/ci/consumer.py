@@ -156,10 +156,62 @@ def verify(archive_path, sdk, mode):
                 program_source.write_text(original_source)
                 run(cli, 'build', cwd=sample)
                 run(cli, 'test', cwd=sample)
-            reject(cli, 'init', work / 'unknown project', '--template', 'unknown', contains='Choose counter, payments or sol-vault')
+            # A new author edits both Kotlin and tests, using only the installed client.
+            custom = work / 'my custom program with spaces'
+            run(cli, 'init', custom, '--template', 'custom')
+            run(cli, 'check', cwd=custom)
+            run(cli, 'build', cwd=custom)
+            run(cli, 'test', cwd=custom)
+            custom_out = custom / 'build/koral'
+            custom_report = custom_out / 'custom.test.json'
+            if json.loads(custom_report.read_text())['mode'] != 'user-authored script':
+                raise ValueError('Custom script completion was mislabeled as automatic verification')
+            run('node', runners[0].parent / 'client-test.mjs', custom_out / 'counter.so')
+            # Built-in suite mismatch must explain the user path, without an internal TypeError.
+            reject(cli, 'test', '--suite', 'payments', cwd=custom, contains='--template custom')
+            failure = subprocess.run([str(cli), 'test', '--suite', 'payments'], cwd=custom,
+                                     env=env, capture_output=True, text=True, timeout=120)
+            if 'TypeError' in failure.stdout + failure.stderr:
+                raise ValueError('A custom contract still leaks an internal template TypeError')
+            # Prove the starter checks business semantics in the compiled SBF.
+            custom_source = custom / 'src/custom.kt'
+            correct = custom_source.read_text()
+            changed = correct.replace('checkedMultiply(quantity, 10_000_000uL)', 'checkedMultiply(quantity, 20_000_000uL)')
+            if correct == changed:
+                raise ValueError('Missing custom price mutation anchor')
+            custom_source.write_text(changed)
+            run(cli, 'build', cwd=custom)
+            if custom_report.exists():
+                raise ValueError('Custom rebuild retained an old success report')
+            custom_report.write_text('{"old": "success"}')
+            reject(cli, 'test', cwd=custom, contains='exact independent price expectation')
+            if custom_report.exists():
+                raise ValueError('A failing custom assertion retained a success report')
+            custom_source.write_text(correct)
+            run(cli, 'build', cwd=custom)
+            run(cli, 'test', cwd=custom)
+            script = custom / 'tests/program.test.mjs'
+            protected = {**env, 'KORAL_TEST_RESULT': str(script)}
+            original_script = script.read_bytes()
+            reject(cli, 'test', cwd=custom, process_env=protected, contains='must not overwrite')
+            if script.read_bytes() != original_script:
+                raise ValueError('Test result overwrote the user test script')
+            script.unlink()
+            reject(cli, 'test', cwd=custom, contains='Missing tests/program.test.mjs')
+            if custom_report.exists():
+                raise ValueError('Missing custom script retained an old success report')
+            external_script = work / 'external-script.mjs'
+            external_script.write_bytes(original_script)
+            script.symlink_to(external_script)
+            reject(cli, 'test', cwd=custom, contains='must stay inside the project')
+            script.unlink()
+            script.write_bytes(original_script)
+            run(cli, 'test', cwd=custom)
+
+            reject(cli, 'init', work / 'unknown project', '--template', 'unknown', contains='Choose counter, payments, sol-vault or custom')
             if (work / 'unknown project').exists():
                 raise ValueError('Unknown template created files')
-            reject(cli, 'test', output / 'counter.so', '--suite', 'unknown', contains='Choose counter, payments or sol-vault')
+            reject(cli, 'test', output / 'counter.so', '--suite', 'unknown', contains='Choose counter, payments, sol-vault or custom')
 
             source = project / 'src/counter.kt'
             source.write_text(source.read_text().replace('checkedAdd(state.count, by)', 'state.count + by'))

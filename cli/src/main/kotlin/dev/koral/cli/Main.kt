@@ -17,7 +17,7 @@ private fun distributionHome()=File(System.getProperty("koral.home") ?: File(Mai
 fun main(args:Array<String>) {
     try {
         if(args.isEmpty() || args[0] in listOf("help","--help")) {
-            println("Koral 0.2.0-preview.1\n  koral init <new-directory> [--template counter|payments|sol-vault]\n  koral doctor [--sdk <SDK>]\n  koral setup\n  koral check [source.kt]\n  koral build [source.kt] [--out <directory>] [--sdk <SDK>]\n  koral test [counter.so] [--suite counter|payments|sol-vault]\nInside an initialized project, source/output paths come from koral.properties.\nsetup explicitly installs pinned Node VM tools into your user cache.\nTargets: owned ULong state, SOL vaults or Counter; test runs the selected template contract suite. No deployment.")
+            println("Koral 0.2.0-preview.1\n  koral init <new-directory> [--template counter|payments|sol-vault|custom]\n  koral doctor [--sdk <SDK>]\n  koral setup\n  koral check [source.kt]\n  koral build [source.kt] [--out <directory>] [--sdk <SDK>]\n  koral test [counter.so] [--suite counter|payments|sol-vault|custom]\nInside an initialized project, source/output paths come from koral.properties.\nsetup explicitly installs pinned Node VM tools into your user cache.\nTargets: owned ULong state, SOL vaults or Counter; test runs a fixed template suite or your custom project script. No deployment.")
             return
         }
         val options=Options.parse(args.drop(1),when(args[0]) { "build" -> setOf("--out","--sdk");"doctor" -> setOf("--sdk");"init" -> setOf("--template");"test" -> setOf("--suite");else -> emptySet() })
@@ -25,7 +25,7 @@ fun main(args:Array<String>) {
         when(args[0]) {
             "init" -> {
                 val template=ProjectTemplate.parse(options.values["--template"] ?: "counter")
-                val project=KoralProject.create(File(options.positional ?: error("Usage: koral init <new-directory> [--template counter|payments|sol-vault]")),template)
+                val project=KoralProject.create(File(options.positional ?: error("Usage: koral init <new-directory> [--template counter|payments|sol-vault|custom]")),template)
                 println("Created ${template.id} project: ${project.root}\nOpen that directory, then run koral doctor, koral setup, koral build and koral test.\nSet KORAL_SBF_SDK to your installed Agave SBF SDK. No wallet or blockchain deployment is needed.")
             }
             "setup" -> {
@@ -76,9 +76,15 @@ fun main(args:Array<String>) {
                 val project=if(options.positional==null) KoralProject.load() else null
                 val template=options.values["--suite"]?.let(ProjectTemplate::parse) ?: project?.template ?: ProjectTemplate.COUNTER
                 val binary=options.positional?.let { File(it).canonicalFile } ?: File(requireNotNull(project).output,"counter.so")
+                val customScript=if(template==ProjectTemplate.CUSTOM) {
+                    require(project!=null) { "Custom tests require an initialized project; run koral test inside it" }
+                    File(project.root,"tests/program.test.mjs").canonicalFile.also {
+                        require(it.toPath().startsWith(project.root.toPath())) { "Custom test script must stay inside the project" }
+                    }
+                } else null
                 val report=System.getenv("KORAL_TEST_RESULT")?.takeIf { it.isNotBlank() }?.let { File(it).canonicalFile }
                     ?: if(project!=null) File(binary.parentFile,template.reportFile) else null
-                require(report==null || report.canonicalFile !in listOf(binary.canonicalFile, File(binary.parentFile,"counter.abi.json").canonicalFile, File(binary.parentFile,"counter.build.json").canonicalFile, project?.source)) { "Test result must not overwrite the binary, ABI, build manifest or project source" }
+                require(report==null || report.canonicalFile !in listOf(binary.canonicalFile, File(binary.parentFile,"counter.abi.json").canonicalFile, File(binary.parentFile,"counter.build.json").canonicalFile, project?.source, customScript)) { "Test result must not overwrite the binary, ABI, build manifest, project source or test script" }
                 // No prior passing result may survive a missing build/dependency or a failed VM run.
                 require(report==null || !report.exists() || report.isFile) { "Test result must be a file, not a directory" }
                 if(report!=null && report.exists()) check(report.delete()) { "Cannot invalidate old test result at $report" }
@@ -87,9 +93,13 @@ fun main(args:Array<String>) {
                     "Missing counter.abi.json beside $binary. Run koral build first; ${template.id} verification requires its generated ABI."
                 }
                 require(report==null || report.parentFile.isDirectory) { "Test result directory does not exist: ${report?.parentFile}" }
+                require(customScript==null || customScript.isFile) { "Missing tests/program.test.mjs; restore your custom test script or create a new custom project" }
                 val runner=TestTools(distributionHome()).runner(template)
-                val command=mutableListOf("node",runner.path,binary.path)
-                if(template!=ProjectTemplate.COUNTER && report!=null) command.add(report.path)
+                val wrapper=File(runner.parentFile,"suite.mjs")
+                require(wrapper.isFile) { "Missing suite dispatcher; reinstall the CLI and run koral setup" }
+                val command=mutableListOf("node",wrapper.path,template.id,binary.path)
+                if(report!=null) command.add(report.path)
+                if(customScript!=null) command.add(customScript.path)
                 val builder=ProcessBuilder(command).inheritIO()
                 if(report!=null) builder.environment()["KORAL_TEST_RESULT"]=report.path
                 try {
@@ -97,7 +107,7 @@ fun main(args:Array<String>) {
                     if(!p.waitFor(90,java.util.concurrent.TimeUnit.SECONDS)) { p.destroyForcibly().waitFor(5,java.util.concurrent.TimeUnit.SECONDS);error("Local ${template.id} verification timed out") }
                     check(p.exitValue()==0) { "${template.id} verification failed. This suite expects the ${template.id} template contract; review your source and generated ABI. Run koral setup if VM dependencies are missing." }
                     if(report!=null) check(report.isFile) { "${template.id} verification did not produce its result report" }
-                    println("${template.id} verified in a local VM. No blockchain transaction was sent.")
+                    println(if(template==ProjectTemplate.CUSTOM) "Custom test script completed successfully. Assertions and coverage are defined by your script." else "${template.id} verified in a local VM. No blockchain transaction was sent.")
                 } catch(e:Exception) {
                     report?.delete()
                     throw e

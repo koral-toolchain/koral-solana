@@ -13,9 +13,10 @@ does not change the proprietary terms.
 - Node 22.12+ and npm for local VM testing. Compilation does not need Node.
 - Network access for the explicit, one-time `koral setup` dependency installation.
 
-The source is public, but no tagged CLI release is assumed by this guide. A TAR
-from a CI run is a candidate build. A maintainer can produce that same package
-from the source checkout:
+The published 0.2.0-preview.1 CLI is available with checksums from the
+[release page](https://github.com/koral-toolchain/koral-solana/releases/tag/v0.2.0-preview.1).
+Later features labeled Unreleased require a candidate built from current source;
+a candidate is not the same published artifact. To build one from a checkout:
 
 ```sh
 ./gradlew --no-daemon test :cli:distTar
@@ -157,3 +158,11 @@ spaces. It checks refusal to overwrite, missing SDK/dependencies, failed rebuild
 legacy commands, binary hashes and an unchanged installation directory. The
 broader existing native integration suite runs separately. See CI.md in a source
 checkout for the exact qualified runtime pairs and hosted run results.
+
+## When your contract differs from a template
+
+The Unreleased custom workflow creates an independent editable test:
+`koral init my-program --template custom`. Then use the same setup/check/build/test
+commands. The local test script defines its own assertions with the bundled ABI
+client. See [custom programs](CUSTOM-PROGRAM.md). The CLI never infers arbitrary
+contract correctness from an ABI shape or a successful script without assertions.

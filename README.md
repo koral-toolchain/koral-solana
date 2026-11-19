@@ -4,6 +4,12 @@ An experimental Kotlin compiler for Solana. Current targets are Counter and a re
 
 External account constraints, SOL vaults, and payment/vault project workflows are included in the [0.2.0-preview.1 development prerelease](https://github.com/koral-toolchain/koral-solana/releases/tag/v0.2.0-preview.1). The older v0.1.0-dev archive does not include them.
 
+The **Unreleased** custom project/client workflow is available from source or an
+extracted candidate, via `koral init my-program --template custom`. It includes
+an editable independent test and a preview ABI client; see
+[writing your own program](docs/CUSTOM-PROGRAM.md). The published archive above
+does not include this later workflow.
+
 ```text
 Kotlin source
   -> pinned Kotlin compiler and Koral IR frontend

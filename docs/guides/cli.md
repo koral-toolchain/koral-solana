@@ -45,3 +45,11 @@ Before recompiling into an existing output directory, the CLI removes old counte
 The build manifest hashes source, compiler JAR, runtime, generated C, and binary, and records actual Clang details. This makes a result inspectable; it is not a guarantee of identical bytes on every operating system or SDK version.
 
 Implementation basis: cli/Main.kt, ProgramAbi.kt, and SbfToolchain.kt.
+
+## Your own program (Unreleased)
+
+Current source/candidates also accept --template custom for init and --suite custom
+for project tests. A custom project executes its trusted tests/program.test.mjs
+with a bundled ABI client, not an existing template's regression suite. Edit the
+source and independent assertions together. See [custom programs](../CUSTOM-PROGRAM.md).
+The published 0.2.0-preview.1 download does not include this later capability.

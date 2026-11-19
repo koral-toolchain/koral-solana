@@ -67,8 +67,8 @@ test runner for arbitrary Kotlin programs. Passing it is not a security audit.
 
 ## Payment and SOL vault projects
 
-The payment/vault project commands are **Unreleased** and included in the
-0.2.0-preview.1 candidate packages. The published v0.1.0-dev archive does not include these commands.
+The payment/vault project commands are included in the published
+[0.2.0-preview.1 prerelease](https://github.com/koral-toolchain/koral-solana/releases/tag/v0.2.0-preview.1). The published v0.1.0-dev archive does not include these commands.
 
 ```sh
 koral init hello-payments --template payments

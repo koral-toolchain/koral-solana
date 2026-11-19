@@ -1,6 +1,6 @@
 # CLI and generated artifacts
 
-The installed executable provides init, setup, check, build, doctor, and test. The current development candidate is 0.2.0-preview.1; it is not yet published.
+The installed executable provides init, setup, check, build, doctor, and test. The current published development preview is 0.2.0-preview.1.
 
 ## Commands
 
@@ -13,7 +13,7 @@ koral doctor [--sdk <SDK>]
 koral test [counter.so] [--suite counter|payments|sol-vault]
 ```
 
-check and build accept one source path, or use koral.properties in the current project when it is omitted. build supports --out and --sdk as distinct option/value pairs. The default output directory is build/koral. An explicit --sdk takes precedence over KORAL_SBF_SDK. doctor reports Java and the installed Clang version. test delegates to the selected bundled contract verifier. Unreleased payment/vault projects select their suite through format=2 configuration; format=1 and explicit binaries without --suite retain Counter. See [the first-project workflow](../FIRST-PROJECT.md).
+check and build accept one source path, or use koral.properties in the current project when it is omitted. build supports --out and --sdk as distinct option/value pairs. The default output directory is build/koral. An explicit --sdk takes precedence over KORAL_SBF_SDK. doctor reports Java and the installed Clang version. test delegates to the selected bundled contract verifier. Payment/vault projects select their suite through format=2 configuration; format=1 and explicit binaries without --suite retain Counter. See [the first-project workflow](../FIRST-PROJECT.md).
 
 Errors are written to stderr with the Koral: prefix and a nonzero exit status. There is no deploy command. The Counter, payments and sol-vault suites each require their specific contract. A suite is not a general test generator for arbitrary user code.
 

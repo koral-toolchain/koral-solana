@@ -1,7 +1,7 @@
 # Minimal SOL vault
 
-Status: unreleased, source builds only. The existing v0.1.0-dev archive and website
-worker do not include this feature. Use [examples/sol-vault.kt](../examples/sol-vault.kt).
+Status: included in the 0.2.0-preview.1 prerelease. The older v0.1.0-dev archive
+and the separate website worker do not include this feature. Use [examples/sol-vault.kt](../examples/sol-vault.kt).
 
 ## Behavior
 

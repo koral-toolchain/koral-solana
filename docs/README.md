@@ -20,8 +20,8 @@ Release maintainers use [RELEASING.md](RELEASING.md), which applies the organiza
 release policy to this compiler and separates mandatory evidence from selective
 announcements. A merged source change is not a package release.
 
-[The SOL vault guide](VAULT.md) covers unreleased owned-state deposits/withdrawals,
+[The SOL vault guide](VAULT.md) covers owned-state deposits/withdrawals,
 local verification, authority/rent checks and selected-update comparison evidence.
 
-[The next candidate notes](release-candidates/0.2.0-preview.1.md) describe the proposed
-preview, compatibility and publication boundary; they are not a released changelog.
+[The 0.2.0-preview.1 release notes](release-candidates/0.2.0-preview.1.md) record the published
+preview, compatibility and exact verified source. See CHANGELOG.md for the version history.

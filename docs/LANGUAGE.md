@@ -37,8 +37,8 @@ References come from the caller; programs cannot construct or cast them. `lampor
 
 ## Fixed external account constraints
 
-Unreleased: build the CLI from current source to use these annotations. The
-published v0.1.0-dev archive does not include this feature.
+These annotations are included in 0.2.0-preview.1. The older
+v0.1.0-dev archive does not include this feature.
 
 ```kotlin
 @Instruction
@@ -93,7 +93,7 @@ All paths must return the state type or legacy ULong. Unsupported IR shapes fail
 
 ## Owned-state SOL vault operations
 
-Unreleased source builds support `depositLamports(amount)` and
+The 0.2.0-preview.1 CLI supports `depositLamports(amount)` and
 `withdrawLamports(recipient, amount)` as statements in a declared `@Account`
 program. Legacy no-class Counter programs cannot use these operations.
 

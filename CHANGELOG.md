@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Preserve Node's original file/line/code frame for custom entry or imported-helper
+  syntax errors, without re-executing consumer code or exposing loader frames.
+  Runtime-created SyntaxErrors retain the normal compact user-source diagnostic.
+
 - Show user test file/line locations with failed custom assertions, retaining
   assertion details without internal loader/client frames. Imported consumer
   helpers remain debuggable; unavailable source locations are labeled honestly.

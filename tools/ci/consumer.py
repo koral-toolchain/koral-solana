@@ -48,6 +48,7 @@ def verify(archive_path, sdk, mode):
         run('node', '--version')
         diagnostic_checks = verify_diagnostics(cli, work, env)
         run('node', root / 'testing/test-errors-test.mjs')
+        run('node', root / 'testing/syntax-errors-test.mjs')
         if mode == 'integration':
             run('npm', 'ci', '--ignore-scripts', '--prefix', root / 'testing')
             run(cli, 'doctor', '--sdk', sdk)
@@ -201,6 +202,24 @@ def verify(archive_path, sdk, mode):
             reject(cli, 'test', cwd=custom, process_env=protected, contains='must not overwrite')
             if script.read_bytes() != original_script:
                 raise ValueError('Test result overwrote the user test script')
+            # Real user edits: parse failure in the entry and an imported helper.
+            script.write_text('const ok=1;\nconst broken = ;\n')
+            syntax = reject(cli, 'test', cwd=custom, contains='SyntaxError')
+            if 'program.test.mjs:2' not in syntax.stderr or custom_report.exists():
+                raise ValueError('Entry syntax error lost its line or retained a success report')
+            helper = custom / 'tests/helper.mjs'
+            helper.write_text('export const ok=1;\nexport const broken = ;\n')
+            script.write_text("import './helper.mjs';\n" + original_script.decode())
+            syntax = reject(cli, 'test', cwd=custom, contains='SyntaxError')
+            if 'helper.mjs:2' not in syntax.stderr or 'ModuleJob' in syntax.stderr or custom_report.exists():
+                raise ValueError('Imported syntax error did not retain the actual helper diagnostic')
+            script.write_text("import './missing-helper.mjs';\n")
+            missing = reject(cli, 'test', cwd=custom, contains='missing-helper.mjs')
+            if 'program.test.mjs' not in missing.stderr or custom_report.exists():
+                raise ValueError('Missing-import diagnostics lost the consumer entry or retained a result')
+            script.write_bytes(original_script)
+            helper.unlink()
+            run(cli, 'test', cwd=custom)
             script.unlink()
             reject(cli, 'test', cwd=custom, contains='Missing tests/program.test.mjs')
             if custom_report.exists():

@@ -23,6 +23,9 @@ The toolchain invokes installed SDK binaries using argument lists, with timeout/
 - External lamport reads; optional fixed owner/address and data-size/executable constraints; signing-authority System transfer CPI.
 - Rent-preserving owned-state SOL vault deposits/withdrawals with canonical PDA checks.
 - Preview ABI output, local VM checks, and separate Counter/vault comparisons.
+- Unreleased CLI project templates for Counter/payments/sol-vault and matching
+  fixed native regression suites. Legacy format-1 project configurations remain Counter;
+  format-2 adds an allowlisted test suite. This is not custom-test generation.
 
 These features still use a single owned state account and implicit authority/PDA convention. There is no general Kotlin runtime, multiple owned account types, token-account decoding, arbitrary byte data, arbitrary CPI/PDA signing, IDL/client compatibility, RPC service, or deploy command. Output files retain the early `counter` basename for now; a non-Counter state program can also produce `counter.so`.
 

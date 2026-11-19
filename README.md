@@ -2,7 +2,7 @@
 
 An experimental Kotlin compiler for Solana. Current targets are Counter and a restricted owned ULong-state account, with external balance reads, optional fixed owner/address/data-size/executable constraints, System transfer CPI, and a minimal rent-preserving owned-state SOL vault. This is a development build, not a general Kotlin implementation or a production release.
 
-External account constraints are unreleased and require a build from current source; the published `v0.1.0-dev` archive does not include them.
+External account constraints, SOL vaults, and payment/vault project workflows are unreleased and require a build from current source; the published `v0.1.0-dev` archive does not include them.
 
 ```text
 Kotlin source
@@ -41,6 +41,20 @@ koral check
 koral build
 koral test
 ```
+
+To start the other supported contracts from a current candidate:
+
+```sh
+koral init hello-payments --template payments
+koral init hello-vault --template sol-vault
+# In either directory: koral setup && koral check && koral build && koral test
+```
+
+Each project selects its matching fixed native regression suite. Counter remains
+the default, and existing format-1 projects keep their behavior. These suites
+expect their template's instruction/state/seed contract; they do not generate
+tests for arbitrary code or establish security. See the first-project guide for
+configuration, explicit suite selection and stale-report behavior.
 
 [The first-project guide](docs/FIRST-PROJECT.md) covers an extracted CLI package,
 SDK installation, expected results and failure recovery. setup explicitly installs

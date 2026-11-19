@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Add payment and SOL-vault project templates to init, copying maintained examples
+  from installed CLI resources without requiring a source checkout.
+- Select the matching fixed local VM regression suite with project test settings
+  or explicit --suite, retaining default Counter commands and format-1 projects.
+- Invalidate default success reports during rebuilds and the selected report before
+  failed/missing-build/dependency/ABI test attempts; reject protected report paths.
+- Verify generated projects, real SBF behavior mutations, rollback, report freshness
+  and unchanged installations on the candidate's consumer/compatibility jobs.
+
 - Add source-only owned-state SOL vault deposits and withdrawals, canonical PDA
   and bump checks, actual-size rent retention, authority permissions and rollback.
   Deposits use System CPI; withdrawals directly debit program-owned lamports.

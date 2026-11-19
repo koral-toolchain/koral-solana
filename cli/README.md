@@ -31,8 +31,18 @@ KORAL_CACHE_DIR overrides that cache root. Existing explicit source/binary CLI
 arguments and locally installed testing/node_modules remain supported.
 
 The generated koral.properties selects src/counter.kt and build/koral. init
-refuses existing directories. test is specific to the supplied Counter and writes
-its result into build/koral/counter.test.json. Windows functionality is unverified.
+refuses existing directories. Counter remains the default template and uses
+build/koral/counter.test.json. Select payments or sol-vault with
+`koral init <new-directory> --template <name>`. In those projects, the same
+check/build/test commands invoke the corresponding contract suite and produce
+payments.test.json or sol-vault.test.json. These are template-specific VM tests,
+not arbitrary-code testing or a security audit. Windows functionality is unverified.
+
+New templates write format=2 configuration with a strict test=payments or
+test=sol-vault selection. Existing format=1 configurations remain Counter projects.
+Outside a project, `koral test /path/to/counter.so --suite payments` (or sol-vault)
+selects the matching verifier; omitting --suite preserves the explicit Counter form.
+Payment/vault verification requires counter.abi.json beside the SBF artifact.
 
 ## Payment example
 

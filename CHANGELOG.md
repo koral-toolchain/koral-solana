@@ -2,9 +2,12 @@
 
 ## Unreleased
 
-The changes below are grouped into the proposed `0.2.0-preview.1` candidate.
-It is not published until an owner-approved GitHub prerelease makes the verified
-archive available. See [candidate notes](docs/release-candidates/0.2.0-preview.1.md).
+No additional changes recorded yet.
+
+## 0.2.0-preview.1 — 2026-11-19
+
+[Published development prerelease](https://github.com/koral-toolchain/koral-solana/releases/tag/v0.2.0-preview.1).
+The exact verified main-CI archive was promoted without rebuilding.
 
 - Add payment and SOL-vault project templates to init, copying maintained examples
   from installed CLI resources without requiring a source checkout.
@@ -15,7 +18,7 @@ archive available. See [candidate notes](docs/release-candidates/0.2.0-preview.1
 - Verify generated projects, real SBF behavior mutations, rollback, report freshness
   and unchanged installations on the candidate's consumer/compatibility jobs.
 
-- Add source-only owned-state SOL vault deposits and withdrawals, canonical PDA
+- Add owned-state SOL vault deposits and withdrawals, canonical PDA
   and bump checks, actual-size rent retention, authority permissions and rollback.
   Deposits use System CPI; withdrawals directly debit program-owned lamports.
 - Preserve new vault statement tags in KOR7 while reading KOR4/KOR5/KOR6 models;

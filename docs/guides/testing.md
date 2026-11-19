@@ -1,6 +1,6 @@
 # Testing and errors
 
-Use the test that matches the program. The unreleased CLI selects the fixed counter/payments/sol-vault suite from the project or an explicit --suite option. The published v0.1.0-dev archive remains Counter-only.
+Use the test that matches the program. The 0.2.0-preview.1 CLI selects the fixed counter/payments/sol-vault suite from the project or an explicit --suite option. The older v0.1.0-dev archive remains Counter-only.
 
 ## Compiler tests
 

@@ -23,7 +23,7 @@ The toolchain invokes installed SDK binaries using argument lists, with timeout/
 - External lamport reads; optional fixed owner/address and data-size/executable constraints; signing-authority System transfer CPI.
 - Rent-preserving owned-state SOL vault deposits/withdrawals with canonical PDA checks.
 - Preview ABI output, local VM checks, and separate Counter/vault comparisons.
-- Unreleased CLI project templates for Counter/payments/sol-vault and matching
+- CLI project templates for Counter/payments/sol-vault and matching
   fixed native regression suites. Legacy format-1 project configurations remain Counter;
   format-2 adds an allowlisted test suite. This is not custom-test generation.
 

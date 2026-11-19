@@ -2,6 +2,10 @@
 
 The website has a separate preview client and server adapter. This is distinct from the local CLI, and the static documentation itself does not compile code.
 
+The downloaded CLI is now 0.2.0-preview.1. The deployed website worker remains
+on its separately pinned 0.1.0-dev image; CLI vault/constraint features do not
+imply availability in the browser.
+
 ## Allowlisted examples
 
 The current adapter code accepts the counter and payments example IDs. It does not accept arbitrary Kotlin source. Source shown by the client comes from the server's configured examples directory.

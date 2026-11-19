@@ -52,8 +52,8 @@ Implementation basis: runtime/src/counter.c, CounterC.kt, and ProgramAbi.kt.
 
 ## Fixed external account constraints
 
-This feature requires a build from current source; it is not included in the
-published v0.1.0-dev archive.
+These constraints are included in 0.2.0-preview.1; they are absent from the
+older v0.1.0-dev archive.
 
 Add `@AccountOwner("<program address>")` or `@AccountAddress("<account address>")`
 to an external `AccountInfo` or `WritableAccount` instruction parameter. Keys are
@@ -72,7 +72,7 @@ state writes. A later body failure still requires transaction rollback.
 
 ### Exact data size and executable status
 
-Source builds also support `@AccountDataSize(8)` and `@AccountExecutable(false)`
+The 0.2.0-preview.1 CLI also supports `@AccountDataSize(8)` and `@AccountExecutable(false)`
 on external parameters. Size means exactly the declared non-negative constant
 Int byte count; zero requires empty data. Executable accepts an explicit true or
 false. Omitting a marker imposes no corresponding metadata condition.
@@ -86,7 +86,7 @@ The existing state layout and System Program checks remain independent.
 
 ## Program-owned SOL vault
 
-Source builds can use depositLamports/withdrawLamports on the owned state PDA.
+The 0.2.0-preview.1 CLI can use depositLamports/withdrawLamports on the owned state PDA.
 See [the vault guide](../VAULT.md). Deposits use authority-funded System CPI;
 withdrawals directly debit the program-owned state and preserve its rent floor.
 This does not add generic PDA signing or arbitrary account-data access.

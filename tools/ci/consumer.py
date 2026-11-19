@@ -188,7 +188,7 @@ def verify(archive_path, sdk, mode):
             custom_report.write_text('{"old": "success"}')
             rejected_price = reject(cli, 'test', cwd=custom, contains='exact independent price expectation')
             diagnostic = rejected_price.stdout + rejected_price.stderr
-            if 'tests/program.test.mjs:' not in diagnostic or 'ModuleJob' in diagnostic:
+            if 'tests/program.test.mjs:' not in diagnostic or 'ModuleJob' in diagnostic or 'custom template contract' in diagnostic:
                 raise ValueError('Custom assertion failure lost its user source location or leaked loader frames')
             if custom_report.exists():
                 raise ValueError('A failing custom assertion retained a success report')

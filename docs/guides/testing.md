@@ -1,6 +1,6 @@
 # Testing and errors
 
-Use the test that matches the program. The CLI's test command is deliberately Counter-only.
+Use the test that matches the program. The unreleased CLI selects the fixed counter/payments/sol-vault suite from the project or an explicit --suite option. The published v0.1.0-dev archive remains Counter-only.
 
 ## Compiler tests
 
@@ -25,10 +25,23 @@ Build the typed Counter first. The verifier exercises the native artifact in loc
 
 ```sh
 cli/build/install/koral/bin/koral build examples/payments.kt --out build/payments
-node cli/build/install/koral/testing/payments.mjs build/payments/counter.so build/payments/tests.json
+cli/build/install/koral/bin/koral setup
+cli/build/install/koral/bin/koral test build/payments/counter.so --suite payments
 ```
 
-Use the bundled payments verifier for this exact example, not koral test. The payment checks inspect actual local balances, reads after CPI, permissions, duplicate references, and rollback on failure.
+Use the payments suite for this exact contract. A generated payments project selects it automatically with `koral test`. The payment checks inspect actual local balances, reads after CPI, permissions, duplicate references, and rollback on failure.
+
+## SOL vault verification
+
+Generate `koral init hello-vault --template sol-vault`, enter that project, then run
+setup/check/build/test. The selected vault suite verifies canonical PDA/permissions,
+actual-size rent retention and CPI/direct-withdrawal rollback. Explicit binaries
+need `--suite sol-vault` and their adjacent generated counter.abi.json.
+
+The template suites assert their declared contracts. If you change instructions,
+state layout, seed or behavior, supply independent VM tests for that contract.
+Default test reports are removed before a rebuild; a failed test invalidates its
+selected report even when dependencies or ABI are missing. This is not an audit.
 
 ## Broader integration checks
 

@@ -1,19 +1,21 @@
 # CLI and generated artifacts
 
-The installed executable provides check, build, doctor, and test. The current development version is 0.1.0-dev.
+The installed executable provides init, setup, check, build, doctor, and test. The current development version is 0.1.0-dev.
 
 ## Commands
 
 ```text
-koral check <source.kt>
-koral build <source.kt> [--out <directory>] [--sdk <SDK>]
+koral init <new-directory> [--template counter|payments|sol-vault]
+koral setup
+koral check [source.kt]
+koral build [source.kt] [--out <directory>] [--sdk <SDK>]
 koral doctor [--sdk <SDK>]
-koral test <counter.so>
+koral test [counter.so] [--suite counter|payments|sol-vault]
 ```
 
-check accepts exactly one source path. build supports --out and --sdk as distinct option/value pairs. The default output directory is build/koral. An explicit --sdk takes precedence over KORAL_SBF_SDK. doctor reports Java and the installed Clang version. test delegates to the packaged Counter-only Node verifier.
+check and build accept one source path, or use koral.properties in the current project when it is omitted. build supports --out and --sdk as distinct option/value pairs. The default output directory is build/koral. An explicit --sdk takes precedence over KORAL_SBF_SDK. doctor reports Java and the installed Clang version. test delegates to the selected bundled contract verifier. Unreleased payment/vault projects select their suite through format=2 configuration; format=1 and explicit binaries without --suite retain Counter. See [the first-project workflow](../FIRST-PROJECT.md).
 
-Errors are written to stderr with the Koral: prefix and a nonzero exit status. There is no deploy command. Do not use the Counter test runner as a general payment verifier.
+Errors are written to stderr with the Koral: prefix and a nonzero exit status. There is no deploy command. The Counter, payments and sol-vault suites each require their specific contract. A suite is not a general test generator for arbitrary user code.
 
 ## Output files
 
@@ -36,7 +38,7 @@ This is not an Anchor IDL, a stable published client schema, or a deployed progr
 
 ## Failed rebuilds
 
-Before recompiling into an existing output directory, the CLI removes old counter.so, counter.build.json, and counter.abi.json success artifacts. Do not treat a leftover C or model file as evidence of a successful build. Check the command exit status and the new success artifacts.
+Before recompiling into an existing output directory, the CLI removes old counter.so, counter.build.json, and counter.abi.json success artifacts, plus the default Counter/payment/vault test reports. Do not treat a leftover C or model file as evidence of a successful build. Check the command exit status and the new success artifacts.
 
 ## Provenance and reproducibility
 

@@ -34,7 +34,9 @@ npm ci --ignore-scripts --prefix testing
 node testing/vault.mjs build/vault/counter.so build/vault/tests.json
 ```
 
-The generic `koral test` command remains Counter-only. The vault runner loads
+The unreleased project workflow supports `koral init hello-vault --template sol-vault`
+and `koral test` from that project. For an explicit binary use
+`koral test /path/to/counter.so --suite sol-vault`. The vault runner loads
 this example's ABI and tests initialization, exact balances, canonical identity,
 authority/permission failures, rent retention, aliases, overflow and later failure
 rollback, including a deposit followed by a withdrawal in one instruction.

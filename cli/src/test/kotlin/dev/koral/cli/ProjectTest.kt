@@ -19,6 +19,39 @@ class ProjectTest {
         assertFalse(project.output.exists())
     }
 
+    @Test fun createsPaymentAndVaultProjectsFromBundledResources() = inTemporaryDirectory { root ->
+        for (template in listOf(ProjectTemplate.PAYMENTS, ProjectTemplate.SOL_VAULT)) {
+            val project = KoralProject.create(File(root, "${template.id} with spaces"), template)
+            assertEquals(template, project.template)
+            assertEquals(File(project.root, "src/${template.sourceFile}"), project.source)
+            assertEquals(template, KoralProject.load(project.root).template)
+            assertEquals(KoralProject::class.java.getResource("/koral/templates/${template.sourceFile}")!!.readText(), project.source.readText())
+            assertTrue(File(project.root,"README.md").readText().contains(template.reportFile))
+            assertTrue(File(project.root,"README.md").readText().contains("fixed regression suite"))
+            assertFalse(project.output.exists())
+        }
+    }
+
+    @Test fun formatOneRemainsCounterAndFormatTwoRequiresAKnownSuite() = inTemporaryDirectory { root ->
+        val project = KoralProject.create(File(root,"legacy"))
+        assertEquals(ProjectTemplate.COUNTER, project.template)
+        assertEquals("format=1\nsource=src/counter.kt\noutput=build/koral\n",File(project.root,"koral.properties").readText())
+        for (suite in listOf("", "unknown", "../payments.mjs", "counter;echo hi")) {
+            File(root,"koral.properties").writeText("format=2\nsource=src/example.kt\noutput=build/koral\ntest=$suite\n")
+            assertFailsWith<IllegalArgumentException> { KoralProject.load(root) }
+        }
+    }
+
+    @Test fun templatesRefuseToOverwriteExistingSourceAndRejectInvalidNames() = inTemporaryDirectory { root ->
+        for(template in ProjectTemplate.entries) {
+            val project=KoralProject.create(File(root,template.id),template)
+            project.source.writeText("owned source")
+            assertFailsWith<IllegalArgumentException> { KoralProject.create(project.root,template) }
+            assertEquals("owned source",project.source.readText())
+        }
+        assertFailsWith<IllegalArgumentException> { ProjectTemplate.parse("payments.mjs") }
+    }
+
     @Test fun neverOverwritesAnExistingProject() = inTemporaryDirectory { root ->
         val project = KoralProject.create(File(root, "hello"))
         project.source.writeText("owner's existing source")

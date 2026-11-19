@@ -65,6 +65,34 @@ Expected results:
 The verifier is specific to the supplied Counter contract. It is not a universal
 test runner for arbitrary Kotlin programs. Passing it is not a security audit.
 
+## Payment and SOL vault projects
+
+The payment/vault project commands are **Unreleased** in the source checkout and
+candidate packages. The published v0.1.0-dev archive does not include these commands.
+
+```sh
+koral init hello-payments --template payments
+cd hello-payments
+koral setup
+koral check
+koral build
+koral test
+```
+
+Use `--template sol-vault` for a separate vault project. Generated source is
+src/payments.kt or src/sol-vault.kt, copied from the maintained example bundled
+inside the CLI. No source checkout is needed at project-creation time. The examples
+include deliberate failure instructions for rollback regression tests.
+
+The suites execute real native SBF in LiteSVM: payments currently checks 37 cases
+including exact transfers and multi-CPI rollback; sol-vault checks 101 including
+canonical PDA/authority, actual rent, direct withdrawals and CPI/direct-update rollback.
+Results are written to payments.test.json or sol-vault.test.json in the build directory.
+They expect the template's instruction names, state fields, PDA seed and behavior.
+When changing that contract, add an independent VM test rather than interpreting a
+fixed suite's failure as a compiler failure. A valid but incorrect payment amount or
+removed rejection must fail these suites. No wallet or RPC is used.
+
 ## Project configuration
 
 ```properties
@@ -72,6 +100,19 @@ format=1
 source=src/counter.kt
 output=build/koral
 ```
+
+New payment/vault projects use the versioned configuration:
+
+```properties
+format=2
+source=src/payments.kt
+output=build/koral
+test=payments
+```
+
+Use src/sol-vault.kt and test=sol-vault for the vault. The test value is an allowlisted
+suite ID, not a script path or shell command. A format-1 file remains Counter.
+Unknown formats, keys or suite IDs fail rather than selecting a fallback suite.
 
 These are project-relative paths; absolute paths, paths escaping the project and
 source/output directory overlap are rejected. Commands read koral.properties in
@@ -84,6 +125,8 @@ The original explicit-source commands still work outside a project:
 koral check /path/to/counter.kt
 koral build /path/to/counter.kt --out /path/to/output --sdk /path/to/sdk
 koral test /path/to/output/counter.so
+koral test /path/to/payment-output/counter.so --suite payments
+koral test /path/to/vault-output/counter.so --suite sol-vault
 ```
 
 ## Cache and failure behavior
@@ -95,11 +138,16 @@ and is explicit: build/test never install dependencies automatically.
 
 The prior `npm ci --prefix <installed-cli>/testing` layout remains supported for
 existing users. Direct Node verifier commands need dependencies alongside those
-scripts; the new cached setup is used by the CLI's Counter test command.
+scripts; the new cached setup is used by all three CLI test suites.
 
 A missing project points to init; a missing binary points to build; missing VM
 dependencies point to setup. A failed project rebuild invalidates the old .so,
-ABI and success manifest so a later test cannot silently reuse a stale artifact.
+ABI, success manifest and default suite reports so a later test cannot silently
+reuse a stale artifact. test deletes its selected old report before checking the
+binary/ABI/dependencies, and a failed or timed-out native run leaves no passing report.
+KORAL_TEST_RESULT may select a report file; it must not overwrite the binary,
+project source, ABI or build manifest. Reports at custom paths are invalidated by
+test, while build invalidates the default report names in its output directory.
 
 ## Verification boundary
 

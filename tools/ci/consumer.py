@@ -101,10 +101,70 @@ def verify(archive_path, sdk, mode):
             if not json.loads((vault / 'tests.json').read_text())['bodyFailureRollback']:
                 raise ValueError('Owned-state vault rollback verification was incomplete')
 
+            # Public project commands must cover the same native suites outside the checkout.
+            for template, source_name, report_name, checks in [
+                ('payments', 'payments.kt', 'payments.test.json', 37),
+                ('sol-vault', 'sol-vault.kt', 'sol-vault.test.json', 101),
+            ]:
+                sample = work / (template + ' project with spaces')
+                run(cli, 'init', sample, '--template', template)
+                reject(cli, 'init', sample, '--template', template, contains='existing files are never replaced')
+                run(cli, 'check', cwd=sample)
+                run(cli, 'build', cwd=sample)
+                run(cli, 'test', cwd=sample)
+                built = sample / 'build/koral'
+                result_path = built / report_name
+                result = json.loads(result_path.read_text())
+                if result['checks'] != checks or not result.get('bodyFailureRollback', result.get('cpiRollbackVerified')):
+                    raise ValueError('Incomplete ' + template + ' project verification')
+                run(cli, 'test', built / 'counter.so', '--suite', template)
+                if (sample / ('src/' + source_name)).read_bytes() != (root / 'examples' / source_name).read_bytes():
+                    raise ValueError('Generated template differs from the maintained example')
+                # A wrong suite must fail rather than select another contract's success path.
+                reject(cli, 'test', '--suite', 'counter', cwd=sample, contains='verification failed')
+                if (built / 'counter.test.json').exists():
+                    raise ValueError('Wrong-suite failure retained a passing report')
+                # A stale report is invalidated even if the ABI disappeared before VM startup.
+                abi = built / 'counter.abi.json'
+                abi_content = abi.read_bytes()
+                abi.unlink()
+                reject(cli, 'test', cwd=sample, contains='requires its generated ABI')
+                if result_path.exists():
+                    raise ValueError('Missing-ABI failure retained a passing report')
+                abi.write_bytes(abi_content)
+                run(cli, 'test', cwd=sample)
+                protected = {**env, 'KORAL_TEST_RESULT': str(built / 'counter.build.json')}
+                before_manifest = (built / 'counter.build.json').read_bytes()
+                reject(cli, 'test', cwd=sample, process_env=protected, contains='must not overwrite')
+                if (built / 'counter.build.json').read_bytes() != before_manifest:
+                    raise ValueError('Test report clobbered build provenance')
+                # Compile valid but behaviorally broken source: the real SBF suite must reject it.
+                program_source = sample / 'src' / source_name
+                original_source = program_source.read_text()
+                changed = (original_source.replace('transferLamports(recipient, amount)', 'transferLamports(recipient, 0uL)')
+                           if template == 'payments' else original_source.replace('ensure(false, 6201uL)', 'ensure(true, 6201uL)'))
+                if changed == original_source:
+                    raise ValueError('Missing template mutation anchor')
+                program_source.write_text(changed)
+                run(cli, 'build', cwd=sample)
+                if result_path.exists():
+                    raise ValueError('Rebuild retained a stale passing test report')
+                result_path.write_text('{"old": "success"}')
+                reject(cli, 'test', cwd=sample, contains='verification failed')
+                if result_path.exists():
+                    raise ValueError('Behavioral failure retained a stale passing test report')
+                program_source.write_text(original_source)
+                run(cli, 'build', cwd=sample)
+                run(cli, 'test', cwd=sample)
+            reject(cli, 'init', work / 'unknown project', '--template', 'unknown', contains='Choose counter, payments or sol-vault')
+            if (work / 'unknown project').exists():
+                raise ValueError('Unknown template created files')
+            reject(cli, 'test', output / 'counter.so', '--suite', 'unknown', contains='Choose counter, payments or sol-vault')
+
             source = project / 'src/counter.kt'
             source.write_text(source.read_text().replace('checkedAdd(state.count, by)', 'state.count + by'))
             reject(cli, 'build', cwd=project, contains='Unsupported call')
-            for name in ['counter.so', 'counter.build.json', 'counter.abi.json']:
+            for name in ['counter.so', 'counter.build.json', 'counter.abi.json', 'counter.test.json']:
                 if (project / 'build/koral' / name).exists():
                     raise ValueError('Failed project build retained stale success artifact: ' + name)
             reject(cli, 'test', cwd=project, contains='Run koral build first')

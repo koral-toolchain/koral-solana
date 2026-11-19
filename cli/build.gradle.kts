@@ -18,8 +18,17 @@ distributions.main {
         from(rootProject.file("licenses")) { into("licenses") }
         from(rootProject.file("docs/LANGUAGE.md")) { into("docs") }
         from(rootProject.file("docs/FIRST-PROJECT.md")) { into("docs") }
+        from(rootProject.file("docs/VAULT.md")) { into("docs") }
         from(rootProject.file("docs/SDK-SETUP.md")) { into("docs") }
         from(rootProject.file("testing")) { into("testing"); exclude("node_modules/**") }
         from(rootProject.file("examples")) { into("examples") }
+    }
+}
+
+// Bundle the exact maintained examples; generated projects do not read the checkout.
+tasks.processResources {
+    from(rootProject.file("examples")) {
+        include("payments.kt", "sol-vault.kt")
+        into("koral/templates")
     }
 }

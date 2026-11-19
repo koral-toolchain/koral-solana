@@ -17,15 +17,16 @@ private fun distributionHome()=File(System.getProperty("koral.home") ?: File(Mai
 fun main(args:Array<String>) {
     try {
         if(args.isEmpty() || args[0] in listOf("help","--help")) {
-            println("Koral 0.1.0-dev\n  koral init <new-directory>\n  koral doctor [--sdk <SDK>]\n  koral setup\n  koral check [source.kt]\n  koral build [source.kt] [--out <directory>] [--sdk <SDK>]\n  koral test [counter.so]\nInside an initialized project, source/output paths come from koral.properties.\nsetup explicitly installs pinned Node VM tools into your user cache.\nTargets: owned ULong state, SOL vaults or Counter; test is Counter-only. No deployment.")
+            println("Koral 0.1.0-dev\n  koral init <new-directory> [--template counter|payments|sol-vault]\n  koral doctor [--sdk <SDK>]\n  koral setup\n  koral check [source.kt]\n  koral build [source.kt] [--out <directory>] [--sdk <SDK>]\n  koral test [counter.so] [--suite counter|payments|sol-vault]\nInside an initialized project, source/output paths come from koral.properties.\nsetup explicitly installs pinned Node VM tools into your user cache.\nTargets: owned ULong state, SOL vaults or Counter; test runs the selected template contract suite. No deployment.")
             return
         }
-        val options=Options.parse(args.drop(1),when(args[0]) { "build" -> setOf("--out","--sdk");"doctor" -> setOf("--sdk");else -> emptySet() })
+        val options=Options.parse(args.drop(1),when(args[0]) { "build" -> setOf("--out","--sdk");"doctor" -> setOf("--sdk");"init" -> setOf("--template");"test" -> setOf("--suite");else -> emptySet() })
         fun toolchain()=SbfToolchain(File(options.values["--sdk"] ?: System.getenv("KORAL_SBF_SDK") ?: error("Set KORAL_SBF_SDK or pass --sdk. It must point to the SDK directory containing c/sbf.ld.")))
         when(args[0]) {
             "init" -> {
-                val project=KoralProject.create(File(options.positional ?: error("Usage: koral init <new-directory>")))
-                println("Created Counter project: ${project.root}\nOpen that directory, then run koral doctor, koral setup, koral build and koral test.\nSet KORAL_SBF_SDK to your installed Agave SBF SDK. No wallet or blockchain deployment is needed.")
+                val template=ProjectTemplate.parse(options.values["--template"] ?: "counter")
+                val project=KoralProject.create(File(options.positional ?: error("Usage: koral init <new-directory> [--template counter|payments|sol-vault]")),template)
+                println("Created ${template.id} project: ${project.root}\nOpen that directory, then run koral doctor, koral setup, koral build and koral test.\nSet KORAL_SBF_SDK to your installed Agave SBF SDK. No wallet or blockchain deployment is needed.")
             }
             "setup" -> {
                 require(options.positional==null) { "Usage: koral setup" }
@@ -56,7 +57,7 @@ fun main(args:Array<String>) {
                 require(out!=source.parentFile) { "Use a separate output directory" }
                 out.mkdirs()
                 // Remove stale success artifacts even when the next compilation fails.
-                listOf("counter.so","counter.build.json","counter.abi.json").forEach { check(!File(out,it).exists() || File(out,it).delete()) { "Cannot invalidate $it" } }
+                (listOf("counter.so","counter.build.json","counter.abi.json") + ProjectTemplate.entries.map { it.reportFile }).forEach { check(!File(out,it).exists() || File(out,it).delete()) { "Cannot invalidate $it" } }
                 val program=KotlinFrontend.compile(source,Language.source())
                 val sdk=toolchain()
                 val runtime=resource("src/counter.c")
@@ -72,15 +73,35 @@ fun main(args:Array<String>) {
                 println("Built ${binary.path} (${binary.length()} bytes)")
             }
             "test" -> {
-                val binary=options.positional?.let { File(it).canonicalFile } ?: File(KoralProject.load().output,"counter.so")
-                require(binary.isFile) { "No built Counter at $binary. Run koral build first, or pass a Counter .so file." }
-                val runner=TestTools(distributionHome()).runner()
-                val builder=ProcessBuilder("node",runner.path,binary.path).inheritIO()
-                if(options.positional==null && builder.environment()["KORAL_TEST_RESULT"]==null) builder.environment()["KORAL_TEST_RESULT"]=File(binary.parentFile,"counter.test.json").path
-                val p=builder.start()
-                if(!p.waitFor(90,java.util.concurrent.TimeUnit.SECONDS)) { p.destroyForcibly();error("Local Counter verification timed out") }
-                check(p.exitValue()==0) { "Counter verification failed. This test command only supports Counter; check the source and run koral setup to repair VM dependencies." }
-                println("Counter verified in a local VM. No blockchain transaction was sent.")
+                val project=if(options.positional==null) KoralProject.load() else null
+                val template=options.values["--suite"]?.let(ProjectTemplate::parse) ?: project?.template ?: ProjectTemplate.COUNTER
+                val binary=options.positional?.let { File(it).canonicalFile } ?: File(requireNotNull(project).output,"counter.so")
+                val report=System.getenv("KORAL_TEST_RESULT")?.takeIf { it.isNotBlank() }?.let { File(it).canonicalFile }
+                    ?: if(project!=null) File(binary.parentFile,template.reportFile) else null
+                require(report==null || report.canonicalFile !in listOf(binary.canonicalFile, File(binary.parentFile,"counter.abi.json").canonicalFile, File(binary.parentFile,"counter.build.json").canonicalFile, project?.source)) { "Test result must not overwrite the binary, ABI, build manifest or project source" }
+                // No prior passing result may survive a missing build/dependency or a failed VM run.
+                require(report==null || !report.exists() || report.isFile) { "Test result must be a file, not a directory" }
+                if(report!=null && report.exists()) check(report.delete()) { "Cannot invalidate old test result at $report" }
+                require(binary.isFile) { "No built program at $binary. Run koral build first, or pass a .so file." }
+                if(template!=ProjectTemplate.COUNTER) require(File(binary.parentFile,"counter.abi.json").isFile) {
+                    "Missing counter.abi.json beside $binary. Run koral build first; ${template.id} verification requires its generated ABI."
+                }
+                require(report==null || report.parentFile.isDirectory) { "Test result directory does not exist: ${report?.parentFile}" }
+                val runner=TestTools(distributionHome()).runner(template)
+                val command=mutableListOf("node",runner.path,binary.path)
+                if(template!=ProjectTemplate.COUNTER && report!=null) command.add(report.path)
+                val builder=ProcessBuilder(command).inheritIO()
+                if(report!=null) builder.environment()["KORAL_TEST_RESULT"]=report.path
+                try {
+                    val p=builder.start()
+                    if(!p.waitFor(90,java.util.concurrent.TimeUnit.SECONDS)) { p.destroyForcibly().waitFor(5,java.util.concurrent.TimeUnit.SECONDS);error("Local ${template.id} verification timed out") }
+                    check(p.exitValue()==0) { "${template.id} verification failed. This suite expects the ${template.id} template contract; review your source and generated ABI. Run koral setup if VM dependencies are missing." }
+                    if(report!=null) check(report.isFile) { "${template.id} verification did not produce its result report" }
+                    println("${template.id} verified in a local VM. No blockchain transaction was sent.")
+                } catch(e:Exception) {
+                    report?.delete()
+                    throw e
+                }
             }
             else -> error("Unknown command ${args[0]}")
         }

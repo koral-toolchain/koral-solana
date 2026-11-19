@@ -12,8 +12,8 @@ publication or live-chain deployment is configured.
 | policy | Owner-only submissions, proposed landed message, compiler/toolchain/version agreement against a fixed handbook commit |
 | unit | JDK 17 Gradle build, compiler tests and candidate CLI TAR |
 | sbf-integration | Fresh candidate extraction, JDK 17 / Node 22, full native VM integration suite |
-| consumer-install | Fresh candidate extraction, init/setup/project build/test with an unchanged installation, actionable failures, manifest/ABI and Counter/payment checks |
-| compatibility | The same candidate on JDK 21 / Node 24, Counter and payment VM checks |
+| consumer-install | Fresh candidate extraction, init/setup/project build/test with an unchanged installation, actionable failures, manifest/ABI and Counter/payment/vault project checks |
+| compatibility | The same candidate on JDK 21 / Node 24, Counter/payment/vault VM checks |
 | required | Every required result must be success; missing, failed, cancelled and skipped results are rejected |
 
 The native jobs use Ubuntu 24.04 hosted Linux x64 runners. Each downloads Agave
@@ -96,3 +96,14 @@ canonical initialization, System-CPI deposits, direct owned-state withdrawals,
 authority/permissions, actual-size rent retention, alias/overflow rejection and
 CPI/direct-update rollback. Rust/Pinocchio/auxiliary performance comparisons are
 separate reproducible evidence, not silently added product build dependencies.
+
+## Payment/vault project regression coverage
+
+Consumer and compatibility jobs generate payments/sol-vault projects from the
+extracted archive, run check/build/test with no positional arguments, and select
+each suite explicitly for the produced binary. They require 37/101 native checks,
+rollback evidence and exact source parity with the bundled maintained examples.
+Wrong suites, unknown templates/configuration, missing ABI and protected report
+paths must fail. A compiled but behaviorally mutated payment/vault must fail its
+real SBF test and remove a planted stale success report. Restored source must pass
+again, and the installed distribution's files must remain unchanged.

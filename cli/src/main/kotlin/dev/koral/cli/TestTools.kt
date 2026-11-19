@@ -69,9 +69,11 @@ internal class TestTools(private val home: File, cacheRoot: File = File(System.g
         File(bundled, "node_modules").isDirectory -> bundled
         else -> null
     }
-    fun runner(): File {
+    fun runner(template: ProjectTemplate = ProjectTemplate.COUNTER): File {
         require(supportedNode(capture(listOf("node", "--version")))) { "Node 22.12+ is required for local VM tests. Run koral doctor for setup instructions." }
         val directory = runnerDirectoryOrNull() ?: error("VM dependencies are not installed. Run koral setup once (requires npm and network access), then koral test again.")
-        return File(directory, "counter.mjs")
+        return File(directory, template.runner).also {
+            require(it.isFile) { "Missing ${template.id} verifier. Reinstall the complete CLI, then run koral setup." }
+        }
     }
 }

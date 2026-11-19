@@ -52,7 +52,7 @@ From this directory's parent (the utility root):
 ```sh
 ./gradlew --no-daemon test :cli:distTar
 python3 tools/ci/consumer.py \
-  --archive cli/build/distributions/koral-0.1.0-dev.tar \
+  --archive cli/build/distributions/koral-0.2.0-preview.1.tar \
   --sdk "$KORAL_SBF_SDK" --mode integration
 ```
 

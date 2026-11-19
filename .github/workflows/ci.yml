@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: koral-toolchain/handbook
-          ref: 915bd288b483d6425cdbd89525480c39b066667c
+          ref: ad4af6dcd9e3ffe3a8ed7623eb97465de487739d
           path: .handbook
           persist-credentials: false
       - name: Check owner-only contribution status and proposed message
@@ -97,7 +97,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: koral-toolchain/handbook
-          ref: 915bd288b483d6425cdbd89525480c39b066667c
+          ref: ad4af6dcd9e3ffe3a8ed7623eb97465de487739d
           persist-credentials: false
       - name: Reject unsuccessful or missing required checks
         env:

@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+The changes below are grouped into the proposed `0.2.0-preview.1` candidate.
+It is not published until an owner-approved GitHub prerelease makes the verified
+archive available. See [candidate notes](docs/release-candidates/0.2.0-preview.1.md).
+
 - Add payment and SOL-vault project templates to init, copying maintained examples
   from installed CLI resources without requiring a source checkout.
 - Select the matching fixed local VM regression suite with project test settings

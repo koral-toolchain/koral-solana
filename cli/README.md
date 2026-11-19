@@ -12,7 +12,7 @@ Extract the complete package and add its bin directory to PATH. In a writable
 workspace outside that installation:
 
 ```sh
-export PATH="/path/to/koral-0.1.0-dev/bin:$PATH"
+export PATH="/path/to/koral-0.2.0-preview.1/bin:$PATH"
 export KORAL_SBF_SDK=/path/to/solana-release/bin/platform-tools-sdk/sbf
 koral doctor
 koral init hello-counter

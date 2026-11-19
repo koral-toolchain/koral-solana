@@ -21,13 +21,13 @@ from the source checkout:
 ./gradlew --no-daemon test :cli:distTar
 ```
 
-The candidate is cli/build/distributions/koral-0.1.0-dev.tar. An extracted CLI
+The candidate is cli/build/distributions/koral-0.2.0-preview.1.tar. An extracted CLI
 does not need Gradle or the source checkout. Extract it into your chosen install
 directory and add its bin directory to PATH:
 
 ```sh
-tar -xf /path/to/koral-0.1.0-dev.tar -C /your/install/directory
-export PATH="/your/install/directory/koral-0.1.0-dev/bin:$PATH"
+tar -xf /path/to/koral-0.2.0-preview.1.tar -C /your/install/directory
+export PATH="/your/install/directory/koral-0.2.0-preview.1/bin:$PATH"
 export KORAL_SBF_SDK=/path/to/solana-release/bin/platform-tools-sdk/sbf
 koral doctor
 ```
@@ -67,8 +67,8 @@ test runner for arbitrary Kotlin programs. Passing it is not a security audit.
 
 ## Payment and SOL vault projects
 
-The payment/vault project commands are **Unreleased** in the source checkout and
-candidate packages. The published v0.1.0-dev archive does not include these commands.
+The payment/vault project commands are **Unreleased** and included in the
+0.2.0-preview.1 candidate packages. The published v0.1.0-dev archive does not include these commands.
 
 ```sh
 koral init hello-payments --template payments

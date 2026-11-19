@@ -1,6 +1,6 @@
 # Testing and errors
 
-Use the test that matches the program. The 0.2.0-preview.1 CLI selects the fixed counter/payments/sol-vault suite from the project or an explicit --suite option. The older v0.1.0-dev archive remains Counter-only.
+Use the test that matches the program. The 0.3.0-preview.1 CLI selects the fixed counter/payments/sol-vault suite from the project or an explicit --suite option. The older v0.1.0-dev archive remains Counter-only.
 
 ## Compiler tests
 
@@ -42,6 +42,12 @@ The template suites assert their declared contracts. If you change instructions,
 state layout, seed or behavior, supply independent VM tests for that contract.
 Default test reports are removed before a rebuild; a failed test invalidates its
 selected report even when dependencies or ABI are missing. This is not an audit.
+
+## Custom contract assertions
+
+The custom template runs `tests/program.test.mjs` with the bundled preview ABI client and local LiteSVM. Write independent expected states and failure assertions for your contract. A successful custom report means your script completed; it does not count assertions or certify contract safety.
+
+The inventory example passed 66 core assertions for owner-operated aggregate stock, but exposed an unmet requirement: generic initialization accepts invalid application totals before later instruction guards run. Opt-in zero-only initialization is the next proposal, not an implemented feature. Read [the consumer review](https://github.com/koral-toolchain/koral-solana/blob/v0.3.0-preview.1/docs/consumer-reviews/0.3.0-preview.1.md) before adapting it.
 
 ## Broader integration checks
 
@@ -88,12 +94,3 @@ This source-checkout harness builds multiple programs and checks source changes,
 System Program errors may also propagate from CPI; this table is not a complete Solana error catalog or a stable public error specification. A custom ensure code may reuse a numeric value, so inspect the actual source too. Passing local checks is not an audit.
 
 Implementation basis: testing/, CompilerTest.kt, cli/Main.kt, and runtime/src/counter.c.
-
-## Independently authored contracts (Unreleased)
-
-A current custom project runs its own editable JavaScript assertions using the
-bundled preview ABI client. The CLI supplies KORAL_TEST_BINARY/KORAL_TEST_CLIENT;
-setup provides pinned local VM tools. It does not infer tests for changed contracts.
-Use [the custom workflow](../CUSTOM-PROGRAM.md). Fixed-suite ABI mismatches now
-explain the supported consumer path; actual native tests remain required after
-that preflight. Script completion does not establish coverage or a security audit.

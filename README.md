@@ -2,13 +2,14 @@
 
 An experimental Kotlin compiler for Solana. Current targets are Counter and a restricted owned ULong-state account, with external balance reads, optional fixed owner/address/data-size/executable constraints, System transfer CPI, and a minimal rent-preserving owned-state SOL vault. This is a development build, not a general Kotlin implementation or a production release.
 
-External account constraints, SOL vaults, and payment/vault project workflows are included in the [0.2.0-preview.1 development prerelease](https://github.com/koral-toolchain/koral-solana/releases/tag/v0.2.0-preview.1). The older v0.1.0-dev archive does not include them.
+External account constraints, SOL vaults, and payment/vault project workflows are included in the [0.3.0-preview.1 development prerelease](https://github.com/koral-toolchain/koral-solana/releases/tag/v0.3.0-preview.1). The older v0.1.0-dev archive does not include them.
 
-The **Unreleased** custom project/client workflow is available from source or an
-extracted candidate, via `koral init my-program --template custom`. It includes
-an editable independent test and a preview ABI client; see
-[writing your own program](docs/CUSTOM-PROGRAM.md). The published archive above
-does not include this later workflow.
+The published **0.3.0-preview.1** custom workflow starts with
+`koral init my-program --template custom`. It includes editable Kotlin, your own
+local VM tests, a bundled preview ABI client and user-source failure diagnostics;
+see [writing your own program](docs/CUSTOM-PROGRAM.md). The older 0.2.0-preview.1
+archive does not contain this workflow. [The inventory example](docs/examples/INVENTORY.md)
+records its verified core behavior and an unmet initialization-policy requirement.
 
 ```text
 Kotlin source
@@ -23,7 +24,7 @@ TypeSOL is used only in comparative benchmarks. The compiler, runtime, CLI, exam
 
 ## Launch scope
 
-[The frozen MVP](docs/MVP.md) is Counter plus one authority-funded System payment example. Broader token/DEX features are post-launch work. [The payment comparison](benchmarks/results/payment-mvp/REPORT.md) replays identical signed calls against independent Native Rust and Pinocchio programs, with absolute behavior and rollback checks. The public release and final design are separate pending steps.
+[The frozen MVP](docs/MVP.md) is Counter plus one authority-funded System payment example. Broader token/DEX features are post-launch work. [The payment comparison](benchmarks/results/payment-mvp/REPORT.md) replays identical signed calls against independent Native Rust and Pinocchio programs, with absolute behavior and rollback checks. Published previews and the separately deployed website have independent release identities.
 
 ## Developer guides
 

@@ -1,4 +1,5 @@
 plugins {
+    base
     kotlin("jvm") version "2.2.21" apply false
     id("com.diffplug.spotless") version "7.2.1"
     id("io.gitlab.arturbosch.detekt") version "1.23.8" apply false

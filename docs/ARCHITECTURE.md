@@ -31,7 +31,7 @@ These features still use a single owned state account and implicit authority/PDA
 
 ## Launch priority
 
-[The frozen MVP](MVP.md) is Counter plus one System payment-CPI example and credible Native Rust/Pinocchio comparisons. No further compiler features are required before this technical preview. Finish reproducible benchmarks, package/setup review, and release evidence; keep design separate.
+[The frozen MVP](MVP.md) is Counter plus one System payment-CPI example and credible Native Rust/Pinocchio comparisons. The technical preview is published. Maintain its reproducible benchmark, package/setup and release evidence; keep design separate. Current engineering controls are described below, and the consumer-driven capability order is maintained in [ROADMAP.md](ROADMAP.md).
 
 ## Post-MVP directions
 

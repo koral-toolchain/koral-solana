@@ -3,13 +3,14 @@
 The product workflow runs on main pushes, pull requests and owner-requested manual
 verification. Local verification does not establish a successful hosted workflow
 run; inspect the Actions results for the revision being reviewed. No package
-publication or live-chain deployment is configured.
+publication or live-chain deployment is configured. See [engineering rules](ENGINEERING.md) for the exact controls and review boundaries.
 
 ## Current checks
 
 | Job | Actual work |
 | --- | --- |
 | policy | Owner-only submissions, proposed landed message, compiler/toolchain/version agreement against a fixed handbook commit |
+| quality | Pinned Kotlin/JS/Python formatting, selected static analysis, bytecode boundaries, repository/docs checks and PR issue/explanation checks |
 | unit | JDK 17 Gradle build, compiler tests and candidate CLI TAR |
 | sbf-integration | Fresh candidate extraction, JDK 17 / Node 22, full native VM integration suite |
 | consumer-install | Fresh candidate extraction, init/setup/project build/test with an unchanged installation, actionable failures, manifest/ABI and Counter/payment/vault project checks |
@@ -108,7 +109,7 @@ paths must fail. A compiled but behaviorally mutated payment/vault must fail its
 real SBF test and remove a planted stale success report. Restored source must pass
 again, and the installed distribution's files must remain unchanged.
 
-## Custom consumer regression coverage (Unreleased)
+## Custom consumer regression coverage (published in 0.3.0-preview.1)
 
 The extracted candidate creates a custom project with spaces in its path and
 runs its user-owned assertions on actual SBF. A compiled wrong-price mutation
@@ -137,3 +138,5 @@ four-field conservation, reservation transitions, permission/overflow rejection
 and explicit initialization-policy finding are recorded separately. A passing
 zero-initialized core scope does not mean arbitrary initial-state invariants or
 per-reservation IDs are supported.
+
+The final required gate now includes quality. Ordinary CI uses strict dependency checksum metadata and never regenerates it. Consumer jobs validate the archive allowlist before extraction. Quality tests include rejection controls; main server protection still requires the stable `required` check.

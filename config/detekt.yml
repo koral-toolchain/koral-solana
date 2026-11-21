@@ -1,0 +1,33 @@
+# Selected first-adoption rules, using detekt 1.23.8 defaults for thresholds.
+# Formatting belongs to ktlint. Compiler intrinsic stubs intentionally ignore inputs;
+# numeric ABI tags and embedded C/diagnostic strings are not readability heuristics.
+build:
+  maxIssues: 0
+config:
+  validation: true
+  warningsAsErrors: true
+complexity:
+  active: true
+  ComplexCondition:
+    active: true
+  CyclomaticComplexMethod:
+    active: true
+    ignoreSingleWhenExpression: true
+  LargeClass:
+    active: true
+  LongMethod:
+    active: true
+  LongParameterList:
+    active: true
+  NestedBlockDepth:
+    active: true
+naming:
+  active: true
+  ClassNaming:
+    active: true
+  FunctionNaming:
+    active: true
+  MatchingDeclarationName:
+    active: true
+  InvalidPackageDeclaration:
+    active: true

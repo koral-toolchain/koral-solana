@@ -1,90 +1,178 @@
 package dev.koral.compiler
 
-import dev.koral.compiler.model.*
+import dev.koral.compiler.backend.c.CounterC
 import dev.koral.compiler.checks.ProgramChecks
 import dev.koral.compiler.metadata.ProgramAbi
-import dev.koral.compiler.backend.c.CounterC
+import dev.koral.compiler.model.AccountParameter
+import dev.koral.compiler.model.CounterInstruction
+import dev.koral.compiler.model.CounterProgram
+import dev.koral.compiler.model.Expression
+import dev.koral.compiler.model.ProgramCodec
+import dev.koral.compiler.model.PublicKey
+import dev.koral.compiler.model.Statement
 import java.io.DataOutputStream
 import java.nio.file.Files
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertContains
+import kotlin.test.assertContentEquals
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
 
 class AccountConstraintsTest {
     private val system = "11111111111111111111111111111111"
     private val recipient = "GyGKxMyg1p9SsHfm15MkNUu1u9TN2JtTspcdmrtGUdse"
-    private fun program(account: AccountParameter) = CounterProgram("test.kt", listOf(
-        CounterInstruction("observe", emptyList(), listOf(Statement.Return(Expression.Variable("count"))), listOf(account))
-    ))
+
+    private fun program(account: AccountParameter) =
+        CounterProgram(
+            "test.kt",
+            listOf(
+                CounterInstruction(
+                    "observe",
+                    emptyList(),
+                    listOf(Statement.Return(Expression.Variable("count"))),
+                    listOf(account),
+                ),
+            ),
+        )
+
     @Test fun base58PreservesZeroAndLeadingZeros() {
         assertContentEquals(ByteArray(32), PublicKey.decode(system))
-        assertContentEquals(ByteArray(32).also { it[31]=1 }, PublicKey.decode("1".repeat(31)+"2"))
+        assertContentEquals(ByteArray(32).also { it[31] = 1 }, PublicKey.decode("1".repeat(31) + "2"))
         assertEquals(32, PublicKey.decode(recipient).size)
     }
+
     @Test fun rejectsInvalidAlphabetAndNon32ByteKeys() {
-        for (key in listOf("", "1".repeat(31), "1".repeat(33), "1".repeat(31)+"0", "z".repeat(44), "1".repeat(45))) {
+        for (key in listOf("", "1".repeat(31), "1".repeat(33), "1".repeat(31) + "0", "z".repeat(44), "1".repeat(45))) {
             assertFailsWith<IllegalArgumentException>(key) { PublicKey.decode(key) }
         }
     }
+
     @Test fun constraintsSurviveCodecAndReachAbiAndBackend() {
-        val source=program(AccountParameter("target",true,system,recipient))
-        val file=Files.createTempFile("koral-constraints-", ".ir")
-        try { ProgramCodec.write(source,file);assertEquals(source,ProgramCodec.read(file)) }
-        finally { Files.delete(file) }
-        val abi=ProgramAbi.encode(source)
-        assertContains(abi,"\"owner\":\"$system\"")
-        assertContains(abi,"\"address\":\"$recipient\"")
-        val c=CounterC().compile(source,"@KORAL_VALIDATE@")
-        assertContains(c,"account_owner(p.accounts[2])")
-        assertContains(c,"account_key(p.accounts[2])")
-        assertContains(c,"return 3007;")
-        assertContains(c,"return 3011;")
-    }
-    @Test fun modelRejectsBadConstraintsBeforeCodeEmission() {
-        assertFailsWith<IllegalArgumentException> { ProgramChecks.validate(program(AccountParameter("to",false,owner="bad"))) }
-        assertFailsWith<IllegalArgumentException> { CounterC().compile(program(AccountParameter("to",false,address="bad")),"@KORAL_VALIDATE@") }
-    }
-    @Test fun legacyModelsRemainReadableWithoutConstraints() {
-        val file=Files.createTempFile("koral-legacy-", ".ir")
+        val source = program(AccountParameter("target", true, system, recipient))
+        val file = Files.createTempFile("koral-constraints-", ".ir")
         try {
-            DataOutputStream(Files.newOutputStream(file)).use { out ->
-                out.writeInt(0x4b4f5234);out.writeUTF("legacy.kt");out.writeBoolean(false)
-                out.writeInt(1);out.writeUTF("observe");out.writeInt(0)
-                out.writeInt(1);out.writeUTF("to");out.writeBoolean(false)
-                out.writeInt(1);out.writeByte(2);out.writeByte(2);out.writeUTF("count")
-            }
-            assertEquals(listOf(AccountParameter("to",false)),ProgramCodec.read(file).instructions.single().accounts)
-        } finally { Files.delete(file) }
-    }
-    @Test fun metadataPreservesZeroFalseTrueAndUnspecifiedValues() {
-        val file=Files.createTempFile("koral-metadata-", ".ir")
-        try {
-            for(account in listOf(AccountParameter("to",false),
-                                  AccountParameter("to",false,dataSize=0,executable=false),
-                                  AccountParameter("to",false,dataSize=8,executable=true))) {
-                val source=program(account)
-                ProgramCodec.write(source,file);assertEquals(source,ProgramCodec.read(file))
-                val abi=ProgramAbi.encode(source)
-                if(account.dataSize!=null)assertContains(abi,"\"dataBytes\":${account.dataSize}")
-                else assertFalse(abi.contains("dataBytes"))
-                if(account.executable!=null)assertContains(abi,"\"executable\":${account.executable}")
-                else assertFalse(abi.contains("executable"))
-            }
-        } finally { Files.delete(file) }
-    }
-    @Test fun rejectsNegativeDataSizeInModel() {
-        assertFailsWith<IllegalArgumentException> { ProgramChecks.validate(program(AccountParameter("to",false,dataSize=-1))) }
-    }
-    @Test fun legacyOwnerAddressModelsKeepConstraintsAndDefaultNewMetadata() {
-        val file=Files.createTempFile("koral-kor5-", ".ir")
-        try {
-            DataOutputStream(Files.newOutputStream(file)).use { out ->
-                out.writeInt(0x4b4f5235);out.writeUTF("legacy.kt");out.writeBoolean(false)
-                out.writeInt(1);out.writeUTF("observe");out.writeInt(0)
-                out.writeInt(1);out.writeUTF("to");out.writeBoolean(false)
-                out.writeBoolean(true);out.writeUTF(system);out.writeBoolean(true);out.writeUTF(recipient)
-                out.writeInt(1);out.writeByte(2);out.writeByte(2);out.writeUTF("count")
-            }
-            assertEquals(listOf(AccountParameter("to",false,system,recipient)),ProgramCodec.read(file).instructions.single().accounts)
-        } finally { Files.delete(file) }
+            ProgramCodec.write(source, file)
+            assertEquals(source, ProgramCodec.read(file))
+        } finally {
+            Files.delete(file)
+        }
+        val abi = ProgramAbi.encode(source)
+        assertContains(abi, "\"owner\":\"$system\"")
+        assertContains(abi, "\"address\":\"$recipient\"")
+        val c = CounterC().compile(source, "@KORAL_VALIDATE@")
+        assertContains(c, "account_owner(p.accounts[2])")
+        assertContains(c, "account_key(p.accounts[2])")
+        assertContains(c, "return 3007;")
+        assertContains(c, "return 3011;")
     }
 
+    @Test fun modelRejectsBadConstraintsBeforeCodeEmission() {
+        assertFailsWith<IllegalArgumentException> {
+            ProgramChecks.validate(program(AccountParameter("to", false, owner = "bad")))
+        }
+        assertFailsWith<IllegalArgumentException> {
+            CounterC().compile(program(AccountParameter("to", false, address = "bad")), "@KORAL_VALIDATE@")
+        }
+    }
+
+    @Test fun legacyModelsRemainReadableWithoutConstraints() {
+        val file = Files.createTempFile("koral-legacy-", ".ir")
+        try {
+            DataOutputStream(Files.newOutputStream(file)).use { out ->
+                out.writeInt(0x4b4f5234)
+                out.writeUTF("legacy.kt")
+                out.writeBoolean(false)
+                out.writeInt(1)
+                out.writeUTF("observe")
+                out.writeInt(0)
+                out.writeInt(1)
+                out.writeUTF("to")
+                out.writeBoolean(false)
+                out.writeInt(1)
+                out.writeByte(2)
+                out.writeByte(2)
+                out.writeUTF("count")
+            }
+            assertEquals(
+                listOf(AccountParameter("to", false)),
+                ProgramCodec
+                    .read(file)
+                    .instructions
+                    .single()
+                    .accounts,
+            )
+        } finally {
+            Files.delete(file)
+        }
+    }
+
+    @Test fun metadataPreservesZeroFalseTrueAndUnspecifiedValues() {
+        val file = Files.createTempFile("koral-metadata-", ".ir")
+        try {
+            for (account in listOf(
+                AccountParameter("to", false),
+                AccountParameter("to", false, dataSize = 0, executable = false),
+                AccountParameter("to", false, dataSize = 8, executable = true),
+            )) {
+                val source = program(account)
+                ProgramCodec.write(source, file)
+                assertEquals(source, ProgramCodec.read(file))
+                val abi = ProgramAbi.encode(source)
+                if (account.dataSize != null) {
+                    assertContains(abi, "\"dataBytes\":${account.dataSize}")
+                } else {
+                    assertFalse(abi.contains("dataBytes"))
+                }
+                if (account.executable != null) {
+                    assertContains(abi, "\"executable\":${account.executable}")
+                } else {
+                    assertFalse(abi.contains("executable"))
+                }
+            }
+        } finally {
+            Files.delete(file)
+        }
+    }
+
+    @Test fun rejectsNegativeDataSizeInModel() {
+        assertFailsWith<IllegalArgumentException> {
+            ProgramChecks.validate(program(AccountParameter("to", false, dataSize = -1)))
+        }
+    }
+
+    @Test fun legacyOwnerAddressModelsKeepConstraintsAndDefaultNewMetadata() {
+        val file = Files.createTempFile("koral-kor5-", ".ir")
+        try {
+            DataOutputStream(Files.newOutputStream(file)).use { out ->
+                out.writeInt(0x4b4f5235)
+                out.writeUTF("legacy.kt")
+                out.writeBoolean(false)
+                out.writeInt(1)
+                out.writeUTF("observe")
+                out.writeInt(0)
+                out.writeInt(1)
+                out.writeUTF("to")
+                out.writeBoolean(false)
+                out.writeBoolean(true)
+                out.writeUTF(system)
+                out.writeBoolean(true)
+                out.writeUTF(recipient)
+                out.writeInt(1)
+                out.writeByte(2)
+                out.writeByte(2)
+                out.writeUTF("count")
+            }
+            assertEquals(
+                listOf(AccountParameter("to", false, system, recipient)),
+                ProgramCodec
+                    .read(file)
+                    .instructions
+                    .single()
+                    .accounts,
+            )
+        } finally {
+            Files.delete(file)
+        }
+    }
 }

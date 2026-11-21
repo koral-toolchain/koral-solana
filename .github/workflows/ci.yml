@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: koral-toolchain/handbook
-          ref: b4db0e4db22378f6178fde1584aa79381fa52d40
+          ref: e5d7ac587cb700ab094d86df5428f5e5654d4c37
           path: .handbook
           persist-credentials: false
       - name: Check owner-only contribution status and proposed message
@@ -47,6 +47,59 @@ jobs:
           PY
           python3 .handbook/tools/policy.py commit --message-file /tmp/koral-message.txt
           python3 .handbook/tools/policy.py versions --repo .
+          python3 -c 'import json; assert json.load(open(".handbook/config/engineering.json")) == json.load(open("config/engineering.json")), "Pinned engineering policy drift"'
+  quality:
+    needs: policy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '22.22.3'
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
+        with:
+          python-version: '3.12'
+      - name: Verify reference-backed repository rules
+        run: |
+          python3 -m pip install --require-hashes -r tools/quality/requirements.txt
+          npm ci --ignore-scripts --prefix tools/quality
+          python3 tools/quality/check.py
+          python3 -m unittest discover -s tools/quality -v
+          python3 tools/quality/probe.py
+          ruff check tools
+          ruff format --check tools
+          node tools/quality/node_modules/prettier/bin/prettier.cjs --check 'testing/*.mjs' tools/quality/package.json tools/quality/package-lock.json config/engineering.json
+          ./gradlew --no-daemon spotlessCheck detekt :cli:test --tests '*ArchitectureTest'
+      - name: Verify actual linked issue and PR explanations
+        if: github.event_name == 'pull_request'
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          python3 - <<'PYPR'
+          import os, re, subprocess
+          from pathlib import Path
+          body=os.environ['PR_BODY']
+          Path('/tmp/koral-pr-body.txt').write_text(body)
+          subprocess.run(['python3','tools/quality/check.py','--pr-body','/tmp/koral-pr-body.txt'],check=True)
+          number=re.search(r'(?i)\b(?:refs|closes|fixes)\s+#([1-9][0-9]*)\b',body)[1]
+          subprocess.run(['gh','api',f'repos/{os.environ["GH_REPO"]}/issues/{number}','--jq','if has("pull_request") then error("Link an issue, not a PR") else .number end'],check=True)
+          import json, sys
+          sys.path.insert(0,'tools/quality')
+          from check import check_policy_change
+          changed=json.loads(subprocess.check_output(['gh','api',f'repos/{os.environ["GH_REPO"]}/pulls/{os.environ["PR_NUMBER"]}/files?per_page=100','--paginate','--slurp'],text=True))
+          check_policy_change(os.environ['PR_TITLE'],[file['filename'] for page in changed for file in page])
+          PYPR
   unit:
     needs: policy
     runs-on: ubuntu-24.04
@@ -90,14 +143,14 @@ jobs:
       mode: smoke
   required:
     if: ${{ always() }}
-    needs: [policy, unit, sbf-integration, consumer-install, compatibility]
+    needs: [policy, quality, unit, sbf-integration, consumer-install, compatibility]
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: koral-toolchain/handbook
-          ref: b4db0e4db22378f6178fde1584aa79381fa52d40
+          ref: e5d7ac587cb700ab094d86df5428f5e5654d4c37
           persist-credentials: false
       - name: Reject unsuccessful or missing required checks
         env:

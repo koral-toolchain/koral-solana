@@ -22,3 +22,10 @@
   binaries, caches or internal studio history here.
 - Distinguish local tests, hosted CI, supported platforms and actual releases.
   Do not claim an audit, broad Kotlin support or production readiness.
+
+- Follow docs/ENGINEERING.md and config/engineering.json. Non-trivial work starts
+  with an issue and completes the PR template. Keep rules/threshold/exclusion
+  changes separate from feature work and explain references and rejection evidence.
+- Run qualityCheck, repository/archive checks and relevant native consumer checks.
+  Do not introduce Kotlin suppressions, finding baselines or unsupported roots
+  merely to pass CI. Update architecture/docs/compatibility notes with the code.

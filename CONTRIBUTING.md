@@ -12,3 +12,5 @@ consumer-package and compatibility checks; it does not publish packages or deplo
 to a live chain. See [the current CI contract](docs/CI.md).
 
 Third-party licenses continue to apply to their respective components. Changes to licensing or contribution support require an explicit owner decision.
+
+Maintainer changes also follow [the executable engineering rules](docs/ENGINEERING.md). Use the PR template and link an actual product issue. Scope justification and policy exceptions remain owner review responsibilities.

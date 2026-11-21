@@ -1,0 +1,108 @@
+{
+    "schema": "koral-engineering/1",
+    "revision": 1,
+    "owner": "tidemark-labs",
+    "sources": {
+        "kotlin": "https://kotlinlang.org/docs/coding-conventions.html",
+        "coroutines": "https://github.com/Kotlin/kotlinx.coroutines/blob/7f4d6cf2414937b50291df6169a69afbaf9c5a20/CONTRIBUTING.md",
+        "ktlint": "https://github.com/pinterest/ktlint/tree/1.7.1",
+        "detekt": "https://detekt.dev/docs/1.23.8/rules/complexity/",
+        "archunit": "https://www.archunit.org/userguide/html/000_Index.html",
+        "gradle": "https://docs.gradle.org/8.14.3/userguide/organizing_gradle_projects.html",
+        "verification": "https://docs.gradle.org/current/userguide/dependency_verification.html",
+        "github": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches"
+    },
+    "rules": [
+        {
+            "id": "ENG-01",
+            "area": "scope",
+            "requirement": "Issue and PR scope, acceptance, exclusions, evidence and compatibility notes",
+            "control": "pr-policy",
+            "review": "Owner decides product value and scope; text presence is not approval"
+        },
+        {
+            "id": "ENG-02",
+            "area": "kotlin",
+            "requirement": "Official Kotlin conventions with pinned ktlint defaults",
+            "control": "spotlessCheck",
+            "review": "Contract DSL names, generated outputs and upstream material have separate contracts"
+        },
+        {
+            "id": "ENG-03",
+            "area": "complexity",
+            "requirement": "Selected detekt defaults, no finding baseline",
+            "control": "detekt",
+            "review": "No type-resolution claim; intrinsic stubs and wire constants are not general smell rules"
+        },
+        {
+            "id": "ENG-04",
+            "area": "structure",
+            "requirement": "Module/package dependency boundaries and named source files",
+            "control": "architecture-tests",
+            "review": "Semantic cohesion and meaningful names require review"
+        },
+        {
+            "id": "ENG-05",
+            "area": "dependencies",
+            "requirement": "Pinned tooling, dependency locks and artifact verification",
+            "control": "dependency-verification",
+            "review": "New dependency necessity and upstream authenticity require review"
+        },
+        {
+            "id": "ENG-06",
+            "area": "behavior",
+            "requirement": "Actual SBF permissions, arithmetic, rollback and consumer evidence",
+            "control": "native-ci",
+            "review": "Passing cases are not an audit or arbitrary program proof"
+        },
+        {
+            "id": "ENG-07",
+            "area": "documentation",
+            "requirement": "Local links, version identity and runnable examples",
+            "control": "documentation-checks",
+            "review": "Prose accuracy and complete explanations require review"
+        },
+        {
+            "id": "ENG-08",
+            "area": "distribution",
+            "requirement": "Explicit artifact content, required notices and clean installation",
+            "control": "archive-checks",
+            "review": "No generated keys, caches, website or compiler SDKs"
+        },
+        {
+            "id": "ENG-09",
+            "area": "merge",
+            "requirement": "Every required result succeeds, PR required, no admin bypass",
+            "control": "required",
+            "review": "Server settings must be audited; file presence alone is not enforcement"
+        },
+        {
+            "id": "ENG-10",
+            "area": "exceptions",
+            "requirement": "Narrow explained exceptions changed through a separate policy PR",
+            "control": "exception-checks",
+            "review": "Owner reviews rule changes; no tool can judge its own legitimacy"
+        }
+    ],
+    "tools": {
+        "spotless": "7.2.1",
+        "ktlint": "1.7.1",
+        "detekt": "1.23.8",
+        "archunit": "1.4.1"
+    },
+    "requiredPrSections": [
+        "Scope",
+        "Acceptance",
+        "Exclusions",
+        "Validation",
+        "Compatibility"
+    ],
+    "requiredJobs": [
+        "quality",
+        "policy",
+        "unit",
+        "sbf-integration",
+        "consumer-install",
+        "compatibility"
+    ]
+}

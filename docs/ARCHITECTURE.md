@@ -4,7 +4,7 @@
 
 `cli` depends on `language`, `compiler`, and `toolchain`. `compiler` uses the pinned Kotlin compiler library, then its own model, checks, and C backend. It does not import a website, studio checkout, TypeSOL emitter, intermediate TypeScript, or a foreign DEX runtime. TypeSOL is an additional independent benchmark only.
 
-A separate bounded Kotlin compiler process produces resolved IR. Koral checks trusted API declarations and the supported subset, then writes a bounded data-only model (KOR4). Temporary JVM output is never executed. Model validation runs again before C emission. Runtime and API sources are bundled JAR resources; installed CLI execution does not locate a studio root.
+A separate bounded Kotlin compiler process produces resolved IR. Koral checks trusted API declarations and the supported subset, then writes a bounded data-only model (KOR7, retaining bounded legacy readers). Temporary JVM output is never executed. Model validation runs again before C emission. Runtime and API sources are bundled JAR resources; installed CLI execution does not locate a studio root.
 
 The model describes owned ULong state, typed external account references, arithmetic/control flow, and an explicit System transfer statement. Source account names map to safe C parameters. ULong data and external-account order are tracked separately. Every owned state write happens after a successful return; external effects are real CPIs and rely on Solana transaction rollback on failure.
 
@@ -31,10 +31,24 @@ These features still use a single owned state account and implicit authority/PDA
 
 ## Launch priority
 
-[The frozen MVP](MVP.md) is Counter plus one System payment-CPI example and credible Native Rust/Pinocchio comparisons. No further compiler features are required before this technical preview. Finish reproducible benchmarks, package/setup review, and release evidence; keep design separate.
+[The frozen MVP](MVP.md) is Counter plus one System payment-CPI example and credible Native Rust/Pinocchio comparisons. The technical preview is published. Maintain its reproducible benchmark, package/setup and release evidence; keep design separate. Current engineering controls are described below, and the consumer-driven capability order is maintained in [ROADMAP.md](ROADMAP.md).
 
 ## Post-MVP directions
 
 Dynamic public-key relations and account-data decoding, SPL Token and PDA signing, wider arithmetic and selected DEX instructions remain possible next work. They must not silently become new launch blockers. Stable ABI/language contracts, additional platforms, and external developer feedback can be added incrementally.
 
 The separate design session owns presentation. Only implemented and tested behavior may be described as available.
+
+## Implementation responsibilities and enforced boundaries
+
+The compiler frontend now separates plugin registration (`KoralRegistrar`), trusted
+source/account validation and diagnostics (`SourceLowering`), and instruction
+lowering (`InstructionLowering`). C emission separates expression/branch rendering,
+instruction functions, account validation and runtime substitutions. CLI command
+handlers separate dispatch, build/manifests, environment diagnosis and local tests.
+These changes preserve the existing language, ABI and generated-program semantics.
+
+[Engineering rules](ENGINEERING.md) define pinned formatting/static analysis,
+bytecode dependency tests, repository/archive boundaries and mandatory CI. A
+successful style check is not evidence of program safety; native regressions and
+installed-consumer verification remain separate requirements.

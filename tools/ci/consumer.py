@@ -79,6 +79,27 @@ def verify(archive_path, sdk, mode, runtime_manifest=None):
         cli = root / "bin/koral"
         run("java", "-version")
         run("node", "--version")
+        # Compile only a consumer driver; all compiler implementation comes from the TAR.
+        library_driver = Path(__file__).with_name("PipelineSmoke.java")
+        classes = work / "library driver"
+        classes.mkdir()
+        classpath = os.pathsep.join(
+            str(jar) for jar in sorted((root / "lib").glob("*.jar"))
+        )
+        run("javac", "--release", "17", "-cp", classpath, "-d", classes, library_driver)
+        library_source = root / "examples/typed-counter.kt"
+        cli_output = work / "CLI build"
+        run(cli, "build", library_source, "--out", cli_output, "--sdk", sdk)
+        run(
+            "java",
+            "-cp",
+            str(classes) + os.pathsep + classpath,
+            "PipelineSmoke",
+            library_source,
+            work / "library build",
+            sdk,
+            cli_output,
+        )
         diagnostic_checks = verify_diagnostics(cli, work, env)
         run("node", root / "testing/test-errors-test.mjs")
         run("node", root / "testing/syntax-errors-test.mjs")

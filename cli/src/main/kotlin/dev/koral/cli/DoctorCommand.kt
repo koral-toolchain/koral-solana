@@ -1,13 +1,6 @@
 package dev.koral.cli
 
-import dev.koral.api.Language
-import dev.koral.compiler.backend.c.CounterC
-import dev.koral.compiler.frontend.KotlinFrontend
-import dev.koral.compiler.metadata.ProgramAbi
-import dev.koral.compiler.model.ProgramCodec
-import dev.koral.toolchain.SbfToolchain
 import java.io.File
-import java.security.MessageDigest
 
 internal fun runDoctor(options: Options) {
     require(options.positional == null) { "Usage: koral doctor [--sdk <SDK>]" }

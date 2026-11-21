@@ -54,6 +54,7 @@ From this directory's parent (the utility root):
 ./gradlew --no-daemon test :cli:distTar
 python3 tools/ci/consumer.py \
   --archive cli/build/distributions/koral-0.3.0-preview.1.tar \
+  --runtime-manifest cli/build/distributions/runtime-classpath.json \
   --sdk "$KORAL_SBF_SDK" --mode integration
 ```
 
@@ -151,3 +152,12 @@ runtimeClasspath manifest. See [engineering rules](ENGINEERING.md) for trust and
 manual-review limits. Inspect the post-merge main result as well as the PR gate.
 
 Manual workflow dispatch is restricted to main. A manual run on a proposed branch must not produce a successful final gate while bypassing PR scope/issue checks.
+
+## Shared pipeline regression
+
+Every extracted-candidate job compiles an independent Java consumer driver against
+the installed JARs and calls CompilerPipeline directly. It compares library and
+CLI C/ABI/SBF bytes, check/build summaries and invalid-source artifact cleanup.
+No compiler implementation is compiled from the checkout for that driver. The
+architecture unit tests check every declared role and compile negative bytecode
+for every forbidden direction. See [JVM pipeline usage](JVM-PIPELINE.md).

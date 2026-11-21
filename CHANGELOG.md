@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Clarify compiler packages and move compilation/provenance into a shared JVM pipeline used by the CLI.
+- Enforce the full role dependency table with compiled forbidden-edge controls; verify installed library/CLI artifact parity and failure cleanup.
+
 - Separate successful dependency preparation from offline rejection probes, with
   bounded resolution-only retries and clear prerequisite failures.
 - Bind critical policy changes to a separately merged handbook scope record and

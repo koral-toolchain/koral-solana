@@ -1,13 +1,13 @@
-package dev.koral.compiler.checks
+package dev.koral.compiler.validation
 
-import dev.koral.compiler.model.CounterInstruction
-import dev.koral.compiler.model.CounterProgram
-import dev.koral.compiler.model.Expression
-import dev.koral.compiler.model.Operation
-import dev.koral.compiler.model.PublicKey
-import dev.koral.compiler.model.StateLayout
-import dev.koral.compiler.model.Statement
-import dev.koral.compiler.model.ValueType
+import dev.koral.compiler.ir.CounterInstruction
+import dev.koral.compiler.ir.CounterProgram
+import dev.koral.compiler.ir.Expression
+import dev.koral.compiler.ir.Operation
+import dev.koral.compiler.ir.PublicKey
+import dev.koral.compiler.ir.StateLayout
+import dev.koral.compiler.ir.Statement
+import dev.koral.compiler.ir.ValueType
 
 object ProgramChecks {
     data class Binding(

@@ -1,4 +1,4 @@
-package dev.koral.compiler.model
+package dev.koral.compiler.ir
 
 enum class ValueType { U64, BOOL, STATE, ACCOUNT_READONLY, ACCOUNT_WRITABLE }
 

@@ -35,9 +35,39 @@ JavaScript local tooling uses Prettier 3.6.2 defaults. Python tooling uses Ruff 
 
 ## Architecture (ENG-04)
 
-`cli` coordinates `language`, `compiler` and `toolchain`; those modules do not depend back on the CLI. `language` has no compiler/toolchain dependency, and `toolchain` has no language/compiler dependency. Within compiler: model has no frontend/checks/backend/metadata dependency; checks can use model; frontend, backend and metadata may use checks/model but cannot depend on one another.
+The CLI handles user commands. The `pipeline` Gradle module owns compilation and
+provenance, and exposes the same `CompilerPipeline` check/build entry point to
+JVM callers and the CLI. `toolchain` only invokes SDK tools. The compiler uses
+explicit responsibility names, without web frontend/backend terminology.
 
-ArchitectureTest verifies actual JVM bytecode with ArchUnit 1.4.1. Its negative control deliberately forbids an existing CLI-to-compiler edge and must detect it. ArchUnit is test-only; it avoids adding a second Kotlin compiler/parser to the pinned IR-plugin classpath. Module boundaries are Koral policy, using the [referenced ArchUnit mechanism](https://www.archunit.org/userguide/html/000_Index.html).
+| Role/package | Allowed Koral dependencies |
+| --- | --- |
+| `api` (`language`) | None |
+| `compiler.ir` | None |
+| `compiler.validation` | `compiler.ir` |
+| `compiler.kotlin` | `compiler.ir`, `compiler.validation` |
+| `compiler.target` | `compiler.ir`, `compiler.validation` |
+| `compiler.abi` | `compiler.ir`, `compiler.validation` |
+| `toolchain` | None |
+| `pipeline` | API, all compiler roles, toolchain |
+| `cli` | pipeline, toolchain |
+
+External JVM/Kotlin dependencies are governed by locks/checksums, not this Koral
+role table. Child packages belong to their listed role. Every production Koral
+class must belong to exactly one role; unknown packages fail. ArchitectureTest
+checks actual production JVM bytecode with ArchUnit 1.4.1. It also compiles a real
+Java class for every forbidden role pair and requires the same rule to report each
+edge. In particular, Kotlin analysis cannot reach C output or ABI writing, and
+neither the compiler nor toolchain can call back into the pipeline or CLI.
+
+These boundaries separate responsibilities, not processes. Kotlin's existing
+bounded compiler subprocess and SDK invocations remain unchanged. No JNI/native
+binding layer is introduced and no performance improvement is inferred from
+package names. Shared representation belongs in IR; a necessary new relationship
+requires an explained rule change and rejection evidence. Do not add layers solely
+to preserve a diagram. Module/package naming is Koral policy, using the referenced
+[ArchUnit mechanism](https://www.archunit.org/userguide/html/000_Index.html) and
+[Clang driver separation](https://clang.llvm.org/docs/DriverInternals.html).
 
 ## Dependencies and archives (ENG-05, ENG-08)
 

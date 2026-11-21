@@ -34,6 +34,7 @@ ROOTS = {
     "gradlew",
     "gradlew.bat",
     "language",
+    "pipeline",
     "licenses",
     "runtime",
     "settings.gradle.kts",
@@ -41,7 +42,7 @@ ROOTS = {
     "toolchain",
     "tools",
 }
-MODULES = {"language", "compiler", "toolchain", "cli"}
+MODULES = {"language", "compiler", "toolchain", "pipeline", "cli"}
 FORBIDDEN = {
     ".git",
     "node_modules",

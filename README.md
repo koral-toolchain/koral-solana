@@ -13,9 +13,9 @@ records its verified core behavior and an unmet initialization-policy requiremen
 
 ```text
 Kotlin source
-  -> pinned Kotlin compiler and Koral IR frontend
-  -> Koral model and checks
-  -> Koral C backend and Counter runtime
+  -> pinned Kotlin compiler and Koral Kotlin analysis
+  -> Koral IR and validation
+  -> Koral C target output and Counter runtime
   -> Clang/LLVM + public Agave C SDK
   -> SBF .so
 ```
@@ -78,7 +78,8 @@ The installed distribution includes JARs, runtime resources, examples, and a sta
 | Directory | Responsibility |
 | --- | --- |
 | `language/` | Public `@Instruction`, checked arithmetic, and `ensure` API |
-| `compiler/` | Resolved Kotlin IR frontend, internal model, validation, own C backend |
+| `compiler/` | Kotlin analysis, IR, validation, C target output and ABI |
+| `pipeline/` | Shared JVM check/build entry point, compilation and provenance |
 | `toolchain/` | SDK validation and argument-based Clang/LLVM invocation |
 | `cli/` | Project initialization, environment diagnosis, VM setup, source/build commands and local Counter verification |
 | `runtime/` | Counter account ABI, authorization, initialization, and SDK calls |
@@ -87,7 +88,7 @@ The installed distribution includes JARs, runtime resources, examples, and a sta
 | `benchmarks/` | TypeSOL comparison adapter and recorded measurements |
 | `docs/` | Language contract, architecture, limitations, and next steps |
 
-There is one compiler Gradle module, with `frontend`, `model`, `checks`, and `backend.c` packages. These are internal boundaries; additional published modules are unnecessary at this stage. The JVM hosts the compiler; the Solana artifact contains native SBF code and no JVM.
+The compiler packages are `kotlin`, `ir`, `validation`, `target.c` and `abi`. The separate `pipeline` module coordinates them and the SDK tools; CLI commands use that same entry point. See [the JVM pipeline](docs/JVM-PIPELINE.md) and the [enforced dependency table](docs/ENGINEERING.md). These source modules are not newly published Maven packages. The JVM hosts the compiler; the Solana artifact contains native SBF code and no JVM.
 
 ## Current language contract
 

@@ -9,4 +9,4 @@ dependencyResolutionManagement {
     repositories { mavenCentral() }
 }
 rootProject.name = "koral"
-include("language", "compiler", "toolchain", "cli")
+include("language", "compiler", "toolchain", "pipeline", "cli")

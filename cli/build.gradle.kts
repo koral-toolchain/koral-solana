@@ -5,8 +5,7 @@ plugins {
     application
 }
 dependencies {
-    implementation(project(":language"))
-    implementation(project(":compiler"))
+    implementation(project(":pipeline"))
     implementation(project(":toolchain"))
     testImplementation(kotlin("test-junit5"))
     testImplementation("com.tngtech.archunit:archunit:1.4.1")
@@ -23,6 +22,7 @@ distributions.main {
         from(rootProject.file("LICENSE"))
         from(rootProject.file("licenses")) { into("licenses") }
         from(rootProject.file("docs/LANGUAGE.md")) { into("docs") }
+        from(rootProject.file("docs/JVM-PIPELINE.md")) { into("docs") }
         from(rootProject.file("docs/FIRST-PROJECT.md")) { into("docs") }
         from(rootProject.file("docs/VAULT.md")) { into("docs") }
         from(rootProject.file("docs/CUSTOM-PROGRAM.md")) { into("docs") }

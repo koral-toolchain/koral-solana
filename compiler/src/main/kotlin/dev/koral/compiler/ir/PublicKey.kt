@@ -1,4 +1,4 @@
-package dev.koral.compiler.model
+package dev.koral.compiler.ir
 
 import java.math.BigInteger
 

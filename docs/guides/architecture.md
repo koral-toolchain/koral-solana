@@ -1,6 +1,6 @@
 # Inside the compiler
 
-The utility builds independently of the website. Its four Gradle modules are language, compiler, toolchain, and cli. This page follows the actual code path rather than proposing a new architecture.
+The utility builds independently of the website. Its five Gradle modules are language, compiler, toolchain, pipeline, and cli. This page follows the actual code path rather than proposing a new architecture.
 
 ## Language declarations
 
@@ -8,7 +8,7 @@ language bundles the trusted API source. @Account, @Instruction, checked arithme
 
 ## Resolved Kotlin IR
 
-KotlinFrontend starts a bounded child Kotlin compiler process with the Koral plugin. The current Kotlin version is pinned to 2.2.21. KoralRegistrar registers the IR plugin. SourceLowering verifies the source file, trusted account declarations and positioned diagnostics; InstructionLowering verifies instruction shapes, symbol origins and supported expressions before lowering into the shared data model.
+KotlinCompiler starts a bounded child Kotlin compiler process with the Koral plugin. The current Kotlin version is pinned to 2.2.21. KoralRegistrar registers the IR plugin. SourceLowering verifies the source file, trusted account declarations and positioned diagnostics; InstructionLowering verifies instruction shapes, symbol origins and supported expressions before lowering into the shared data model.
 
 Temporary JVM output is never executed. Compilation has a 90-second bound, and its temporary directory is removed afterwards.
 
@@ -18,7 +18,7 @@ The data-only model includes U64, Boolean, state and external-account reference 
 
 Limits are concrete: one declared account, 1..16 fields, 1..32 instructions, and up to eight data arguments plus eight external references per instruction. These are implementation limits, not claims about all Kotlin programs.
 
-## C backend and runtime
+## C target output and runtime
 
 CounterC lowers validated operations to C and combines them with the bundled runtime. The runtime supplies authority/state validation, canonical PDA initialization, serialization, lamport reads, and the bounded System transfer helper. Owned state writes follow successful instruction execution; CPI rollback follows the transaction's execution semantics.
 
@@ -30,23 +30,26 @@ No JVM is embedded in the final program. The toolchain does not publish a releas
 
 ## Build metadata
 
-Main.kt dispatches commands to separate handlers. BuildCommand handles check/build, invalidates stale success artifacts and writes provenance; DoctorCommand and TestCommand own environment diagnosis and local test execution. ProgramAbi exports the resolved instruction/account contract. Read [CLI and artifacts](cli.md) for the file-level contract.
+Main.kt dispatches commands to separate handlers. BuildCommand delegates check/build to CompilerPipeline and invalidates CLI-owned VM reports. CompilerPipeline owns compilation artifacts and provenance; DoctorCommand and TestCommand own environment diagnosis and local test execution. ProgramAbi exports the resolved instruction/account contract. Read [CLI and artifacts](cli.md) for the file-level contract.
 
 ## Contributor map
 
 | Source path within utility/ | Responsibility |
 | --- | --- |
 | language/src/main/kotlin/dev/koral/api/Api.kt | Trusted source API |
-| compiler/frontend/KotlinFrontend.kt and KoralRegistrar.kt | Compiler process and plugin registration |
-| compiler/frontend/SourceLowering.kt and InstructionLowering.kt | Source/account validation, diagnostics and instruction lowering |
-| compiler/model/ | Data model and bounded serialization |
-| compiler/checks/ProgramChecks.kt | Type and control-flow validation |
-| compiler/backend/c/CounterC.kt | C emission |
-| compiler/metadata/ProgramAbi.kt | ABI JSON |
+| compiler/kotlin/KotlinCompiler.kt and KoralRegistrar.kt | Compiler process and plugin registration |
+| compiler/kotlin/SourceLowering.kt and InstructionLowering.kt | Source/account validation, diagnostics and instruction lowering |
+| compiler/ir/ | Data model and bounded serialization |
+| compiler/validation/ProgramChecks.kt | Type and control-flow validation |
+| compiler/target/c/CounterC.kt | C emission |
+| compiler/abi/ProgramAbi.kt | ABI JSON |
 | toolchain/.../SbfToolchain.kt | Native SDK tools |
-| cli/.../Main.kt and *Command.kt | Command dispatch, build/provenance, diagnosis and local tests |
+| pipeline/.../CompilerPipeline.kt | Shared check/build, artifact invalidation and provenance |
+| cli/.../Main.kt and *Command.kt | Command dispatch, projects/reports, diagnosis and local tests |
 | runtime/src/counter.c | Account ABI and runtime checks |
 
 Compiler package paths above are abbreviated: compiler implementation files live under compiler/src/main/kotlin/dev/koral/compiler/. The website and web adapter are separate consumers. General account constraints, arbitrary CPI, token decoding, PDA-signed transfers, and full DEX workloads remain outside this preview.
 
 The [engineering rules](https://github.com/koral-toolchain/koral-solana/blob/main/docs/ENGINEERING.md) define executable module boundaries, pinned quality checks and the human review responsibilities.
+
+The earlier SOURCE-MAP.json is a dated 2026-11-12 inspection snapshot, not a map of the current package names. See [the JVM pipeline](../JVM-PIPELINE.md) for the current invocation path.

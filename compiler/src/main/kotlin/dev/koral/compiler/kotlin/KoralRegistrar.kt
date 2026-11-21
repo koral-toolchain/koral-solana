@@ -1,4 +1,4 @@
-package dev.koral.compiler.frontend
+package dev.koral.compiler.kotlin
 
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext

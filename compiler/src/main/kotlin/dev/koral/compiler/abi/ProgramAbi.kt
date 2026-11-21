@@ -1,9 +1,9 @@
-package dev.koral.compiler.metadata
+package dev.koral.compiler.abi
 
-import dev.koral.compiler.checks.ProgramChecks
-import dev.koral.compiler.model.CounterInstruction
-import dev.koral.compiler.model.CounterProgram
-import dev.koral.compiler.model.Statement
+import dev.koral.compiler.ir.CounterInstruction
+import dev.koral.compiler.ir.CounterProgram
+import dev.koral.compiler.ir.Statement
+import dev.koral.compiler.validation.ProgramChecks
 import java.security.MessageDigest
 
 /** Preview client metadata, not an Anchor IDL or a stable published schema. */

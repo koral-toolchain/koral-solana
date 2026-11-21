@@ -1,12 +1,12 @@
-package dev.koral.compiler.frontend
+package dev.koral.compiler.kotlin
 
-import dev.koral.compiler.model.CounterProgram
-import dev.koral.compiler.model.ProgramCodec
+import dev.koral.compiler.ir.CounterProgram
+import dev.koral.compiler.ir.ProgramCodec
 import java.io.File
 import java.nio.file.Files
 import java.util.concurrent.TimeUnit
 
-object KotlinFrontend {
+object KotlinCompiler {
     fun compile(
         source: File,
         apiSource: String,

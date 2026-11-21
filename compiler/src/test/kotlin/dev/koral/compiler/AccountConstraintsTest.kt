@@ -1,15 +1,15 @@
 package dev.koral.compiler
 
-import dev.koral.compiler.backend.c.CounterC
-import dev.koral.compiler.checks.ProgramChecks
-import dev.koral.compiler.metadata.ProgramAbi
-import dev.koral.compiler.model.AccountParameter
-import dev.koral.compiler.model.CounterInstruction
-import dev.koral.compiler.model.CounterProgram
-import dev.koral.compiler.model.Expression
-import dev.koral.compiler.model.ProgramCodec
-import dev.koral.compiler.model.PublicKey
-import dev.koral.compiler.model.Statement
+import dev.koral.compiler.abi.ProgramAbi
+import dev.koral.compiler.ir.AccountParameter
+import dev.koral.compiler.ir.CounterInstruction
+import dev.koral.compiler.ir.CounterProgram
+import dev.koral.compiler.ir.Expression
+import dev.koral.compiler.ir.ProgramCodec
+import dev.koral.compiler.ir.PublicKey
+import dev.koral.compiler.ir.Statement
+import dev.koral.compiler.target.c.CounterC
+import dev.koral.compiler.validation.ProgramChecks
 import java.io.DataOutputStream
 import java.nio.file.Files
 import kotlin.test.Test

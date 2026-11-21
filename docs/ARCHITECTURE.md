@@ -2,7 +2,7 @@
 
 ## Boundaries
 
-`cli` depends on `language`, `compiler`, and `toolchain`. `compiler` uses the pinned Kotlin compiler library, then its own model, checks, and C backend. It does not import a website, studio checkout, TypeSOL emitter, intermediate TypeScript, or a foreign DEX runtime. TypeSOL is an additional independent benchmark only.
+`cli` depends on `pipeline` and `toolchain`. The shared pipeline coordinates language declarations, Kotlin analysis, IR, validation, C output, SDK invocation and ABI/build artifacts. `compiler` uses the pinned Kotlin compiler library and owns its analysis/IR/validation/target/ABI roles. It does not import a website, studio checkout, TypeSOL emitter, intermediate TypeScript, or a foreign DEX runtime. TypeSOL is an additional independent benchmark only.
 
 A separate bounded Kotlin compiler process produces resolved IR. Koral checks trusted API declarations and the supported subset, then writes a bounded data-only model (KOR7, retaining bounded legacy readers). Temporary JVM output is never executed. Model validation runs again before C emission. Runtime and API sources are bundled JAR resources; installed CLI execution does not locate a studio root.
 
@@ -41,14 +41,16 @@ The separate design session owns presentation. Only implemented and tested behav
 
 ## Implementation responsibilities and enforced boundaries
 
-The compiler frontend now separates plugin registration (`KoralRegistrar`), trusted
+The Kotlin analysis package separates plugin registration (`KoralRegistrar`), trusted
 source/account validation and diagnostics (`SourceLowering`), and instruction
 lowering (`InstructionLowering`). C emission separates expression/branch rendering,
-instruction functions, account validation and runtime substitutions. CLI command
-handlers separate dispatch, build/manifests, environment diagnosis and local tests.
+instruction functions, account validation and runtime substitutions. The pipeline owns build/provenance; CLI command
+handlers own dispatch, project/report handling, environment diagnosis and local tests.
 These changes preserve the existing language, ABI and generated-program semantics.
 
 [Engineering rules](ENGINEERING.md) define pinned formatting/static analysis,
 bytecode dependency tests, repository/archive boundaries and mandatory CI. A
 successful style check is not evidence of program safety; native regressions and
 installed-consumer verification remain separate requirements.
+
+The current [JVM pipeline guide](JVM-PIPELINE.md) documents the source-library and extracted-installation entry point. The [engineering dependency table](ENGINEERING.md) is checked against production bytecode and a compiled rejection fixture for every forbidden direction.

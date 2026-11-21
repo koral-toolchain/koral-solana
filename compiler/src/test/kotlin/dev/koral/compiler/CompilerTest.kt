@@ -1,16 +1,16 @@
 package dev.koral.compiler
 
-import dev.koral.compiler.backend.c.CounterC
-import dev.koral.compiler.checks.ProgramChecks
-import dev.koral.compiler.model.AccountParameter
-import dev.koral.compiler.model.CounterInstruction
-import dev.koral.compiler.model.CounterProgram
-import dev.koral.compiler.model.Expression
-import dev.koral.compiler.model.Operation
-import dev.koral.compiler.model.ProgramCodec
-import dev.koral.compiler.model.StateLayout
-import dev.koral.compiler.model.Statement
-import dev.koral.compiler.model.ValueType
+import dev.koral.compiler.ir.AccountParameter
+import dev.koral.compiler.ir.CounterInstruction
+import dev.koral.compiler.ir.CounterProgram
+import dev.koral.compiler.ir.Expression
+import dev.koral.compiler.ir.Operation
+import dev.koral.compiler.ir.ProgramCodec
+import dev.koral.compiler.ir.StateLayout
+import dev.koral.compiler.ir.Statement
+import dev.koral.compiler.ir.ValueType
+import dev.koral.compiler.target.c.CounterC
+import dev.koral.compiler.validation.ProgramChecks
 import java.nio.file.Files
 import kotlin.test.Test
 import kotlin.test.assertEquals

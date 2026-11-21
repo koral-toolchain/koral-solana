@@ -149,3 +149,5 @@ negative probes, and only classified resolution failures have bounded retries.
 Candidate jobs compare runtime JAR names and bytes against the separate Gradle
 runtimeClasspath manifest. See [engineering rules](ENGINEERING.md) for trust and
 manual-review limits. Inspect the post-merge main result as well as the PR gate.
+
+Manual workflow dispatch is restricted to main. A manual run on a proposed branch must not produce a successful final gate while bypassing PR scope/issue checks.

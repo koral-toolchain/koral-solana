@@ -47,7 +47,7 @@ jobs:
           PY
           python3 .handbook/tools/policy.py commit --message-file /tmp/koral-message.txt
           python3 .handbook/tools/policy.py versions --repo .
-          cmp .handbook/config/engineering.json config/engineering.json
+          python3 -c 'import json; assert json.load(open(".handbook/config/engineering.json")) == json.load(open("config/engineering.json")), "Pinned engineering policy drift"'
   quality:
     needs: policy
     runs-on: ubuntu-24.04

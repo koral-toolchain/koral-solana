@@ -18,6 +18,7 @@ class QualityTests(unittest.TestCase):
             "compiler/src/main/kotlin/dev/koral/compiler/Program.kt",
             "docs/ARCHITECTURE.md",
             "gradle/wrapper/gradle-wrapper.jar",
+            "benchmarks/results/typesol-baseline.json",
         ]:
             q.check_path(name)
 
@@ -33,6 +34,12 @@ class QualityTests(unittest.TestCase):
         ]:
             with self.subTest(name=name), self.assertRaises(ValueError):
                 q.check_path(name)
+
+    def test_finding_baseline_rejection_preserves_benchmark_evidence(self):
+        q.check_finding_baselines(["benchmarks/results/typesol-baseline.json"])
+        for name in ["config/detekt-baseline.xml", "baseline.xml"]:
+            with self.subTest(name=name), self.assertRaises(ValueError):
+                q.check_finding_baselines([name])
 
     def test_pr_needs_issue_scope_and_evidence(self):
         body = "Refs #29\n\n" + "\n".join(

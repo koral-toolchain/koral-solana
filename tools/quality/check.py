@@ -171,6 +171,18 @@ def check_policy_change(title, changed):
         )
 
 
+def check_finding_baselines(names):
+    require(
+        not any(
+            re.fullmatch(
+                r"(?:detekt[-.]?)?baseline.*\.xml", PurePosixPath(n).name.lower()
+            )
+            for n in names
+        ),
+        "Finding baselines need explicit policy adoption",
+    )
+
+
 def check_repository(root=ROOT, names=None):
     root = Path(root)
     if names is None:
@@ -187,10 +199,7 @@ def check_repository(root=ROOT, names=None):
                 not re.search(r"@(?:file:)?Suppress\s*\(", text),
                 "Undeclared Kotlin suppression: " + name,
             )
-    require(
-        not any("baseline" in PurePosixPath(n).name.lower() for n in names),
-        "Finding baselines need explicit policy adoption",
-    )
+    check_finding_baselines(names)
     check_links(root, names)
     policy = json.loads((root / "config/engineering.json").read_text())
     require(policy["schema"] == "koral-engineering/1", "Unsupported engineering policy")

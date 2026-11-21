@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
   pull_request:
+    branches: [main]
     types: [opened, synchronize, reopened, edited, ready_for_review]
   workflow_dispatch:
 permissions:
@@ -70,6 +71,7 @@ jobs:
           ACTOR: ${{ github.actor }}
           EVENT_REF: ${{ github.ref }}
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_BASE: ${{ github.base_ref }}
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_BODY: ${{ github.event.pull_request.body }}
           BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before || github.sha }}
@@ -78,6 +80,8 @@ jobs:
           python3 - <<'PY'
           import os, subprocess
           from pathlib import Path
+          if os.environ['EVENT']=='pull_request' and os.environ['PR_BASE']!='main':
+              raise SystemExit('Governance uses protected main as its PR base')
           if os.environ['EVENT']=='workflow_dispatch' and os.environ['EVENT_REF']!='refs/heads/main':
               raise SystemExit('Manual verification is main-only; PR policy checks must run on the PR event')
           if os.environ['EVENT'] == 'pull_request':

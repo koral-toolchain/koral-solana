@@ -25,6 +25,7 @@ class WorkflowEventTests(unittest.TestCase):
             "EVENT_REF": ref,
             "ACTOR": actor,
             "PR_AUTHOR": author,
+            "PR_BASE": base,
             "PR_TITLE": "build(ci): validate guards",
             "PR_BODY": "Refs #31",
         }
@@ -48,6 +49,13 @@ class WorkflowEventTests(unittest.TestCase):
         self.assertEqual(
             self.run_guard("workflow_dispatch", "refs/heads/main").returncode, 0
         )
+
+    def test_unprotected_pr_base_is_rejected(self):
+        result = self.run_guard(
+            "pull_request", "refs/pull/32/merge", base="candidate-base"
+        )
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("protected main", result.stderr)
 
     def test_non_owner_cannot_use_either_path(self):
         self.assertNotEqual(

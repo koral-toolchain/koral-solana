@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Separate successful dependency preparation from offline rejection probes, with
+  bounded resolution-only retries and clear prerequisite failures.
+- Bind critical policy changes to a separately merged handbook scope record and
+  exact resulting file hashes; cover module builds and architecture checks.
+- Compare installed runtime libraries against a separate Gradle runtimeClasspath
+  manifest, rejecting missing, injected, duplicate or replaced JARs.
+
 - Adopt reference-backed engineering rules with mandatory formatting, selected
   static analysis, architectural dependency and repository/documentation checks.
 - Separate compiler lowering and CLI command responsibilities without changing

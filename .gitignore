@@ -12,3 +12,6 @@ experiments/**/classpath.txt
 counter-test-result.json
 .handbook/
 __pycache__/
+.policy-base/
+.trusted-handbook/
+.policy-records/

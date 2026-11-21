@@ -9,13 +9,21 @@ ROOT = Path(__file__).resolve().parents[2]
 
 def rejects(args, expected):
     result = subprocess.run(
-        [str(ROOT / "gradlew"), "--no-daemon", *args],
+        [str(ROOT / "gradlew"), "--no-daemon", "--offline", *args],
         cwd=ROOT,
         text=True,
         capture_output=True,
         timeout=240,
     )
     output = result.stdout + result.stderr
+    if any(
+        marker in output
+        for marker in ["Could not resolve ", "Could not find ", "No cached version"]
+    ):
+        raise RuntimeError(
+            "Offline probe prerequisites are missing; run prepare.py --mode quality first\n"
+            + output[-6000:]
+        )
     if result.returncode == 0 or any(value not in output for value in expected):
         raise RuntimeError(
             "Expected quality rejection: " + ", ".join(expected) + "\n" + output[-6000:]

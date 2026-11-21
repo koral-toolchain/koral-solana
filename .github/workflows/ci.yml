@@ -18,10 +18,50 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.pull_request.base.sha || github.event.before || github.sha }}
+          path: .policy-base
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Resolve checker identities from base and candidate data
+        id: governance
+        run: |
+          python3 - <<'PYPINS'
+          import json, os, re, subprocess
+          from pathlib import Path
+          candidate=json.loads(Path('config/governance.json').read_text())
+          base=Path('.policy-base/config/governance.json')
+          if base.exists():
+              trusted=json.loads(base.read_text())['checkerPin']
+          else:
+              identity=subprocess.check_output(['git','-C','.policy-base','rev-parse','HEAD'],text=True).strip()
+              assert identity=='dc2b96a9f9d572a74a1fea074a76721a51503f2c', 'Unrecognized governance bootstrap base'
+              trusted='7ec0ab17c05940a676e91cc71037b349b4532629'
+          proposed=candidate['checkerPin']
+          assert all(re.fullmatch('[a-f0-9]{40}',value) for value in [trusted,proposed])
+          with open(os.environ['GITHUB_OUTPUT'],'a') as output:
+              output.write('trusted='+trusted+'\nproposed='+proposed+'\n')
+          PYPINS
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: koral-toolchain/handbook
+          ref: ${{ steps.governance.outputs.trusted }}
+          path: .trusted-handbook
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: koral-toolchain/handbook
+          ref: main
+          path: .policy-records
+          fetch-depth: 0
+          persist-credentials: false
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: koral-toolchain/handbook
-          ref: e5d7ac587cb700ab094d86df5428f5e5654d4c37
+          ref: ${{ steps.governance.outputs.proposed }}
           path: .handbook
           persist-credentials: false
       - name: Check owner-only contribution status and proposed message
@@ -31,6 +71,8 @@ jobs:
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_BODY: ${{ github.event.pull_request.body }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before || github.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           python3 - <<'PY'
           import os, subprocess
@@ -44,7 +86,10 @@ jobs:
                   raise SystemExit('Only the owner may start product verification')
               message = subprocess.check_output(['git', 'log', '-1', '--format=%B'], text=True)
           Path('/tmp/koral-message.txt').write_text(message)
+          Path('/tmp/koral-policy-body.txt').write_text(os.environ['PR_BODY'] if os.environ['EVENT']=='pull_request' else message)
           PY
+          python3 .trusted-handbook/tools/governance.py --product . --records .policy-records --base "$BASE_SHA" --head "$HEAD_SHA" --body-file /tmp/koral-policy-body.txt --repository "$GITHUB_REPOSITORY"
+          git -C .policy-records merge-base --is-ancestor "${{ steps.governance.outputs.proposed }}" origin/main
           python3 .handbook/tools/policy.py commit --message-file /tmp/koral-message.txt
           python3 .handbook/tools/policy.py versions --repo .
           python3 -c 'import json; assert json.load(open(".handbook/config/engineering.json")) == json.load(open("config/engineering.json")), "Pinned engineering policy drift"'
@@ -72,11 +117,16 @@ jobs:
           npm ci --ignore-scripts --prefix tools/quality
           python3 tools/quality/check.py
           python3 -m unittest discover -s tools/quality -v
-          python3 tools/quality/probe.py
+      - name: Prepare verified dependencies and positive quality checks
+        run: python3 tools/quality/prepare.py --mode quality
+      - name: Verify intentional rejections offline
+        run: python3 tools/quality/probe.py
+      - name: Verify restored positive quality state
+        run: |
           ruff check tools
           ruff format --check tools
           node tools/quality/node_modules/prettier/bin/prettier.cjs --check 'testing/*.mjs' tools/quality/package.json tools/quality/package-lock.json config/engineering.json
-          ./gradlew --no-daemon spotlessCheck detekt :cli:test --tests '*ArchitectureTest'
+          ./gradlew --no-daemon --offline spotlessCheck detekt :cli:test --tests '*ArchitectureTest'
       - name: Verify actual linked issue and PR explanations
         if: github.event_name == 'pull_request'
         env:
@@ -94,11 +144,6 @@ jobs:
           subprocess.run(['python3','tools/quality/check.py','--pr-body','/tmp/koral-pr-body.txt'],check=True)
           number=re.search(r'(?i)\b(?:refs|closes|fixes)\s+#([1-9][0-9]*)\b',body)[1]
           subprocess.run(['gh','api',f'repos/{os.environ["GH_REPO"]}/issues/{number}','--jq','if has("pull_request") then error("Link an issue, not a PR") else .number end'],check=True)
-          import json, sys
-          sys.path.insert(0,'tools/quality')
-          from check import check_policy_change
-          changed=json.loads(subprocess.check_output(['gh','api',f'repos/{os.environ["GH_REPO"]}/pulls/{os.environ["PR_NUMBER"]}/files?per_page=100','--paginate','--slurp'],text=True))
-          check_policy_change(os.environ['PR_TITLE'],[file['filename'] for page in changed for file in page])
           PYPR
   unit:
     needs: policy
@@ -112,12 +157,14 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - run: ./gradlew --no-daemon test :cli:distTar
+      - run: python3 tools/quality/prepare.py --mode unit
       - run: python3 -m unittest discover -s tools/ci -p 'test_*.py' -v
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
           name: candidate-cli
-          path: cli/build/distributions/*.tar
+          path: |
+            cli/build/distributions/*.tar
+            cli/build/distributions/runtime-classpath.json
           if-no-files-found: error
           retention-days: 3
   sbf-integration:
@@ -150,7 +197,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: koral-toolchain/handbook
-          ref: e5d7ac587cb700ab094d86df5428f5e5654d4c37
+          ref: 7ec0ab17c05940a676e91cc71037b349b4532629
           persist-credentials: false
       - name: Reject unsuccessful or missing required checks
         env:

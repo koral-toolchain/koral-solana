@@ -12,7 +12,9 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 class WorkflowEventTests(unittest.TestCase):
-    def run_guard(self, event, ref, actor="tidemark-labs", author="tidemark-labs"):
+    def run_guard(
+        self, event, ref, actor="tidemark-labs", author="tidemark-labs", base="main"
+    ):
         workflow = (ROOT / ".github/workflows/ci.yml").read_text()
         scripts = re.findall(r"python3 - <<'PY'\n(.*?)\n          PY", workflow, re.S)
         script = next(textwrap.dedent(s) for s in scripts if "EVENT_REF" in s)

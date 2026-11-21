@@ -40,5 +40,6 @@ jobs:
         run: |
           python3 tools/ci/consumer.py \
             --archive candidate/koral-0.3.0-preview.1.tar \
+            --runtime-manifest candidate/runtime-classpath.json \
             --sdk "$RUNNER_TEMP/koral-sdk" \
             --mode "$MODE"

@@ -18,7 +18,15 @@ archive, never the host SDK, home, credentials or dependency caches. A container
 is not a new physical machine. Evidence is summarized in
 [the consumer review](consumer-reviews/0.3.0-preview.1.md).
 
-## Next selected capability: opt-in initialization policy
+## Current owner priority: controls before capabilities
+
+The owner paused new capability work on 2026-11-21. Stabilize verified dependency
+preparation/offline probes, base-trusted policy scope and exact archive identity
+before resuming product features. The capability ordering below remains a backlog,
+not authorization to implement it. Review the controls with actual rejection tests
+and PR plus post-merge main evidence.
+
+## Next queued capability: opt-in initialization policy
 
 Track implementation in [issue #26](https://github.com/koral-toolchain/koral-solana/issues/26).
 

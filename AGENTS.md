@@ -29,3 +29,8 @@
 - Run qualityCheck, repository/archive checks and relevant native consumer checks.
   Do not introduce Kotlin suppressions, finding baselines or unsupported roots
   merely to pass CI. Update architecture/docs/compatibility notes with the code.
+
+- Owner priority (2026-11-21): pause new product capabilities, including issue #26,
+  while governance, CI reliability, artifact identity and procedural controls are
+  being hardened. Preserve the capability backlog; resume only when the owner
+  changes that priority. This does not freeze unrelated studio projects.

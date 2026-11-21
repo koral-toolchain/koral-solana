@@ -17,8 +17,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "quality"))
 from check import check_archive
 
 
-def verify(archive_path, sdk, mode):
-    check_archive(archive_path)
+def verify(archive_path, sdk, mode, runtime_manifest=None):
+    check_archive(archive_path, runtime_manifest)
     with tempfile.TemporaryDirectory(prefix="koral-consumer-") as folder:
         work = Path(folder) / "consumer with spaces"
         work.mkdir()
@@ -489,6 +489,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--archive", type=Path, required=True)
     parser.add_argument("--sdk", type=Path, required=True)
+    parser.add_argument("--runtime-manifest", type=Path, required=True)
     parser.add_argument("--mode", choices=["smoke", "integration"], default="smoke")
     args = parser.parse_args()
-    verify(args.archive.resolve(), args.sdk.resolve(), args.mode)
+    verify(
+        args.archive.resolve(),
+        args.sdk.resolve(),
+        args.mode,
+        args.runtime_manifest.resolve(),
+    )

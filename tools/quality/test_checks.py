@@ -1,5 +1,6 @@
 import importlib.util
 import io
+import hashlib
 from pathlib import Path
 import tarfile
 import tempfile
@@ -72,6 +73,7 @@ class QualityTests(unittest.TestCase):
 
     def test_archive_rejects_extra_tools_and_missing_runtime(self):
         required = [
+            "lib/compiler.jar",
             "bin/koral",
             "bin/koral.bat",
             "LICENSE",
@@ -92,13 +94,19 @@ class QualityTests(unittest.TestCase):
                         info.size = 1
                         t.addfile(info, io.BytesIO(b"x"))
 
+            manifest = {
+                "schema": "koral-runtime-classpath/1",
+                "libraries": {"compiler.jar": hashlib.sha256(b"x").hexdigest()},
+            }
             archive([])
-            q.check_archive(path)
+            q.check_archive(path, manifest)
             for extra in [
                 "testing/payment-benchmark.mjs",
                 "tools/deploy.py",
                 ".devnet/keypair.json",
                 "lib/program.so",
+                "lib/undeclared.jar",
+                "lib/compiler.jar",
                 "bin/extra-launcher",
                 "lib/archunit-1.4.1.jar",
                 "docs/deploy.py",
@@ -106,18 +114,43 @@ class QualityTests(unittest.TestCase):
             ]:
                 archive([extra])
                 with self.subTest(extra=extra), self.assertRaises(ValueError):
-                    q.check_archive(path)
+                    q.check_archive(path, manifest)
 
-    def test_feature_pr_cannot_silently_change_policy(self):
-        q.check_policy_change(
-            "feat(cli): support a new flag",
-            ["cli/src/main/kotlin/dev/koral/cli/Main.kt"],
-        )
-        q.check_policy_change(
-            "build(ci): explain policy changes", ["config/detekt.yml"]
-        )
-        with self.assertRaises(ValueError):
-            q.check_policy_change("feat(language): add a helper", ["config/detekt.yml"])
+    def test_runtime_manifest_rejects_missing_or_replaced_libraries(self):
+        required = [
+            "LICENSE",
+            "THIRD_PARTY_NOTICES.md",
+            "licenses/kotlin/LICENSE.txt",
+            "licenses/kotlin/NOTICE.txt",
+            "licenses/kotlin/COPYRIGHT.txt",
+            "bin/koral",
+            "bin/koral.bat",
+            "testing/client.mjs",
+            "testing/package-lock.json",
+        ]
+        manifest = {
+            "schema": "koral-runtime-classpath/1",
+            "libraries": {"compiler.jar": hashlib.sha256(b"good").hexdigest()},
+        }
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "candidate.tar"
+            for payload in [None, b"replaced", b"good"]:
+                with tarfile.open(path, "w") as t:
+                    for name in required:
+                        item = tarfile.TarInfo("koral/" + name)
+                        item.size = 1
+                        t.addfile(item, io.BytesIO(b"x"))
+                    if payload is not None:
+                        item = tarfile.TarInfo("koral/lib/compiler.jar")
+                        item.size = len(payload)
+                        t.addfile(item, io.BytesIO(payload))
+                if payload == b"good":
+                    q.check_archive(path, manifest)
+                else:
+                    with self.assertRaisesRegex(ValueError, "runtimeClasspath"):
+                        q.check_archive(path, manifest)
+            with self.assertRaisesRegex(ValueError, "separate Gradle"):
+                q.check_archive(path)
 
     def test_documentation_link_failure_is_not_hidden(self):
         with tempfile.TemporaryDirectory() as folder:

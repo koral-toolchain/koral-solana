@@ -1,12 +1,20 @@
 # Engineering rules
 
-This product explicitly adopts engineering revision 1 from the pinned organization handbook. [config/engineering.json](../config/engineering.json) records rule IDs, tool versions and sources; [the handbook](https://github.com/koral-toolchain/handbook/blob/main/guides/engineering.md) explains governance. A new handbook commit does not automatically change product rules.
+This product explicitly adopts engineering revision 2 from the pinned organization handbook. [config/engineering.json](../config/engineering.json) records rule IDs, tool versions and sources; [the handbook](https://github.com/koral-toolchain/handbook/blob/main/guides/engineering.md) explains governance. A new handbook commit does not automatically change product rules.
 
 ## Development workflow (ENG-01, ENG-09, ENG-10)
 
 Start non-trivial work with an issue: user outcome, acceptance criteria and exclusions. Link that actual issue in the PR using `Refs #number` or `Closes #number`, and complete Scope, Acceptance, Exclusions, Validation and Compatibility. CI verifies issue identity and explanation presence, not product value or owner consent. The sole human maintainer is tidemark-labs; external contributions remain closed.
 
-CI requires build/ci/refactor PR types for governed policy/configuration changes; a feature/fix PR cannot silently change those files. The owner still reviews whether the declared purpose is truthful. Keep feature work separate from policy relaxations. Changes to rules, tools, exclusions, thresholds, required jobs or dependency integrity metadata must explain their reason and verification in a policy PR. Owner review remains necessary; a checker cannot approve its own removal. New Kotlin suppressions and finding baselines are rejected by repository checks. Existing rules must not be weakened to obtain a passing result.
+Critical changes are checked by a handbook checker selected from the base commit,
+not the proposed policy. Module build files, architecture tests, candidate checks,
+workflows, wrapper/locks and policy documents are covered. A separate merged
+handbook record must bind the actual product issue, exact base SHA and SHA-256 of
+every resulting critical file. The PR contains `Policy-Record: <handbook SHA>`;
+the record must be merged into handbook main and still match its active record.
+A different title, stale record, changed file/byte set or advanced base cannot
+substitute for that scope. Records document maintainer scope; they do not prove
+human intent or prevent a deliberate owner from changing workflow administration. Keep feature work separate from policy relaxations. Changes to rules, tools, exclusions, thresholds, required jobs or dependency integrity metadata must explain their reason and verification in a policy PR. Owner review remains necessary; a checker cannot approve its own removal. New Kotlin suppressions and finding baselines are rejected by repository checks. Existing rules must not be weakened to obtain a passing result.
 
 ## Code and file conventions (ENG-02, ENG-03)
 
@@ -35,7 +43,13 @@ ArchitectureTest verifies actual JVM bytecode with ArchUnit 1.4.1. Its negative 
 
 Keep explicit versions, Gradle lockfiles and SHA-256 verification metadata. Verification metadata is initially generated from resolved dependencies and must be reviewed; hashes are not proof of upstream authenticity. Ordinary CI must not regenerate locks or checksums. SDK downloads retain their separate fixed archive digests.
 
-CLI distributions explicitly exclude benchmark runners from testing tools and never include repository-quality dependencies. The archive guard rejects unknown top-level content, non-runtime testing scripts, links/devices, private paths, generated programs and missing notices. The consumer jobs run this guard before extracting and executing the candidate. They then verify an unchanged installation outside the checkout.
+CLI distributions explicitly exclude benchmark runners from testing tools and never include repository-quality dependencies. Gradle writes `runtime-classpath.json` separately from the archive using the CLI
+JAR plus resolved runtimeClasspath JARs. Unit CI uploads both from the same
+verified build. The archive guard compares the exact JAR filename set and streamed
+SHA-256 values against this expected manifest. Unknown, missing, replaced or
+duplicate libraries fail; an archive-contained manifest is not used as the expected
+value. The guard also rejects unknown top-level content, non-runtime testing
+scripts, links/devices, private paths, generated programs and missing notices. The consumer jobs run this guard before extracting and executing the candidate. They then verify an unchanged installation outside the checkout.
 
 ## Local verification (ENG-06, ENG-07)
 
@@ -49,8 +63,10 @@ python3 -m unittest discover -s tools/ci -v
 ruff check tools
 ruff format --check tools
 node tools/quality/node_modules/prettier/bin/prettier.cjs --check 'testing/*.mjs' tools/quality/package.json tools/quality/package-lock.json config/engineering.json
-python3 tools/quality/check.py --archive cli/build/distributions/koral-0.3.0-preview.1.tar
-python3 tools/ci/consumer.py --archive cli/build/distributions/koral-0.3.0-preview.1.tar --sdk "$KORAL_SBF_SDK" --mode integration
+python3 tools/quality/prepare.py --mode quality
+python3 tools/quality/probe.py
+python3 tools/quality/check.py --archive cli/build/distributions/koral-0.3.0-preview.1.tar --runtime-manifest cli/build/distributions/runtime-classpath.json
+python3 tools/ci/consumer.py --archive cli/build/distributions/koral-0.3.0-preview.1.tar --runtime-manifest cli/build/distributions/runtime-classpath.json --sdk "$KORAL_SBF_SDK" --mode integration
 ```
 
 `./gradlew spotlessApply` fixes supported Kotlin formatting; CI only checks. JVM quality tests do not replace real SBF/VM permission, arithmetic and rollback checks. Changes to runtime/ABI/CLI/support expectations need relevant native and independent consumer evidence, not only a prettier diff.
@@ -58,3 +74,18 @@ python3 tools/ci/consumer.py --archive cli/build/distributions/koral-0.3.0-previ
 Local link checks exclude unmodified upstream licenses and historical benchmark reports. Example execution, diagnostics and candidate installations are checked by native CI. These controls cannot certify prose accuracy, every possible Kotlin program, or arbitrary Markdown shell instructions. Review those manually.
 
 All quality/native/consumer/compatibility results must succeed in the final `required` gate; failure, cancellation, missing and skipped results block it. Server main protection includes administrators. A merge does not publish a release or deploy the website/blockchain; follow [RELEASING.md](RELEASING.md).
+
+## Readiness and rejection phases
+
+Positive dependency preparation runs before negative probes. Only classified
+resolution/download failures get at most two retries with refreshed dependency
+metadata; expected checksums and dependency locks are never regenerated. Checksum,
+compilation, test and policy failures are not retried as network problems. Each
+attempt is logged and exhausting preparation fails the job without running probes.
+
+Formatting/long-method/checksum probes use `--offline` after preparation. Missing
+cache prerequisites are an environment failure, not proof of intentional rejection.
+Finally positive checks verify cleanup. PR verification is followed by the normal
+main workflow; do not call adoption complete until that run is inspected too.
+The source capability backlog is paused by owner direction while these controls
+are hardened; see [ROADMAP.md](ROADMAP.md).

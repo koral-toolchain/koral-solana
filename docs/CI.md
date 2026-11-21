@@ -140,3 +140,14 @@ zero-initialized core scope does not mean arbitrary initial-state invariants or
 per-reservation IDs are supported.
 
 The final required gate now includes quality. Ordinary CI uses strict dependency checksum metadata and never regenerates it. Consumer jobs validate the archive allowlist before extraction. Quality tests include rejection controls; main server protection still requires the stable `required` check.
+
+## Control hardening
+
+Policy scope executes from a base-pinned handbook checker against a separate merged
+record and exact critical-file digests. Positive Gradle preparation precedes offline
+negative probes, and only classified resolution failures have bounded retries.
+Candidate jobs compare runtime JAR names and bytes against the separate Gradle
+runtimeClasspath manifest. See [engineering rules](ENGINEERING.md) for trust and
+manual-review limits. Inspect the post-merge main result as well as the PR gate.
+
+Manual workflow dispatch is restricted to main. A manual run on a proposed branch must not produce a successful final gate while bypassing PR scope/issue checks.

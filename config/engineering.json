@@ -1,6 +1,6 @@
 {
     "schema": "koral-engineering/1",
-    "revision": 1,
+    "revision": 2,
     "owner": "tidemark-labs",
     "sources": {
         "kotlin": "https://kotlinlang.org/docs/coding-conventions.html",
@@ -10,7 +10,9 @@
         "archunit": "https://www.archunit.org/userguide/html/000_Index.html",
         "gradle": "https://docs.gradle.org/8.14.3/userguide/organizing_gradle_projects.html",
         "verification": "https://docs.gradle.org/current/userguide/dependency_verification.html",
-        "github": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches"
+        "github": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches",
+        "gradleOffline": "https://docs.gradle.org/current/userguide/dependency_caching.html#sec:offline-mode",
+        "githubTrust": "https://docs.github.com/en/actions/reference/security/secure-use"
     },
     "rules": [
         {
@@ -80,8 +82,8 @@
             "id": "ENG-10",
             "area": "exceptions",
             "requirement": "Narrow explained exceptions changed through a separate policy PR",
-            "control": "exception-checks",
-            "review": "Owner reviews rule changes; no tool can judge its own legitimacy"
+            "control": "base-pinned-governance-and-merged-scope-record",
+            "review": "A merged maintainer scope record binds exact files/bytes and base; owner intent and workflow administration still require human control"
         }
     ],
     "tools": {

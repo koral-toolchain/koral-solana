@@ -1,6 +1,7 @@
 """Check repository boundaries, local documentation and distribution contents."""
 
 import argparse
+import hashlib
 import json
 from pathlib import Path, PurePosixPath
 import re
@@ -151,26 +152,6 @@ def check_tooling(root, policy):
     )
 
 
-def check_policy_change(title, changed):
-    governed = [
-        name
-        for name in changed
-        if name.startswith(("config/", ".github/workflows/", "tools/quality/"))
-        or name
-        in {
-            ".editorconfig",
-            "pyproject.toml",
-            "build.gradle.kts",
-            "gradle/verification-metadata.xml",
-        }
-    ]
-    if governed:
-        require(
-            re.match(r"^(build|ci|refactor)(?:\([^)]*\))?!?: ", title),
-            "Policy changes require a separate build/ci/refactor PR, not a feature/fix PR",
-        )
-
-
 def check_finding_baselines(names):
     require(
         not any(
@@ -244,13 +225,15 @@ def check_pr(body, sections=None):
         )
 
 
-def check_archive(archive):
+def check_archive(archive, runtime_manifest=None):
     with tarfile.open(archive) as bundle:
         entries = bundle.getmembers()
         require(bool(entries), "Empty archive")
         roots = {PurePosixPath(m.name).parts[0] for m in entries}
         require(len(roots) == 1, "Expected one distribution root")
         present = set()
+        library_hashes = {}
+        seen = set()
         for member in entries:
             path = PurePosixPath(member.name)
             require(
@@ -283,6 +266,8 @@ def check_archive(archive):
                 "Undeclared runtime content: " + str(path),
             )
             if member.isfile():
+                require(str(path) not in seen, "Duplicate archive member: " + str(path))
+                seen.add(str(path))
                 present.add("/".join(parts))
                 if parts[0] == "bin":
                     require(
@@ -294,6 +279,12 @@ def check_archive(archive):
                         len(parts) == 2 and path.suffix == ".jar",
                         "Non-JAR runtime dependency",
                     )
+                    digest = hashlib.sha256()
+                    with bundle.extractfile(member) as content:
+                        for chunk in iter(lambda: content.read(1024 * 1024), b""):
+                            digest.update(chunk)
+                    library_hashes[path.name] = digest.hexdigest()
+
                     require(
                         not re.search(
                             r"archunit|detekt|ktlint|spotless|prettier|junit",
@@ -332,6 +323,33 @@ def check_archive(archive):
         ]:
             require(required in present, "Distribution is missing " + required)
 
+    require(runtime_manifest is not None, "Supply the separate Gradle runtime manifest")
+    manifest = (
+        runtime_manifest
+        if isinstance(runtime_manifest, dict)
+        else json.loads(Path(runtime_manifest).read_text())
+    )
+    require(
+        manifest.get("schema") == "koral-runtime-classpath/1",
+        "Unsupported runtime manifest",
+    )
+    expected = manifest.get("libraries")
+    require(
+        isinstance(expected, dict) and bool(expected),
+        "Runtime manifest must declare libraries",
+    )
+    for name, digest in expected.items():
+        require(
+            PurePosixPath(name).name == name
+            and name.endswith(".jar")
+            and isinstance(digest, str)
+            and re.fullmatch("[a-f0-9]{64}", digest),
+            "Malformed runtime library identity",
+        )
+    require(
+        library_hashes == expected,
+        "Runtime JAR names or SHA-256 differ from Gradle runtimeClasspath",
+    )
     print("Distribution boundary passed")
 
 
@@ -339,9 +357,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--archive", type=Path)
     parser.add_argument("--pr-body", type=Path)
+    parser.add_argument("--runtime-manifest", type=Path)
     args = parser.parse_args()
     if args.archive:
-        check_archive(args.archive)
+        check_archive(args.archive, args.runtime_manifest)
     elif args.pr_body:
         check_pr(args.pr_body.read_text())
     else:

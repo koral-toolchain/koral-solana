@@ -1,3 +1,5 @@
+import java.security.MessageDigest
+
 plugins {
     kotlin("jvm")
     application
@@ -48,3 +50,28 @@ tasks.processResources {
 tasks.processResources {
     from(rootProject.file("testing/custom-template.test.mjs")) { into("koral/templates") }
 }
+
+val runtimeManifest =
+    tasks.register("writeRuntimeManifest") {
+        val destination = layout.buildDirectory.file("distributions/runtime-classpath.json")
+        val ownJar = tasks.named<Jar>("jar").flatMap { it.archiveFile }
+        val runtime = configurations.named("runtimeClasspath")
+        dependsOn(ownJar, runtime)
+        inputs.files(ownJar, runtime)
+        outputs.file(destination)
+        doLast {
+            val jars = (runtime.get().files + ownJar.get().asFile).sortedBy { it.name }
+            require(jars.map { it.name }.distinct().size == jars.size) { "Duplicate runtime JAR filename" }
+            val libraries =
+                jars.joinToString(",\n") { jar ->
+                    val digest = MessageDigest.getInstance("SHA-256").digest(jar.readBytes())
+                    val hash = digest.joinToString("") { "%02x".format(it) }
+                    "    \"${jar.name}\": \"$hash\""
+                }
+            destination.get().asFile.apply {
+                parentFile.mkdirs()
+                writeText("{\n  \"schema\": \"koral-runtime-classpath/1\",\n  \"libraries\": {\n$libraries\n  }\n}\n")
+            }
+        }
+    }
+tasks.named("distTar") { dependsOn(runtimeManifest) }

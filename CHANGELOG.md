@@ -2,7 +2,14 @@
 
 ## Unreleased
 
-No additional changes are currently recorded.
+- Adopt reference-backed engineering rules with mandatory formatting, selected
+  static analysis, architectural dependency and repository/documentation checks.
+- Separate compiler lowering and CLI command responsibilities without changing
+  the supported source language, CLI artifact names or Solana wire contract.
+- Verify dependency checksums and explicit distribution boundaries, excluding
+  benchmark runners and repository quality tools from installed runtime files.
+
+These changes are source-only until a later release; published assets are unchanged.
 
 ## 0.3.0-preview.1 — 2026-11-19
 

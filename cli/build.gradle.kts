@@ -1,9 +1,13 @@
-plugins { kotlin("jvm"); application }
+plugins {
+    kotlin("jvm")
+    application
+}
 dependencies {
     implementation(project(":language"))
     implementation(project(":compiler"))
     implementation(project(":toolchain"))
     testImplementation(kotlin("test-junit5"))
+    testImplementation("com.tngtech.archunit:archunit:1.4.1")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 application {
@@ -25,7 +29,10 @@ distributions.main {
         from(rootProject.file("docs/consumer-reviews/0.3.0-preview.1.md")) { into("docs/consumer-reviews") }
         from(rootProject.file("docs/examples/INVENTORY.md")) { into("docs/examples") }
         from(rootProject.file("docs/SDK-SETUP.md")) { into("docs") }
-        from(rootProject.file("testing")) { into("testing"); exclude("node_modules/**") }
+        from(rootProject.file("testing")) {
+            into("testing")
+            exclude("node_modules/**", "*-benchmark.mjs")
+        }
         from(rootProject.file("examples")) { into("examples") }
     }
 }

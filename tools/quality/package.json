@@ -1,0 +1,11 @@
+{
+    "name": "koral-repository-quality",
+    "version": "1.0.0",
+    "private": true,
+    "engines": {
+        "node": ">=22.12"
+    },
+    "devDependencies": {
+        "prettier": "3.6.2"
+    }
+}

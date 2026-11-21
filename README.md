@@ -140,3 +140,7 @@ retain their own licenses. See [contribution status](CONTRIBUTING.md) and
 
 [The source-only SOL vault example](docs/VAULT.md) demonstrates initialization,
 authority deposits/withdrawals and rollback. It does not add generic PDA signing.
+
+## Maintainer verification
+
+[Engineering rules](docs/ENGINEERING.md) specify source/file conventions, dependency boundaries, pinned quality tools, rejection tests and the required CI gate. Start with `./gradlew qualityCheck`; native SBF and extracted-candidate checks remain required separately.
